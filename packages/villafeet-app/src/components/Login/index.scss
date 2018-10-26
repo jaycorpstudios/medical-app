@@ -1,0 +1,181 @@
+
+@import '../../theme/colors';
+@import '../../theme/variables.scss';
+
+.login {
+    width: 100%;
+    min-height: 540px;
+    height: 100%;
+    display: grid;
+    grid-column-gap: 15px;
+    grid-row-gap: 20px;
+    grid-template-columns: 1fr 10fr 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+    align-items: center;
+
+    @media screen and (min-width: $tablet-min) {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 200px 150px;
+        min-height: auto;
+        height: auto;
+        max-width: 350px;
+        grid-row-gap: 10px;
+    }
+
+    %overlay {
+        position: relative;
+        z-index: 2;
+    }
+    &__poster {
+        width: 100%;
+        height: 100%;
+        background: url('#{$images-path}hero-mobile.jpg') no-repeat center;
+        background-size: cover;
+        grid-column: 1 / 4;
+        grid-row: 1 / 3;
+        clip-path: inset(-400px -140px 0 -140px round 240px);
+        -webkit-clip-path: inset(-400px -140px 0 -140px round 240px);
+        @media screen and (min-width: $tablet-min) {
+            grid-column: auto;
+            grid-row: auto;
+        }
+    }
+    &__title, &__description{
+        @media screen and (min-width: $tablet-min) {
+            justify-self: start;
+        }
+    }
+    &__logo {
+        width: 100%;
+        max-width: 250px;
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+        transition: 300ms;
+        @extend %overlay;
+        @media screen and (min-width: $tablet-min) {
+            grid-column: auto;
+            grid-row: auto;
+        }
+    }
+    &__form {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+        margin-bottom: 30px;
+        @extend %overlay;
+        @media screen and (min-width: $tablet-min) {
+            grid-column: auto;
+            grid-row: auto;
+        }
+    }
+    &__button {
+        grid-column: 2 / 3;
+        grid-row: 3 / 4;
+        @media screen and (min-width: $tablet-min) {
+            grid-column: auto;
+            grid-row: auto;
+        }
+    }
+}
+
+//TODO: Extract this to isolated component.
+
+.login-form {
+    width: 100%;
+    display: grid;
+    grid-row-gap: 20px;
+    justify-items: center;
+
+    &__input{
+        max-width: 350px;
+        @media screen and (min-width: $tablet-min) {
+            border-color: $color-text-base!important;
+            color: $color-text-base!important;
+            &::placeholder{
+                color: $color-text-base!important;
+            }
+        }
+    }
+    &__input.input-icon-email{
+        @media screen and (min-width: $tablet-min) {
+            background-image: url('#{$images-path}/icons/email.svg');
+        }
+    }
+    &__input.input-icon-password{
+        @media screen and (min-width: $tablet-min) {
+            background-image: url('#{$images-path}/icons/lock.svg');
+        }
+    }
+}
+
+//TODO: Extract all this to Theme.
+.text-title {
+    font-size: 40px;
+    font-weight: 500;
+}
+.text-subtitle {
+    font-size: 18px;
+    font-weight: 300;
+}
+
+%button-base {
+    width: 100%;
+    max-width: 264px;
+    height: 50px;
+    border-radius: 25px;
+    font-size: 18px;
+    border: none;
+    outline: none;
+}
+
+.button {
+    &--primary {
+        @extend %button-base;
+        background: $color-secondary-shadow;
+        color: $color-text-negative;
+    }
+    &--secondary {
+        @extend %button-base;
+        background: none;
+        border: 2px solid $color-secondary-shadow;
+        color: $color-secondary-shadow;
+    }
+    &--block{
+        max-width: none;
+    }
+}
+
+.theme-input {
+    font-family: inherit;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100%;
+    padding-left: 55px;
+    font-size: 18px;
+    font-weight: 300;
+    border: none;
+    border-bottom: solid 1px;
+    background: none;
+    border-color: $color-text-negative;
+    color: $color-text-negative;
+    height: 52px;
+    outline: none;
+    border-radius: 0;
+    &::placeholder{
+        color: $color-text-negative;
+    }
+}
+
+.input-icon-email{
+    background-image: url('#{$images-path}/icons/email-negative.svg');
+    background-repeat: no-repeat;
+    background-size: 35px 35px;
+    background-position: 10px center;
+}
+.input-icon-password{
+    background-image: url('#{$images-path}/icons/lock-negative.svg');
+    background-repeat: no-repeat;
+    background-size: 35px 35px;
+    background-position: 10px center;
+}
+

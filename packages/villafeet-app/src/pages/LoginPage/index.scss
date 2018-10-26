@@ -1,0 +1,51 @@
+@import './../../theme/variables.scss';
+@import './../../theme/colors.scss';
+
+.login-page {
+  display: grid;
+  grid-gap: 15px;
+  justify-items: stretch;
+  align-items: stretch;
+  background: $color-background-primary;
+  min-height: 100vh;
+  grid-template-areas: "container";
+
+  @media screen and (min-width: $tablet-min) {
+    grid-template-columns: 6fr 6fr;
+    grid-template-areas: "container  poster";
+  }
+  @media screen and (min-width: $laptop-min) {
+    grid-template-columns: 5fr 7fr;
+  }
+
+  @mixin center-childs() {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__container {
+    grid-area: container;
+    @include center-childs();
+  }
+
+  &__poster {
+    $self: &;
+    grid-area: poster;
+    display: none;
+    @media screen and (min-width: $tablet-min){
+      @include center-childs();
+      background: url('#{$images-path}hero-desktop.jpg') no-repeat center;
+      background-size: cover;
+    }
+    #{$self}__logo{
+      @media screen and (min-width: $tablet-min) {
+        max-width: 224px;
+      }
+      @media screen and (min-width: $laptop-min) {
+        max-width: 350px;
+      }
+    }
+  }
+
+}
