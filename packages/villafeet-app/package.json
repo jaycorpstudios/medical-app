@@ -4,15 +4,17 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack-dev-server --mode development --config webpack.dev.js --host 0.0.0.0",
+    "dev": "webpack-dev-server --mode development --config webpack.dev.js",
     "build:prod": "webpack --mode production"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^1.0.0",
     "file-loader": "^2.0.0",

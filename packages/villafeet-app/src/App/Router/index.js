@@ -1,5 +1,5 @@
 import React from 'react'
-import { LoginPage, ProfilePage } from '../AppLazyLoader'
+import { LoginPage, PatientsPage } from '../AppLazyLoader'
 import { BrowserRouter, Route, Link } from 'react-router-dom'
 
 export default function AppRouter (props) {
@@ -7,7 +7,7 @@ export default function AppRouter (props) {
     <BrowserRouter>
       <React.Fragment>
         <Route exact path='/' component={LoginPage} />
-        <Route path='/profile' component={ProfilePage} />
+        <Route path='/pacientes' component={PatientsPage} />
       </React.Fragment>
     </BrowserRouter>
   )

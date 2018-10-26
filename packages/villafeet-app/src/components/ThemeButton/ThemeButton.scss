@@ -1,0 +1,49 @@
+@import './../../theme/colors.scss';
+@import './../../theme/variables.scss';
+
+%button-base {
+    width: 100%;
+    max-width: 264px;
+    height: 50px;
+    border-radius: 25px;
+    font-size: 18px;
+    border: none;
+    outline: none;
+}
+
+.ThemeButton {
+    transition: $animation-fast ease-in;
+
+    &.--primary {
+        @extend %button-base;
+        background: $color-secondary-shadow;
+        color: $color-text-negative;
+        border: 2px solid $color-secondary-shadow;
+    }
+    &.--secondary {
+        @extend %button-base;
+        background: transparent;
+        border: 2px solid $color-secondary-shadow;
+        color: $color-secondary-shadow;
+    }
+    &.--block{
+        max-width: none;
+    }
+    &:hover{
+        cursor: pointer;
+        transition: $animation-fast ease-out;
+        box-shadow: rgba(0,0,0,.2) 0 0 25px;
+        transform: scale(1.05);
+    }
+    &.--primary:hover{
+        background: transparent;
+        color: $color-primary;
+        border-color: $color-primary;
+    }
+    &.--secondary:hover{
+        color: $color-text-negative;
+        background: $color-primary;
+        border-color: transparent;
+    }
+}
+

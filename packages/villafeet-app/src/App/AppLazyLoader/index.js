@@ -4,6 +4,6 @@ export const LoginPage = lazy(() =>
   import('../../pages/LoginPage').then(module => module.default)
 )
 
-export const ProfilePage = lazy(() =>
-  import('../../pages/ProfilePage').then(module => module.default)
+export const PatientsPage = lazy(() =>
+  import('../../pages/PatientsPage').then(module => module.default)
 )

@@ -13,9 +13,9 @@ const config = (env, args) => {
           use: {
             loader: 'babel-loader',
             options: {
-              presets: ['react', 'env'],
+              presets: ['@babel/preset-react', '@babel/preset-env'],
               plugins: [
-                'syntax-dynamic-import'
+                '@babel/syntax-dynamic-import', '@babel/plugin-proposal-object-rest-spread'
               ]
             }
           }

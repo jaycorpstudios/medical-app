@@ -1,0 +1,8 @@
+@import './../../theme/colors.scss';
+@import './../../theme/variables.scss';
+
+.PatientsPage {
+  background: $color-background-secondary;
+  display: grid;
+  min-height: 100vh;
+}

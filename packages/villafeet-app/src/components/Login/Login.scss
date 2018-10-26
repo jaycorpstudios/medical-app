@@ -1,8 +1,9 @@
 
 @import '../../theme/colors';
 @import '../../theme/variables.scss';
+@import '../../theme/typography.scss';
 
-.login {
+.Login {
     width: 100%;
     min-height: 540px;
     height: 100%;
@@ -16,7 +17,7 @@
 
     @media screen and (min-width: $tablet-min) {
         grid-template-columns: 1fr;
-        grid-template-rows: auto auto 200px 150px;
+        grid-template-rows: auto auto 200px 100px;
         min-height: auto;
         height: auto;
         max-width: 350px;
@@ -66,6 +67,7 @@
         @media screen and (min-width: $tablet-min) {
             grid-column: auto;
             grid-row: auto;
+            margin-bottom: 0;
         }
     }
     &__button {
@@ -78,7 +80,7 @@
     }
 }
 
-//TODO: Extract this to isolated component.
+//TODO: Extract this to an isolated component.
 
 .login-form {
     width: 100%;
@@ -109,41 +111,6 @@
 }
 
 //TODO: Extract all this to Theme.
-.text-title {
-    font-size: 40px;
-    font-weight: 500;
-}
-.text-subtitle {
-    font-size: 18px;
-    font-weight: 300;
-}
-
-%button-base {
-    width: 100%;
-    max-width: 264px;
-    height: 50px;
-    border-radius: 25px;
-    font-size: 18px;
-    border: none;
-    outline: none;
-}
-
-.button {
-    &--primary {
-        @extend %button-base;
-        background: $color-secondary-shadow;
-        color: $color-text-negative;
-    }
-    &--secondary {
-        @extend %button-base;
-        background: none;
-        border: 2px solid $color-secondary-shadow;
-        color: $color-secondary-shadow;
-    }
-    &--block{
-        max-width: none;
-    }
-}
 
 .theme-input {
     font-family: inherit;
@@ -166,13 +133,13 @@
     }
 }
 
-.input-icon-email{
+.input-icon-email {
     background-image: url('#{$images-path}/icons/email-negative.svg');
     background-repeat: no-repeat;
     background-size: 35px 35px;
     background-position: 10px center;
 }
-.input-icon-password{
+.input-icon-password {
     background-image: url('#{$images-path}/icons/lock-negative.svg');
     background-repeat: no-repeat;
     background-size: 35px 35px;
