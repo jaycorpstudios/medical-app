@@ -1,6 +1,9 @@
 import React from 'react';
 import './Login.scss';
 import ThemeButton from './../ThemeButton';
+import ThemeInput from './../ThemeInput';
+
+//TODO: Inject responsive utility to handle negative={} value on ThemeInput
 
 
 export default function Login(props){
@@ -11,8 +14,8 @@ export default function Login(props){
             <p className="Login__description theme-subtitle hidden-xs">Por favor ingresa tus credenciales para continuar</p>
             <img className="Login__logo visible-xs" src={require('./../../theme/images/villafeet-logo.svg')}/>
             <form className="Login__form login-form">
-                <input type="email" autoCapitalize="none" placeholder="Correo" className="login-form__input theme-input input-icon-email"></input>
-                <input type="password" placeholder="Password" className="login-form__input theme-input input-icon-password"></input>
+                <ThemeInput className="login-form__input" negative={true} type="email" icon="email" label="Email"/>
+                <ThemeInput className="login-form__input" negative={true} type="password" icon="lock" label="Password"/>
             </form>
             <ThemeButton className="Login__button" type="submit" big={true} title="Ingresar"/>
         </article>

@@ -1,4 +1,3 @@
-
 @import '../../theme/colors';
 @import '../../theme/variables.scss';
 @import '../../theme/typography.scss';
@@ -88,61 +87,7 @@
     grid-row-gap: 20px;
     justify-items: center;
 
-    &__input{
+    &__input {
         max-width: 350px;
-        @media screen and (min-width: $tablet-min) {
-            border-color: $color-text-base!important;
-            color: $color-text-base!important;
-            &::placeholder{
-                color: $color-text-base!important;
-            }
-        }
-    }
-    &__input.input-icon-email{
-        @media screen and (min-width: $tablet-min) {
-            background-image: url('#{$images-path}/icons/email.svg');
-        }
-    }
-    &__input.input-icon-password{
-        @media screen and (min-width: $tablet-min) {
-            background-image: url('#{$images-path}/icons/lock.svg');
-        }
     }
 }
-
-//TODO: Extract all this to Theme.
-
-.theme-input {
-    font-family: inherit;
-    display: inline-block;
-    box-sizing: border-box;
-    width: 100%;
-    padding-left: 55px;
-    font-size: 18px;
-    font-weight: 300;
-    border: none;
-    border-bottom: solid 1px;
-    background: none;
-    border-color: $color-text-negative;
-    color: $color-text-negative;
-    height: 52px;
-    outline: none;
-    border-radius: 0;
-    &::placeholder{
-        color: $color-text-negative;
-    }
-}
-
-.input-icon-email {
-    background-image: url('#{$images-path}/icons/email-negative.svg');
-    background-repeat: no-repeat;
-    background-size: 35px 35px;
-    background-position: 10px center;
-}
-.input-icon-password {
-    background-image: url('#{$images-path}/icons/lock-negative.svg');
-    background-repeat: no-repeat;
-    background-size: 35px 35px;
-    background-position: 10px center;
-}
-

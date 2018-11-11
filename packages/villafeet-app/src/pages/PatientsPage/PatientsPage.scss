@@ -1,0 +1,39 @@
+@import './../../theme/colors.scss';
+@import './../../theme/variables.scss';
+
+.PatientsPage {
+  background: $color-background-secondary;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 52px 1fr 80px;
+
+  @media screen and (min-width: $tablet-min){
+    grid-gap: 20px;
+    grid-template-rows: 52px 45px 1fr;
+  }
+  @media screen and (min-width: $desktop-min){
+    grid-template-rows: 45px 52px 1fr;
+  }
+
+  &__filter {
+    background: $color-background-primary;
+    grid-row: 1 / 2;
+    @media screen and (min-width: $desktop-min){
+      grid-row: 2 / 3;
+    }
+  }
+
+  &__header{
+
+  }
+
+  &__mobile-cta {
+    background: $color-background-primary;
+    box-shadow: rgba(0,0,0,.2) 0 -4px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+}

@@ -9,6 +9,7 @@
     font-size: 18px;
     border: none;
     outline: none;
+    cursor: pointer;
 }
 
 .ThemeButton {
@@ -30,7 +31,6 @@
         max-width: none;
     }
     &:hover{
-        cursor: pointer;
         transition: $animation-fast ease-out;
         box-shadow: rgba(0,0,0,.2) 0 0 25px;
         transform: scale(1.05);

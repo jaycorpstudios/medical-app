@@ -1,0 +1,32 @@
+@import './../../theme/colors.scss';
+@import './../../theme/variables.scss';
+
+.MobileHeader {
+    background-color: $color-secondary;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 0 10px;
+
+    &__iso {
+        height: 37px;
+        width: 37px;
+    }
+
+    &__title {
+        color: $color-text-negative;
+        &.theme-heading-small{
+            font-size: 18px;
+        }
+    }
+
+    &__menu-btn{
+        width: 32px;
+        height: 26px;
+        background: url('#{$images-path}/icons/glyph-hamburger.svg') no-repeat center;
+        padding: 25px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+}

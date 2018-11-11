@@ -1,0 +1,50 @@
+@import './../../theme/colors.scss';
+@import './../../theme/variables.scss';
+
+.UserHeader {
+    background: $color-background-primary;
+    box-shadow: 0 0 5px rgba(0,0,0,.2);
+    border-radius: 10px;
+    height: 60px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    &__action {
+        border: none;
+        height: 24px;
+        width: 47px;
+        background-color: none;
+        background-size: 24px 24px;
+        background-repeat: no-repeat;
+        background-position: center center;
+        border-left: solid 1px $color-disable-gray;
+        &.settings{
+            background-image: url('#{$images-path}/icons/glyph-preferences.svg');
+        }
+        &.notifications{
+            background-image: url('#{$images-path}/icons/glyph-notification.svg');
+        }
+    }
+
+    &__user{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:before{
+            content: "";
+            background: $color-disable-gray;
+            width: 1px;
+            height: 24px;
+            margin-right: 10px;
+        }
+        img{
+            width: 39px;
+            height: 39px;
+            border-radius: 40px;
+            margin-left: 20px;
+        }
+    }
+
+}
