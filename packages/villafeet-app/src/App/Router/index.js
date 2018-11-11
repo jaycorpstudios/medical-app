@@ -1,9 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Switch } from 'react-router';
-import { LoginPage, PatientsPage, NotFoundPage } from '../AppLazyLoader';
+import { LoginPage, PatientsPage, NotFoundPage, WorkInProgressPage } from '../AppLazyLoader';
 import MainLayout from './../../MainLayout';
-
 
 export default function AppRouter (props) {
 
@@ -15,6 +14,8 @@ export default function AppRouter (props) {
         <Switch>
           <Route exact path='/' component={LoginPage} />
           <MainLayout path='/pacientes' auth={userAuthenticated} component={PatientsPage}/>
+          <MainLayout path='/agenda' auth={userAuthenticated} component={WorkInProgressPage}/>
+          <MainLayout path='/consultas' auth={userAuthenticated} component={WorkInProgressPage}/>
           <Route component={NotFoundPage} />
         </Switch>
       </React.Fragment>

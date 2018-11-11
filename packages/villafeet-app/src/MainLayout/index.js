@@ -10,7 +10,7 @@ const MainLayout = ({component: Component, auth, ...rest}) => {
     return (
       <Route {...rest} render={ matchProps => auth ? (
         <div className='Dashboard'>
-            <NavigationBar/>
+            <NavigationBar path={rest.path}/>
             <UserHeader/>
             <MobileHeader/>
             <main className="MainContent">

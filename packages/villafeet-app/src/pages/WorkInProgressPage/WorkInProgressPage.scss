@@ -1,0 +1,31 @@
+@import './../../theme/colors.scss';
+@import './../../theme/variables.scss';
+
+.WorkInProgressPage {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+
+    &__container{
+        background: $color-background-primary;
+        width: 100%;
+        max-width: 541px;
+        height: 380px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        @media screen and (min-width: $tablet-min){
+            height: 500px;
+        }
+    }
+    img{
+        max-width: 438px;
+        width: 100%;
+    }
+}
