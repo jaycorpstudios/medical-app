@@ -16,7 +16,7 @@ export default function AppRouter (props) {
           <MainLayout path='/pacientes' auth={userAuthenticated} component={PatientsPage}/>
           <MainLayout path='/agenda' auth={userAuthenticated} component={WorkInProgressPage}/>
           <MainLayout path='/consultas' auth={userAuthenticated} component={WorkInProgressPage}/>
-          <Route component={NotFoundPage} />
+          <Route path='*/' component={NotFoundPage} />
         </Switch>
       </React.Fragment>
     </BrowserRouter>

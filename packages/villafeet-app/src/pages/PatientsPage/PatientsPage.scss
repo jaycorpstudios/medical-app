@@ -25,7 +25,21 @@
   }
 
   &__header{
+    margin: 0 15px;
+    @media screen and (min-width: $laptop-min) {
+      margin: 0;
+    }
+  }
 
+  &__list{
+    display: grid;
+    grid-auto-rows: 57px;
+    grid-gap: 20px;
+    margin: 20px 15px;
+    @media screen and (min-width: $laptop-min) {
+      margin: 0;
+      margin-bottom: 20px;
+    }
   }
 
   &__mobile-cta {
