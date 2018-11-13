@@ -1,42 +1,61 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import ThemeInput from  './../../components/ThemeInput';
 import ThemeButton from  './../../components/ThemeButton';
-import PatientItem from './../../components/PatientItem';
+import PatientsList from './../../components/PatientsList';
+
+import { getPatients } from './../../actions';
+import { filterBySearch } from '../../utils/filters';
+
 import './PatientsPage.scss';
 
-export default function PatientsPage (props) {
+export class PatientsPage extends React.Component {
 
-  const patients = [
-    {id: 1, name: 'Karla DoSantos', lastVisit: 'Martes 23 de Octubre de 2018' },
-    {id: 2, name: 'Daniela Vargas', lastVisit: 'Domingo 11 de Noviembre de 2018' },
-    {id: 3, name: 'Karla DoSantos', lastVisit: 'Martes 23 de Octubre de 2018' },
-    {id: 4, name: 'Karla DoSantos', lastVisit: 'Martes 23 de Octubre de 2018' },
-    {id: 5, name: 'Karla DoSantos', lastVisit: 'Martes 23 de Octubre de 2018' },
-    {id: 6, name: 'Karla DoSantos', lastVisit: 'Martes 23 de Octubre de 2018' },
-    {id: 7, name: 'Karla DoSantos', lastVisit: 'Martes 23 de Octubre de 2018' },
-    {id: 8, name: 'Karla DoSantos', lastVisit: 'Martes 23 de Octubre de 2018' },
-    {id: 9, name: 'Karla DoSantos', lastVisit: 'Martes 23 de Octubre de 2018' },
-    {id: 10, name: 'Karla DoSantos', lastVisit: 'Martes 23 de Octubre de 2018' },
-    {id: 11, name: 'Karla DoSantos', lastVisit: 'Martes 23 de Octubre de 2018' },
-    {id: 12, name: 'Karla DoSantos', lastVisit: 'Martes 23 de Octubre de 2018' },
-    {id: 13, name: 'Karla DoSantos', lastVisit: 'Martes 23 de Octubre de 2018' },
-    {id: 14, name: 'Karla DoSantos', lastVisit: 'Martes 23 de Octubre de 2018' },
-    {id: 15, name: 'Karla DoSantos', lastVisit: 'Martes 23 de Octubre de 2018' },
-    {id: 16, name: 'Karla DoSantos', lastVisit: 'Martes 23 de Octubre de 2018' }
-  ]
+  constructor(props){
+    super(props);
+    this.state = { filter: '' }
+  }
 
-  return (
-    <div className="PatientsPage">
-      <div className="PatientsPage__header hidden-xs">
-        <h1 className="theme-heading-large">Listado de pacientes</h1>
+  filterPatients(criteria = '', patients) {
+    return [...patients].filter( filterBySearch(criteria, 'name') );
+  }
+
+  handleFilter(event) {
+    const { value: filter } = event.target;
+    this.setState({filter});
+  }
+
+  componentDidMount () {
+    this.props.getPatients();
+  }
+
+  render(){
+    return (
+      <div className="PatientsPage">
+        <div className="PatientsPage__header hidden-xs">
+          <h1 className="theme-heading-large">Listado de pacientes</h1>
+        </div>
+        <ThemeInput className="PatientsPage__filter" type="search" icon="search" placeholder="Nombre del paciente" value={this.state.filter} onChange={this.handleFilter.bind(this)}/>
+        <PatientsList patients={ this.filterPatients(this.state.filter, this.props.patients) }/>
+        <div className="PatientsPage__mobile-cta visible-xs">
+          <ThemeButton title="Agregar"/>
+        </div>
       </div>
-      <ThemeInput className="PatientsPage__filter" type="search" icon="search" placeholder="Nombre del paciente"/>
-      <section className="PatientsPage__list">
-          {patients.map(({id, name, lastVisit}) => <PatientItem key={id} id={id} name={name} lastVisit={lastVisit} />)}
-      </section>
-      <div className="PatientsPage__mobile-cta visible-xs">
-        <ThemeButton title="Agregar"/>
-      </div>
-    </div>
-  )
+    )
+  }
 }
+
+function mapDispatchToProps (dispatch) {
+  return {
+    getPatients: () => dispatch(getPatients())
+  }
+}
+
+function mapStateToProps (state, props) {
+  return {
+    patients: state.patients
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PatientsPage)

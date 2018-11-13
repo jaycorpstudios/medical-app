@@ -31,17 +31,6 @@
     }
   }
 
-  &__list{
-    display: grid;
-    grid-auto-rows: 57px;
-    grid-gap: 20px;
-    margin: 20px 15px;
-    @media screen and (min-width: $laptop-min) {
-      margin: 0;
-      margin-bottom: 20px;
-    }
-  }
-
   &__mobile-cta {
     background: $color-background-primary;
     box-shadow: rgba(0,0,0,.2) 0 -4px 10px;
