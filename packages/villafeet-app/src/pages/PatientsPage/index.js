@@ -10,7 +10,7 @@ import { filterBySearch } from '../../utils/filters';
 
 import './PatientsPage.scss';
 
-export class PatientsPage extends React.Component {
+class PatientsPage extends React.Component {
 
   constructor(props){
     super(props);
