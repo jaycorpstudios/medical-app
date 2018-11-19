@@ -4,11 +4,11 @@ import './PatientsList.scss';
 
 const PatientsList = props => {
 
-    const { patients } = props;
+    const { patients, loading } = props;
 
     const Patients = ({component: Component}) => {
-        return patients.map(({id, name, lastVisit}) => {
-            return(<Component key={id} id={id} name={name} lastVisit={lastVisit} />)
+        return patients.map(({id, ...rest}) => {
+            return(<Component key={id} {...rest} />)
         })
     }
 
@@ -22,7 +22,7 @@ const PatientsList = props => {
 
     return (
         <section className="PatientsList">
-            {patients.length > 0 ? <Patients component={PatientItem}/> : <NoMatch/> }
+            { loading ? <h1>Loading</h1> : patients.length > 0 ? <Patients component={PatientItem}/> : <NoMatch/> }
         </section>
     );
 }

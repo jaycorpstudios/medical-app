@@ -1,6 +1,7 @@
 const merge = require('webpack-merge')
 const common = require('./webpack.common')
 const webpack = require('webpack')
+const devProperties = require('./properties/properties-dev')
 
 const config = (env, args) => {
   const commonConfig = common(env, args)
@@ -18,7 +19,8 @@ const config = (env, args) => {
     },
     plugins: [
       new webpack.NamedModulesPlugin(),
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.DefinePlugin(devProperties)
     ]
   })
 }

@@ -3,7 +3,7 @@ const common = require('./webpack.common');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const config = (env, args) => {
-  const commonConfig = common(env, args)
+  const commonConfig = common(env, args);
   return merge(commonConfig, {
     optimization: {
       splitChunks: {

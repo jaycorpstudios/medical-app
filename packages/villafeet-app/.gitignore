@@ -1,1 +1,3 @@
 /node_modules/
+/properties/properties-dev.js
+/properties/properties-prod.js

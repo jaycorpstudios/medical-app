@@ -1,5 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
+
 
 import ThemeInput from  './../../components/ThemeInput';
 import ThemeButton from  './../../components/ThemeButton';
@@ -18,7 +21,7 @@ class PatientsPage extends React.Component {
   }
 
   filterPatients(criteria = '', patients) {
-    return [...patients].filter( filterBySearch(criteria, 'name') );
+    return [...patients].filter( filterBySearch(criteria, 'nombre') );
   }
 
   handleFilter(event) {
@@ -26,18 +29,16 @@ class PatientsPage extends React.Component {
     this.setState({filter});
   }
 
-  componentDidMount () {
-    this.props.getPatients();
-  }
-
   render(){
+    const { patients = [], status:{requesting:{pacientes: loading } } = true } = this.props;
+
     return (
       <div className="PatientsPage">
         <div className="PatientsPage__header hidden-xs">
           <h1 className="theme-heading-large">Listado de pacientes</h1>
         </div>
         <ThemeInput className="PatientsPage__filter" type="search" icon="search" placeholder="Nombre del paciente" value={this.state.filter} onChange={this.handleFilter.bind(this)}/>
-        <PatientsList patients={ this.filterPatients(this.state.filter, this.props.patients) }/>
+        <PatientsList patients={ this.filterPatients(this.state.filter, patients)} loading={loading}/>
         <div className="PatientsPage__mobile-cta visible-xs">
           <ThemeButton title="Agregar"/>
         </div>
@@ -46,16 +47,15 @@ class PatientsPage extends React.Component {
   }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapStateToProps (state) {
   return {
-    getPatients: () => dispatch(getPatients())
+    patients: state.firestore.ordered.pacientes,
+    status: state.firestore.status
   }
 }
 
-function mapStateToProps (state, props) {
-  return {
-    patients: state.patients
-  }
+function mapFirebase () {
+   return ['pacientes']
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PatientsPage)
+export default compose(firestoreConnect(mapFirebase), connect(mapStateToProps, null))(PatientsPage)
