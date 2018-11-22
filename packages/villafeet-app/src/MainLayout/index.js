@@ -5,10 +5,15 @@ import UserHeader from './../components/UserHeader';
 import MobileHeader from './../components/MobileHeader';
 import './MainLayout.scss';
 
-const MainLayout = ({component: Component, auth, ...rest}) => {
+import CacheHelper from './../utils/cache';
+
+const MainLayout = ({component: Component, ...rest}) => {
+
+  const auth = CacheHelper.getItem('auth');
+        const isAuthenticated = auth && auth.authenticated || false;
 
     return (
-      <Route {...rest} render={ matchProps => auth ? (
+      <Route {...rest} render={ matchProps => isAuthenticated ? (
         <div className='Dashboard'>
             <NavigationBar path={rest.path}/>
             <UserHeader/>

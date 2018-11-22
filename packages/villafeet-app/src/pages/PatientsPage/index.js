@@ -3,12 +3,10 @@ import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 
-
 import ThemeInput from  './../../components/ThemeInput';
 import ThemeButton from  './../../components/ThemeButton';
 import PatientsList from './../../components/PatientsList';
 
-import { getPatients } from './../../actions';
 import { filterBySearch } from '../../utils/filters';
 
 import './PatientsPage.scss';
