@@ -1,17 +1,27 @@
 const merge = require('webpack-merge');
 const common = require('./webpack.common');
+const webpack = require('webpack')
+const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ProdProperties = require('./properties/properties-prod');
 
 const config = (env, args) => {
   const commonConfig = common(env, args);
   return merge(commonConfig, {
+    output: {
+      filename: '__[name].[contenthash].js',
+      chunkFilename: '__[name].chunk.[contenthash].js',
+      path: path.resolve(__dirname, 'dist')
+    },
     optimization: {
       splitChunks: {
+        name: true,
         cacheGroups: {
-          commons: {
-            name: 'commons',
+          common: {
+            name: 'common',
             chunks: 'all',
-            minChunks: 2
+            minChunks: 2,
+            enforce: true
           }
         }
       }
@@ -19,7 +29,8 @@ const config = (env, args) => {
     plugins: [
       new MiniCssExtractPlugin({
         filename: '[name].css'
-      })
+      }),
+      new webpack.DefinePlugin(ProdProperties)
     ]
   })
 }

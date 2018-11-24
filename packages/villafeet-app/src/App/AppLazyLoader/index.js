@@ -1,17 +1,17 @@
 import lazy from '../../components/AsyncComponent';
 
 export const LoginPage = lazy(() =>
-  import('../../pages/LoginPage').then(module => module.default)
+  import(/* webpackChunkName: "loginPage" */ '../../pages/LoginPage').then(module => module.default)
 )
 
 export const PatientsPage = lazy(() =>
-  import('../../pages/PatientsPage').then(module => module.default)
+  import(/* webpackChunkName: "PatientsPage" */ '../../pages/PatientsPage').then(module => module.default)
 )
 
 export const WorkInProgressPage = lazy(() =>
-  import('../../pages/WorkInProgressPage').then(module => module.default)
+  import(/* webpackChunkName: "wipPage" */ '../../pages/WorkInProgressPage').then(module => module.default)
 )
 
 export const NotFoundPage = lazy(() =>
-  import('../../pages/NotFoundPage').then(module => module.default)
+  import(/* webpackChunkName: "404Page" */ '../../pages/NotFoundPage').then(module => module.default)
 )

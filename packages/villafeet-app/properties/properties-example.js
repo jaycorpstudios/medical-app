@@ -6,7 +6,8 @@ const PROPERTIES = {
     FIREBASE_DATABASE_URL : JSON.stringify('someValue'),
     FIREBASE_PROJECT_ID : JSON.stringify('someValue'),
     FIREBASE_STORAGE_BUCKET : JSON.stringify('someValue'),
-    FIREBASE_MESSAGING_SENDER_ID : JSON.stringify('someValue')
+    FIREBASE_MESSAGING_SENDER_ID : JSON.stringify('someValue'),
+    ENVIRONMENT: JSON.stringify('DEV')
 }
 
 module.exports = PROPERTIES;

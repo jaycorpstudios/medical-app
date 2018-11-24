@@ -1,4 +1,3 @@
-/* global fetch */
 import 'regenerator-runtime/runtime';
 import { PROCESS_LOGIN, PROCESS_LOGOUT } from './../actions/types';
 import { loginInProgress, loginSuccess, loginFailed, logoutSuccess } from './../actions';

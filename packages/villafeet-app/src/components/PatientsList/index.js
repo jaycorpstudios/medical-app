@@ -1,5 +1,6 @@
 import React from 'react';
 import PatientItem from './../PatientItem';
+import LoadingState from './../LoadingState';
 import './PatientsList.scss';
 
 const PatientsList = props => {
@@ -22,7 +23,7 @@ const PatientsList = props => {
 
     return (
         <section className="PatientsList">
-            { loading ? <h1>Loading</h1> : patients.length > 0 ? <Patients component={PatientItem}/> : <NoMatch/> }
+            { loading ? <LoadingState/> : patients.length > 0 ? <Patients component={PatientItem}/> : <NoMatch/> }
         </section>
     );
 }

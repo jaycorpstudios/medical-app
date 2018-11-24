@@ -2,6 +2,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const srcPath = path.resolve(__dirname, 'src');
 
 const config = (env, args) => {
   return {
@@ -21,15 +22,17 @@ const config = (env, args) => {
           }
         },
         {
-          test: /\.css$/,
-          use: [
-            { loader: args && args.mode === 'production' ? MiniCssExtractPlugin.loader : 'style-loader' },
-            { loader: 'css-loader'}
-          ]
-        },
-        {
           test: /\.scss$/,
-          loaders: ['style-loader', 'css-loader', 'sass-loader']
+          loaders: ['style-loader', 'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: [
+                  srcPath,
+              ]
+            }
+          }
+        ]
         },
         {
           test: /\.(png|jpg|gif|ttf|svg|woff2)$/,
@@ -38,18 +41,25 @@ const config = (env, args) => {
                   loader: 'file-loader',
                   options: {
                       name: '[path][name].[ext]',
-                      context: 'src'
+                      context: srcPath,
+                      useRelativePaths: true
                   }
               }
           ]
       },
       ]
     },
+    resolve: {
+      alias: {
+          'src': srcPath //alias used for sass relative paths
+      }
+    },
     plugins: [
       new CleanWebpackPlugin(['dist']),
       new HtmlWebPackPlugin({
         template: path.resolve(__dirname, 'src/index.html'),
-        filename: './index.html'
+        filename: './index.html',
+        manifestUrl: 'src/manifest.json'
       })
     ]
   }

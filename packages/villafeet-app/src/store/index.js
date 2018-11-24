@@ -1,3 +1,7 @@
+/*
+  global ENVIRONMENT
+*/
+
 import { createStore, compose, applyMiddleware } from 'redux';
 import { rootReducer } from '../reducers';
 import {responsiveStoreEnhancer} from 'redux-responsive';
@@ -16,6 +20,10 @@ const reactReduxFirebaseConfig = {
   attachAuthIsReady: true
 }
 
+const devTools = ENVIRONMENT !== 'PROD'
+                  ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+                  : noTools => noTools;
+
 export default createStore(
   rootReducer,
   compose(
@@ -23,7 +31,7 @@ export default createStore(
     reduxFirestore(firebase),
     reactReduxFirebase(firebase, reactReduxFirebaseConfig),
     applyMiddleware(sagaMiddleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    devTools
   )
 );
 
