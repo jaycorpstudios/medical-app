@@ -1,19 +1,17 @@
-@import './../../theme/colors.scss';
-@import './../../theme/variables.scss';
+@import 'theme/colors.scss';
+@import 'theme/variables.scss';
 
-.PatientItem {
+.PatientListItem {
     display: grid;
     grid-template-columns: 39px 1fr 35px;
     grid-gap: 20px;
     align-items: center;
     background: $color-background-primary;
     border-radius: 5px;
-    box-shadow: 0 2px 0 rgba(0,0,0,.1);
+    box-shadow: 0 2px 0 $color-element-shadow;
     height: 57px;
     padding: 0 20px;
     transition: $animation-medium;
-
-
 
     @media screen and (min-width: $tablet-min){
         grid-template-columns: 39px 1fr 1fr 35px;
@@ -21,7 +19,7 @@
     @media screen and (min-width: $laptop-min){
         &:hover{
             transform: scale(1.01);
-            box-shadow: 0 5px 10px rgba(0,0,0,.1);
+            box-shadow: 0 5px 10px $color-element-shadow;
         }
     }
 

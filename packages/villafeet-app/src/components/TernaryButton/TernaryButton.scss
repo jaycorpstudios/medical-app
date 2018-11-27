@@ -1,0 +1,25 @@
+@import 'theme/colors.scss';
+@import 'theme/variables.scss';
+
+.TernaryButton {
+    width: 100%;
+    max-width: 130px;
+    height: 45px;
+    border-radius: 5px;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    background: $color-background-primary;
+    color: $color-secondary;
+    border: 1px solid $color-disable-gray;
+    cursor: pointer;
+    transition: $animation-fast ease-in;
+
+    &:hover{
+        transition: $animation-fast ease-out;
+        box-shadow: $color-element-shadow 0 0 25px;
+        transform: scale(1.01);
+    }
+
+}
+

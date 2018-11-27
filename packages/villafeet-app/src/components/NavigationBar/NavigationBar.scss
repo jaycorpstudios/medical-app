@@ -1,5 +1,5 @@
-@import './../../theme/colors.scss';
-@import './../../theme/variables.scss';
+@import 'theme/colors.scss';
+@import 'theme/variables.scss';
 
 .NavigationBar {
 
@@ -15,7 +15,7 @@
     align-items: center;
     padding-top: 50px;
     background: linear-gradient(to bottom, $color-gradient-start 0%, $color-gradient-step1 15%, $color-gradient-step2 50%, $color-gradient-end 100%);
-    box-shadow: inset -10px 0 20px rgba(0, 0, 0, .1);
+    box-shadow: inset -10px 0 20px $color-element-shadow;
 
     &__logo{
         width: 182px;

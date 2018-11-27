@@ -1,0 +1,62 @@
+@import 'theme/colors.scss';
+@import 'theme/variables.scss';
+
+.PatientDetailsHeader {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: $color-text-negative;
+    text-align: center;
+    background-image: url('#{$images-path}patients-bg.jpg');
+    background-color: $color-secondary-shadow;
+    background-size: cover;
+
+    @media screen and (min-width: $tablet-min) {
+        background-color: $color-background-primary;
+        background-image: none;
+        text-align: left;
+        color: $color-text-base;
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: $color-element-shadow 0 4px 15px;
+    }
+
+    &__user-photo {
+        width: 95px;
+        height: 95px;
+        border-radius: 95px;
+        @media screen and (min-width: $tablet-min) {
+            margin-right: 20px;
+        }
+    }
+
+    &__name {
+        color: $color-text-negative;
+        @media screen and (min-width: $tablet-min) {
+            color: $color-text-base;
+        }
+    }
+
+    &__consulta {
+        line-height: 20px;
+        margin-top: 5px;
+    }
+
+    &__back{
+        width: 34px;
+        height: 34px;
+        background-color: rgba(0,0,0,.3);
+        background-image: url('#{$images-path}icons/glyph-arrow-back-negative.svg');
+        border-radius: 28px;
+        position: absolute;
+        left: 15px;
+        top: 15px;
+        background-size: 23px;
+        background-position: 4px 5px;
+        background-repeat: no-repeat;
+    }
+}

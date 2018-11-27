@@ -1,5 +1,5 @@
-@import './../../theme/colors.scss';
-@import './../../theme/variables.scss';
+@import 'theme/colors.scss';
+@import 'theme/variables.scss';
 
 .PatientsPage {
   background: $color-background-secondary;
@@ -19,6 +19,12 @@
   &__filter {
     background: $color-background-primary;
     grid-row: 1 / 2;
+    & input{
+      transition: $animation-slow;
+    }
+    & input:focus{
+      box-shadow: $color-element-shadow 0 10px 20px;
+    }
     @media screen and (min-width: $desktop-min){
       grid-row: 2 / 3;
     }
@@ -33,7 +39,7 @@
 
   &__mobile-cta {
     background: $color-background-primary;
-    box-shadow: rgba(0,0,0,.2) 0 -4px 10px;
+    box-shadow: $color-element-shadow 0 -4px 10px;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -4,17 +4,19 @@ import { Switch } from 'react-router';
 import { Provider } from 'react-redux';
 
 import store from './../../store';
-import { LoginPage, PatientsPage, NotFoundPage, WorkInProgressPage } from '../AppLazyLoader';
+import { LoginPage, PatientsPage, PatientDetailsPage,
+         NotFoundPage, WorkInProgressPage } from '../AppLazyLoader';
 import MainLayout from './../../MainLayout';
 
 export default props => {
 
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename='/'>
         <React.Fragment>
           <Switch>
             <Route exact path='/' component={LoginPage} />
+            <MainLayout path='/pacientes/:idPaciente' component={PatientDetailsPage}/>
             <MainLayout path='/pacientes' component={PatientsPage}/>
             <MainLayout path='/agenda' component={WorkInProgressPage}/>
             <MainLayout path='/consultas' component={WorkInProgressPage}/>

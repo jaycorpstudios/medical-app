@@ -1,5 +1,5 @@
-@import './../../theme/colors.scss';
-@import './../../theme/variables.scss';
+@import 'theme/colors.scss';
+@import 'theme/variables.scss';
 
 .WorkInProgressPage {
     height: 100%;
@@ -15,7 +15,7 @@
         height: 380px;
         padding: 20px;
         border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(0,0,0,.15);
+        box-shadow: 0 4px 15px $color-element-shadow;
         display: flex;
         align-items: center;
         justify-content: center;

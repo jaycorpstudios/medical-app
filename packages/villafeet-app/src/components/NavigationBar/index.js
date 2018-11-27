@@ -11,7 +11,7 @@ export default props => {
             { id: 2, name: 'agenda', path: '/agenda' },
             { id: 3, name: 'consultas', path: '/consultas' }
         ];
-        const isActive = (path, currentPath) => path === currentPath ? 'active' : '';
+        const isActive = (path, currentPath) => currentPath.startsWith(path) ? 'active' : '';
         const mapLink = ({id, name, path}) => (<Component key={id} className={`NavigationBar__item ${name} ${isActive(path, currentPath)}`} to={path}>{name}</Component>);
         return sections.map(mapLink);
     };

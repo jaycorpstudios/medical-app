@@ -1,0 +1,20 @@
+@import 'theme/colors.scss';
+
+.PatientSectionTabs{
+    ul {
+        display: flex;
+        justify-content: space-around;
+    }
+    li {
+        width: 100%;
+        text-align: center;
+        border-bottom: solid 2px $color-secondary;
+        height: 36px;
+        margin: 0 1px;
+        &.active{
+            color: $color-primary;
+            border-bottom-color: $color-primary;
+        }
+    }
+
+}
