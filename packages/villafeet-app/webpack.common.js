@@ -1,8 +1,10 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const srcPath = path.resolve(__dirname, 'src');
+const ManifestPlugin = require('webpack-manifest-plugin')
+const manifestContent = require('./src/manifest.config')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const srcPath = path.resolve(__dirname, 'src')
 
 const config = (env, args) => {
   return {
@@ -60,6 +62,15 @@ const config = (env, args) => {
         template: path.resolve(__dirname, 'src/index.html'),
         filename: './index.html',
         manifestUrl: 'src/manifest.json'
+      }),
+      new CopyWebpackPlugin([
+             { from: 'theme/installation/**/*'},
+          ], { context: srcPath }
+      ),
+      new ManifestPlugin({
+          writeToFileEmit: false,
+          fileName: 'manifest.json',
+          seed: manifestContent
       })
     ]
   }
