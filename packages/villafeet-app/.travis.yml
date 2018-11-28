@@ -5,18 +5,12 @@ node_js:
 
 sudo: false
 
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version version-number
+  - export PATH="$HOME/.yarn/bin:$PATH"
+
 before_script:
   - npm install
-
-- run:
-  name: update yarn
-  command: |
-    # remove default yarn
-    sudo rm -rf $(dirname $(which yarn))/yarn*
-    # download latest
-    rm -rf ~/.yarn
-    curl -o- -L https://yarnpkg.com/install.sh | bash
-    echo 'export PATH="${PATH}:${HOME}/.yarn/bin"' >> $BASH_ENV
 
 script:
   - npm run test
