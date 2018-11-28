@@ -9,8 +9,7 @@ sudo: false
 cache:
   npm: true
 
-before_script:
-  - npm install
+install: true
 
 script:
   - npm run test
