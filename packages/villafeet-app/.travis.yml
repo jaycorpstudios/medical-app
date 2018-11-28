@@ -17,5 +17,5 @@ before_install:
 install: true
 
 script:
-  - yarn run test
+  - yarn install && yarn run test
 
