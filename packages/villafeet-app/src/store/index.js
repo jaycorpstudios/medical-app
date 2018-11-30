@@ -20,9 +20,9 @@ const reactReduxFirebaseConfig = {
   attachAuthIsReady: true
 }
 
-const devTools = ENVIRONMENT !== 'PROD'
-                  ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-                  : noTools => noTools;
+const noDevTools = noTools => noTools;
+const ReduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : noDevTools;
+const devTools = ENVIRONMENT !== 'PROD' ? ReduxDevTools : noDevTools;
 
 export default createStore(
   rootReducer,
