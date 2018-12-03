@@ -44,6 +44,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 300;
+  font-display: swap;
   src: url(./../theme/fonts/Montserrat-Light.woff2) format('woff2');
 
 }
@@ -52,6 +53,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 500;
+  font-display: swap;
   src: url(./../theme/fonts/Montserrat-Medium.woff2) format('woff2');
 }
 body{

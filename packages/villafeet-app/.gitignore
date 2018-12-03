@@ -2,6 +2,7 @@
 /properties/properties-dev.js
 /properties/properties-prod.js
 /dist/
+/build/
 /coverage/
 yarn-error.log
 stats.json

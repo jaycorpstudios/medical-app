@@ -1,5 +1,6 @@
 const manifestContent = {
     name: 'Villafeet App',
+    short_name: 'Villafeet',
     icons: [
       {
           src: "theme/installation/icon-128x128.png",
@@ -25,9 +26,14 @@ const manifestContent = {
           src: "theme/installation/icon-256x256.png",
           sizes: "256x256",
           type: "image/png"
-      }
+      },
+      {
+        src: "theme/installation/icon-512x512.png",
+        sizes: "512x512",
+        type: "image/png"
+    }
   ],
-  start_url: '/pacientes',
+  start_url: '/',
   display: 'standalone',
   background_color: '#116864',
   theme_color: '#1fbbab'

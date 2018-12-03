@@ -5,6 +5,7 @@ const ManifestPlugin = require('webpack-manifest-plugin')
 const manifestContent = require('./src/manifest.config')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const srcPath = path.resolve(__dirname, 'src')
+const {GenerateSW} = require('workbox-webpack-plugin');
 
 const config = (env, args) => {
   return {
@@ -60,8 +61,7 @@ const config = (env, args) => {
       new CleanWebpackPlugin(['dist']),
       new HtmlWebPackPlugin({
         template: path.resolve(__dirname, 'src/index.html'),
-        filename: './index.html',
-        manifestUrl: 'src/manifest.json'
+        filename: './index.html'
       }),
       new CopyWebpackPlugin([
              { from: 'theme/installation/**/*'},
@@ -71,6 +71,12 @@ const config = (env, args) => {
           writeToFileEmit: false,
           fileName: 'manifest.json',
           seed: manifestContent
+      }),
+      new GenerateSW( {
+        swDest: 'shell-app.js',
+        importWorkboxFrom: 'local',
+        skipWaiting: true,
+        clientsClaim: true
       })
     ]
   }
