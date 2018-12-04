@@ -15,8 +15,17 @@
         padding: 1px 10px;
         background-color: transparent;
         outline: none;
+        transition: $animation-medium;
+        position: relative;
+        z-index: 2;
         &::placeholder{
             color: $color-disable-gray;
+        }
+        &:focus{
+            border-color: $color-gray;
+        }
+        &.--negative:focus {
+            border-color: $color-text-negative;
         }
     }
 
@@ -28,6 +37,7 @@
 
     &__label {
         position: absolute;
+        z-index: 1;
         top: 12px;
         left: 9px;
         transition: $animation-medium;
@@ -58,6 +68,7 @@
         &::placeholder{
             color: $color-text-negative;
         }
+
     }
 
     &--icon.--negative {

@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import ThemeGroupTitle from './../ThemeGroupTitle';
 import './PatientDetailsGroup.scss';
 
 
 const PatientDetailsGroup = props => {
     return(
         <article className="PatientDetailsGroup">
-          <h2 className="PatientDetailsGroup__title theme-heading-small"><span>Datos personales</span></h2>
+          <ThemeGroupTitle title='Datos personales'/>
           <ul className="PatientDetailsGroup__list theme-body-regular">
             <li><strong>Edad</strong> <span>29 años</span></li>
             <li><strong>Calle</strong> <span>Av. Puerto Escondido 2645, int 28</span></li>

@@ -12,6 +12,10 @@ export const PatientDetailsPage = lazy(() =>
   import(/* webpackChunkName: "PatientDetailsPage" */ '../../pages/PatientDetailsPage').then(module => module.default)
 )
 
+export const PatientAddPage = lazy(() =>
+  import(/* webpackChunkName: "PatientAddPage" */ '../../pages/PatientAddPage').then(module => module.default)
+)
+
 export const WorkInProgressPage = lazy(() =>
   import(/* webpackChunkName: "wipPage" */ '../../pages/WorkInProgressPage').then(module => module.default)
 )

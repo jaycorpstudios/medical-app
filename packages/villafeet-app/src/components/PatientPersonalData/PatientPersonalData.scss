@@ -1,0 +1,10 @@
+@import 'theme/variables.scss';
+
+.PatientDetailsGroup {
+    &__title{
+        justify-self: normal;
+        @media screen and (min-width: $tablet-min) {
+            grid-area: 1/1/1/3;
+        }
+    }
+}

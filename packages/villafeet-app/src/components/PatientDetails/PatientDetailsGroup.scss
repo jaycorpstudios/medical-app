@@ -11,24 +11,6 @@
         padding: 30px;
     }
 
-    &__title {
-        color: $color-secondary;
-        span {
-            position: relative;
-            background: $color-background-primary;
-            padding-right: 20px;
-        }
-        &:before {
-            content: '';
-            display: block;
-            width: 100%;
-            height: 2px;
-            background-color: $color-secondary;
-            top: 17px;
-            position: relative;
-        }
-    }
-
     &__list {
         li {
             display: grid;
