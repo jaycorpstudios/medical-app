@@ -5,7 +5,12 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAILED,
     PROCESS_LOGOUT,
-    LOGOUT_SUCCESS
+    LOGOUT_SUCCESS,
+    ADD_PATIENT,
+    PATIENT_RECORD_IN_PROGRESS,
+    PATIENT_RECORD_SUCCESS,
+    PATIENT_RECORD_FAILED,
+    PATIENT_RECORD_RESTORE
   } from './types'
 
 export function processLogin (credentials) {
@@ -44,5 +49,36 @@ export function logout () {
 export function logoutSuccess () {
     return {
         type: LOGOUT_SUCCESS
+    }
+}
+
+export function addPatient (patient) {
+    return {
+        type: ADD_PATIENT,
+        payload: { patient }
+    }
+}
+
+export function patientRecordInProgress (status) {
+    return {
+        type: PATIENT_RECORD_IN_PROGRESS,
+        payload: { status }
+    }
+}
+
+export function patientRecordSuccess(){
+    return {
+        type: PATIENT_RECORD_SUCCESS
+    }
+}
+
+export function patientRecordFailed(){
+    return {
+        type: PATIENT_RECORD_FAILED
+    }
+}
+export function patientRecordRestore(){
+    return {
+        type: PATIENT_RECORD_RESTORE
     }
 }

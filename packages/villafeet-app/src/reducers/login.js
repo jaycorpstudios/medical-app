@@ -6,20 +6,20 @@ import {
 } from '../actions/types';
 import cacheHelper from './../utils/cache';
 
-export function authInProgress (state, inProgress) {
+function authInProgress (state, inProgress) {
     return { ...state, inProgress };
 }
 
-export function authError (state, error) {
+function authError (state, error) {
     const { message } = error;
     return { ...state, error: { message } };
 }
 
-export function setAuth (state, user) {
+function setAuth (state, user) {
     cacheHelper.setItem('auth', {authenticated: true, uid: user.uid });
     return {...state, authenticated: true, uid: user.uid };
 }
-export function removeAuth (state) {
+function removeAuth (state) {
     cacheHelper.setItem('auth', null);
     return {...state, authenticated: false, uid: null };
 }

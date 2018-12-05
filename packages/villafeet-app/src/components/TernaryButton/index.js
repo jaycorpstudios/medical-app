@@ -4,8 +4,8 @@ import './TernaryButton.scss';
 export default class TernaryButton extends React.Component {
 
     render(){
-        const { className, title, ...other} = this.props;
-        const classes = `TernaryButton ${className}`;
+        const { className='', title, negative=false, icon='', ...other} = this.props;
+        const classes = `TernaryButton ${ negative ? '--negative' : ''} ${icon} ${className}`;
 
         return(
             <button className={classes} {...other}>{title}</button>

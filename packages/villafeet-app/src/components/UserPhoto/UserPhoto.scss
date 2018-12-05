@@ -1,0 +1,17 @@
+@import 'theme/colors.scss';
+
+figure.UserPhoto {
+    display: flex;
+    font-weight: 600;
+    color: $color-text-negative;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 0 0 5px $color-element-shadow;
+
+    &.hombre {
+        background-color: $color-male-photo;
+    }
+    &.mujer {
+        background-color: $color-female-photo;
+    }
+}

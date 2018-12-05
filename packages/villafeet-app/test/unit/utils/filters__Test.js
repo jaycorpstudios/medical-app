@@ -1,32 +1,22 @@
-import { filterBySearch } from 'src/utils/filters';
+import { filterByName } from 'src/utils/filters';
 
 describe('Utils Filter Module', () => {
 
     const users = [
-        {name: 'Jay', lastName: 'Garcia' },
-        {name: 'Daniel', lastName: 'Martinez' },
-        {name: 'Antonio', lastName: 'Garcia' },
-        {name: 'Manuel', lastName: 'Garza' }
+        { personal: { nombre: 'Jay', apellidoPaterno: 'Garcia' } },
+        { personal: { nombre: 'Daniel', apellidoPaterno: 'Martinez' } },
+        { personal: { nombre: 'Antonio', apellidoPaterno: 'Garcia' } },
+        { personal: { nombre: 'Manuel', apellidoPaterno: 'Garza' } }
     ]
 
     it('should filter by name', () => {
-        const filter = filterBySearch('daniel', 'name');
-        expect(users.filter(filter)).toMatchObject([{name: 'Daniel', lastName: 'Martinez' }]);
-    });
-
-    it('should filter by lastname', () => {
-        const filter = filterBySearch('gar', 'lastName');
-        const expectedOutput = [
-            {name: 'Jay', lastName: 'Garcia' },
-            {name: 'Antonio', lastName: 'Garcia' },
-            {name: 'Manuel', lastName: 'Garza' }
-        ]
-        expect(users.filter(filter)).toMatchObject(expectedOutput);
+        const filter = filterByName('daniel', 'name');
+        expect(users.filter(filter)).toMatchObject([{ personal: { nombre: 'Daniel', apellidoPaterno: 'Martinez' } }]);
     });
 
     it('should return all results on uninitialized filter', () => {
-        const emptyFilter = filterBySearch();
-        expect([1,2,3].filter(emptyFilter)).toMatchObject([1,2,3]);
+        const emptyFilter = filterByName('');
+        expect(users.filter(emptyFilter)).toEqual(users);
     });
 
 })

@@ -1,7 +1,9 @@
-import Estados from './../../staticData/statesOfMexico'
+import Estados from './../../staticData/statesOfMexico';
+const states = Estados.map( ({id, text}) => {
+                return {id, text, value: text }
+              });
 
-const PatientFormData = {
-    personal: [
+export const PatientFormData = [
       { id: 1, name:'nombre', label:'Nombre', value: '', type: 'text' },
       { id: 2, name:'apellidoPaterno', label:'Apellido paterno', value: '', type: 'text' },
       { id: 3, name:'apellidoMaterno', label:'Apellido materno', value: '', type: 'text' },
@@ -17,14 +19,18 @@ const PatientFormData = {
       { id: 10, name:'direccion', value: '', label:'Calle y número (opcional)', type: 'text' },
       {
         id: 11, name:'estado', value: 'jalisco', label:'Estado', type: 'select',
-        options: [...Estados]
+        options: [...states]
       },
-      { id: 12, name:'ocupacion', value: '', label:'Ocupación', type: 'text' },
+      { id: 12, name:'municipio', value: '', label:'Municipio (opcional)', type: 'text' },
+      { id: 13, name:'ocupacion', value: '', label:'Ocupación', type: 'text' },
       {
-        id: 13, name:'ejercicio', value: 'medio', label:'Nivel de ejercicio', type: 'select',
+        id: 14, name:'ejercicio', value: 'medio', label:'Nivel de ejercicio', type: 'select',
         options: [ {value:'alto', text:'Alto'}, {value:'medio', text:'Medio'}, {value:'bajo', text:'Bajo'} ]
       }
-    ]
-  }
+    ];
 
-export default PatientFormData;
+export const AntecedentesFormData = [
+  { id: 1, name:'gateo', label:'Gateo', value: '', type: 'text' },
+  { id: 2, name:'ambulacion', label:'Ambulación', value: '', type: 'text' },
+  { id: 3, name:'alergias', label:'Alergias', value: '', type: 'text' }
+]

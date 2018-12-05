@@ -2,24 +2,47 @@
 @import 'theme/variables.scss';
 
 .TernaryButton {
-    width: 100%;
-    max-width: 130px;
+    width: auto;
+    max-width: 300px;
     height: 45px;
     border-radius: 5px;
     font-size: 15px;
+    padding: 0 20px;
     border: none;
     outline: none;
-    background: $color-background-primary;
-    color: $color-secondary;
-    border: 1px solid $color-disable-gray;
+    background: $color-secondary;
+    color: $color-text-negative;
     cursor: pointer;
     transition: $animation-fast ease-in;
 
-    &:hover{
+    &.--negative {
+        background: $color-background-primary;
+        color: $color-secondary;
+        border: 1px solid $color-disable-gray;
+    }
+
+    &:hover {
         transition: $animation-fast ease-out;
         box-shadow: $color-element-shadow 0 0 25px;
         transform: scale(1.01);
     }
 
+    //Icons
+    &.back {
+        background-image: url('#{$images-path}icons/glyph-chevron-left-color.svg');
+        @extend %icon;
+    }
+    &.plus {
+        background-image: url('#{$images-path}icons/glyph-plus-negative.svg');
+        @extend %icon;
+    }
+
+}
+
+%icon {
+    padding-left: 40px;
+    background-size: 25px;
+    background-repeat: no-repeat;
+    background-position: 10px 11px;
 }
 

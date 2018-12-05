@@ -4,11 +4,12 @@
 
         display: grid;
         grid-auto-rows: 57px;
-        grid-gap: 20px;
+        grid-gap: 10px;
         margin: 20px 15px;
         @media screen and (min-width: $laptop-min) {
           margin: 0;
           margin-bottom: 20px;
+          grid-gap: 20px;
         }
 
         &__NoMatch{

@@ -8,6 +8,7 @@
 
     &__input {
         width: 100%;
+        font-family: inherit;
         height: inherit;
         border: none;
         border-bottom: solid 1px $color-disable-gray;
@@ -21,13 +22,15 @@
         &::placeholder{
             color: $color-disable-gray;
         }
-        &:focus{
-            border-color: $color-gray;
-        }
         &.--negative:focus {
             border-color: $color-text-negative;
         }
     }
+    &:not(.no-highlight) &__input:focus{
+        border-color: $color-gray;
+    }
+
+    //:not(.no-highlight)
 
     &__input:focus + &__label, &__label.--active, &__label.--icon.--active {
         font-size: 12px;
