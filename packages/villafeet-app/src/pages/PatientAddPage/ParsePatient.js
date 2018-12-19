@@ -1,6 +1,6 @@
 //Create a model to be send to firestore
 function parseBirthday(stringDate){
-    return new Date(`${stringDate} 13:00:00`);
+    return new Date(`${stringDate}T13:00:00`);
 }
 
 const ParsePatient = (data) => {

@@ -18,7 +18,7 @@ export const PatientFormData = [
       { id: 9, name:'talla', value: '', label:'Talla', type: 'number' },
       { id: 10, name:'direccion', value: '', label:'Calle y número (opcional)', type: 'text' },
       {
-        id: 11, name:'estado', value: 'jalisco', label:'Estado', type: 'select',
+        id: 11, name:'estado', value: 'Jalisco', label:'Estado', type: 'select',
         options: [...states]
       },
       { id: 12, name:'municipio', value: '', label:'Municipio (opcional)', type: 'text' },
