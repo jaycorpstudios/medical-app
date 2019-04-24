@@ -14,7 +14,6 @@ import MapPatientData from './mapPatientData';
 import './PatientDetailsPage.scss';
 
 function mapPersonalData(personal) {
-  console.log(personal);
   const personalData = [];
 
   function getAge(time) {

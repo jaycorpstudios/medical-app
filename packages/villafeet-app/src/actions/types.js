@@ -5,7 +5,11 @@ export const LOGIN_IN_PROGRESS = 'LOGIN_IN_PROGRESS';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
 export const PROCESS_LOGOUT = 'PROCESS_LOGOUT';
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+
+//USER
+export const USER_GET = 'USER_GET';
+export const USER_IN_PROGRESS = 'USER_IN_PROGRESS';
+export const USER_SUCCESS = 'USER_SUCCESS';
 
 //PATIENT
 export const ADD_PATIENT = 'ADD_PATIENT';

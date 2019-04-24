@@ -2,40 +2,47 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import './UserHeader.scss';
-import CacheHelper from './../../utils/cache';
-import { logout } from './../../actions';
+import { logout, getUserData } from './../../actions';
 
-const UserHeader = props => {
-    const { nombre, apellido, avatar, isLoaded } = props.user;
-    const nombreCompleto = `${nombre} ${apellido}`;
-    const auth = CacheHelper.getItem('auth'),
-              isAuthenticated = auth && auth.authenticated || false;
+class UserHeader extends React.Component {
 
-    if(!isAuthenticated){
-        return <Redirect to={ { pathname: '/' } } />
+    componentDidMount() {
+        this.props.getUser();
     }
 
-    return (
-        <header className="UserHeader visible-lg">
-            <button className="UserHeader__action notifications"></button>
-            <button className="UserHeader__action settings"></button>
-            {isLoaded && <figure className="UserHeader__user">
-                <figcaption className="theme-body-small">{nombreCompleto}</figcaption>
-                <img src={avatar} alt={nombreCompleto} onClick={props.logout}/>
-            </figure>}
-        </header>
-    )
+    render(){
+        const { name, lastName, avatar, id=null } = this.props.user;
+        const isLoaded = !!id;
+        const fullName = `${name} ${lastName}`;
+
+        if(!this.props.auth.authenticated){
+            return <Redirect to={ { pathname: '/' } } />
+        }
+
+        return (
+            <header className="UserHeader visible-lg">
+                <button className="UserHeader__action notifications"></button>
+                <button className="UserHeader__action settings"></button>
+                {isLoaded && <figure className="UserHeader__user">
+                    <figcaption className="theme-body-small">{fullName}</figcaption>
+                    <img src={avatar} alt={fullName} onClick={this.props.logout}/>
+                </figure>}
+            </header>
+        )
+    }
 }
 
 function mapDispachToProps (dispatch) {
     return {
-        logout: () => dispatch(logout())
+        logout: () => dispatch(logout()),
+        getUser: () => dispatch(getUserData())
     }
 }
 
 function mapStateToProps (state) {
     return {
-        user: state.firebase.profile
+        user: state.user.data,
+        auth: state.auth
     }
 }
 

@@ -2,7 +2,7 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAILED,
     LOGIN_IN_PROGRESS,
-    LOGOUT_SUCCESS
+    PROCESS_LOGOUT
 } from '../actions/types';
 import cacheHelper from './../utils/cache';
 
@@ -15,19 +15,21 @@ function authError (state, error) {
     return { ...state, error: { message } };
 }
 
-function setAuth (state, user) {
-    cacheHelper.setItem('auth', {authenticated: true, uid: user.uid });
-    return {...state, authenticated: true, uid: user.uid };
+function setAuth (state, token) {
+    cacheHelper.setItem('auth', { token, authenticated: true });
+    return {...state, authenticated: true };
 }
 function removeAuth (state) {
     cacheHelper.setItem('auth', null);
-    return {...state, authenticated: false, uid: null };
+    return {...state, authenticated: false };
 }
 
+const auth = cacheHelper.getItem('auth'),
+      isAuthenticated = auth && auth.authenticated || false;
+
 const initialState = {
-    authenticated: false,
+    authenticated: isAuthenticated,
     inProgress: false,
-    user: {},
     error: {}
 }
 export default function LoginReducer (state = initialState, action) {
@@ -35,10 +37,11 @@ export default function LoginReducer (state = initialState, action) {
     case LOGIN_IN_PROGRESS:
         return authInProgress(state, action.payload.status);
     case LOGIN_SUCCESS:
-        return setAuth(state, action.payload.userData);
+        const { token } = action.payload;
+        return setAuth(state, token);
     case LOGIN_FAILED:
         return authError(state, action.payload.error);
-    case LOGOUT_SUCCESS:
+    case PROCESS_LOGOUT:
         return removeAuth(state);
     default:
       return state

@@ -1,32 +1,56 @@
 //TODO: Split sagas by type
 import 'regenerator-runtime/runtime';
-import { PROCESS_LOGIN, PROCESS_LOGOUT, ADD_PATIENT } from './../actions/types';
+import { PROCESS_LOGIN, ADD_PATIENT, USER_GET } from './../actions/types';
 import {
-        loginInProgress, loginSuccess, loginFailed, logoutSuccess,
+        loginInProgress, loginSuccess, loginFailed, logout,
+        userInProgress, userDataSuccess,
         patientRecordInProgress, patientRecordSuccess, patientRecordFailed
 } from './../actions';
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
+
+import ApiService from './../services/ApiService';
+
+//TODO: Remove firebase dependency once login and patient actions are migrated to rest API
 import firebase from './../firebase';
 
-export function * loginOnFirebaseSaga ({ payload:{credentials} }) {
+function extractJwtFromAuthHeader(token = '') {
+    return token.replace(/Bearer /,'');
+};
+
+export function * loginSaga ({ payload:{credentials} }) {
     yield put(loginInProgress(true));
     try {
-        const response = yield call(firebase.login, credentials);
-        const {user:{user}} = response;
-        yield put(loginSuccess(user));
+        const options = { body: {...credentials} }
+        const response = yield ApiService.post({endpoint: 'auth/login', options});
+        if(response.success){
+            const { token } = response;
+            const parsedToken = extractJwtFromAuthHeader(token);
+            yield put(loginSuccess(parsedToken));
+        } else {
+            const { message = 'Error en proceso de Login' } = response;
+            yield put(loginFailed({ message }));
+        }
         yield put(loginInProgress(false));
     } catch(error) {
-        yield put(loginFailed({message: 'Usuario o password incorrecto'}));
+        const { message='Error durante el proceso de Login' } = error;
+        yield put(loginFailed({ message }));
         yield put(loginInProgress(false));
     }
 }
 
-export function * logoutFirebaseSaga () {
+function * getUserDataSaga () {
+    yield put(userInProgress(true));
     try {
-        yield call(firebase.logout);
-        yield put(logoutSuccess());
+        const response = yield ApiService.get({endpoint: 'auth/me'});
+        if(response.unauthorized){
+            yield put(logout());
+        } else {
+            yield put(userDataSuccess(response));
+            yield put(userInProgress(false));
+        }        
     } catch(error) {
-        console.error('Error on logout');
+        //TODO: set user error flag and properly log error.
+        yield put(userInProgress(false));
     }
 }
 
@@ -44,7 +68,7 @@ export function * addPatientSaga ({ payload:{patient} }) {
 }
 
 export default function * rootSaga () {
-  yield takeEvery(PROCESS_LOGIN, loginOnFirebaseSaga);
-  yield takeEvery(PROCESS_LOGOUT, logoutFirebaseSaga);
+  yield takeEvery(PROCESS_LOGIN, loginSaga);
+  yield takeEvery(USER_GET, getUserDataSaga);
   yield takeEvery(ADD_PATIENT, addPatientSaga);
 }

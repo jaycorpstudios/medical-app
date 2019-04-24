@@ -5,7 +5,9 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAILED,
     PROCESS_LOGOUT,
-    LOGOUT_SUCCESS,
+    USER_GET,
+    USER_IN_PROGRESS,
+    USER_SUCCESS,
     ADD_PATIENT,
     PATIENT_RECORD_IN_PROGRESS,
     PATIENT_RECORD_SUCCESS,
@@ -27,10 +29,10 @@ export function loginInProgress (status) {
     }
 }
 
-export function loginSuccess (userData) {
+export function loginSuccess (token) {
     return {
         type: LOGIN_SUCCESS,
-        payload: { userData }
+        payload: { token }
     }
 }
 
@@ -46,9 +48,22 @@ export function logout () {
         type: PROCESS_LOGOUT
     }
 }
-export function logoutSuccess () {
+
+export function getUserData() {
     return {
-        type: LOGOUT_SUCCESS
+        type: USER_GET
+    }
+}
+export function userInProgress(status) {
+    return {
+        type: USER_IN_PROGRESS,
+        payload: { status }
+    }
+}
+export function userDataSuccess(userData) {
+    return {
+        type: USER_SUCCESS,
+        payload: { userData }
     }
 }
 
