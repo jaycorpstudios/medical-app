@@ -1,7 +1,15 @@
 import httpStatus from 'http-status'
 import passport from 'passport'
+import jwt from 'jsonwebtoken'
+import config from './../../config/env'
 import APIError from '../helpers/APIError'
 import User from '../models/user.model'
+
+/**
+ * Token expiration expressed in seconds
+ * or a string describing a time span zeit/ms. Eg: 60, "2 days", "10h", "7d" 
+ */
+const tokenExpiration = '1 days'
 
 /**
  * Returns passport login response (cookie) when valid username and password is provided
@@ -10,7 +18,18 @@ import User from '../models/user.model'
  * @returns {*}
  */
 function login(req, res) {
-  return res.json(req.user)
+  const payload = {
+    email: req.user.email,
+    avatar: req.user.avatar,
+    name: req.user.name,
+    lastName: req.user.lastName,
+    id: req.user._id,
+    role: req.user.role,
+  }
+  jwt.sign(payload, config.passportSecret, { expiresIn: tokenExpiration }, (err, token) => {
+    if (err) res.status(500).json({ error: 'Error signing token', raw: err })
+    res.json({ success: true, token: `Bearer ${token}` })
+  })
 }
 
 /**
@@ -31,7 +50,19 @@ function register(req, res, next) {
     }
 
     passport.authenticate('local')(req, res, () => {
-      res.json({ user })
+      //encrypt and response with token
+      const payload = {
+        email: user.email,
+        avatar: user.avatar,
+        name: user.name,
+        lastName: user.lastName,
+        id: user._id,
+        role: user.role,
+      }
+      jwt.sign(payload, config.passportSecret, { expiresIn: tokenExpiration }, (err, token) => {
+        if (err) res.status(500).json({ error: 'Error signing token', raw: err })
+        res.json({ success: true, token: `Bearer ${token}` })
+      })
     })
   })
 }
@@ -44,9 +75,9 @@ function register(req, res, next) {
  * @returns {*}
  */
 function me(req, res, next) {
+  //TODO: Get more info about the user
   if (!req.user) {
-    const error = new APIError('Authentication error', httpStatus.UNAUTHORIZED)
-    next(error)
+    next(new APIError('Authentication error', httpStatus.UNAUTHORIZED))
   }
 
   res.json(req.user)
@@ -60,12 +91,22 @@ function me(req, res, next) {
  * @returns {*}
  */
 function checkAuth(req, res, next) {
-  if (!req.user) {
-    const error = new APIError('Authentication error', httpStatus.UNAUTHORIZED)
-    next(error)
-  }
+  const { authorization } = req.headers
 
-  next()
+  if (authorization) {
+    const parsedTokenHeader = /Bearer\s(.*)/.exec(authorization)
+    const token = parsedTokenHeader ? parsedTokenHeader[1] : ''
+    jwt.verify(token, config.passportSecret, function(err, decoded) {
+      if (err) {
+        next(new APIError('Authentication error', httpStatus.UNAUTHORIZED))
+      } else {
+        req.user = decoded
+        next()
+      }
+    })
+  } else {
+    next(new APIError('Authentication error', httpStatus.UNAUTHORIZED))
+  }
 }
 
 export default { login, register, me, checkAuth }

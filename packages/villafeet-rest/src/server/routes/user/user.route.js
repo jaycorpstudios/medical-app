@@ -6,7 +6,8 @@ import authCtrl from '../../controllers/auth.controller'
 
 const router = express.Router() // eslint-disable-line new-cap
 
-router.route('/') /** GET /api/users - Get list of users */.get(userCtrl.list)
+/** GET /api/users - Get list of users */
+router.route('/').get(userCtrl.list)
 
 router
   .route('/:userId')
