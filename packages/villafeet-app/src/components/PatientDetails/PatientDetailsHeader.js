@@ -8,17 +8,17 @@ import dateUtils from './../../utils/dateUtils';
 
 const PatientDetailsHeader = props => {
 
-    const { avatarUrl, nombre, ultimaVisita:timestamp, gender } = props;
-    const ultimaVisita = timestamp.toDate && timestamp.toDate() || null;
+    const { avatar, name, lastVisit:timestamp, gender } = props;
+    const lastVisit = timestamp && timestamp.toDate && timestamp.toDate() || null;
 
-    const time = dateUtils.getFormatedDate(ultimaVisita);
+    const time = dateUtils.getFormatedDate(lastVisit);
 
     return(
         <section className="PatientDetailsHeader">
           <Link className="PatientDetailsHeader__back visible-xs" to={'/pacientes'}></Link>
-          <UserPhoto className="PatientDetailsHeader__user-photo" src={avatarUrl} name={nombre} gender={gender}/>
+          <UserPhoto className="PatientDetailsHeader__user-photo" src={avatar} name={name} gender={gender}/>
           <div>
-            <h1 className="theme-heading-small PatientDetailsHeader__name">{nombre}</h1>
+            <h1 className="theme-heading-small PatientDetailsHeader__name">{name}</h1>
             {time && <h3 className="theme-body-small PatientDetailsHeader__consulta">Última consulta: <br className="visible-xs"/>{time}</h3>}
           </div>
         </section>

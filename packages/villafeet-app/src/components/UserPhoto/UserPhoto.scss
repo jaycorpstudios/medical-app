@@ -8,10 +8,10 @@ figure.UserPhoto {
     align-items: center;
     text-shadow: 0 0 5px $color-element-shadow;
 
-    &.hombre {
+    &.male {
         background-color: $color-male-photo;
     }
-    &.mujer {
+    &.female {
         background-color: $color-female-photo;
     }
 }

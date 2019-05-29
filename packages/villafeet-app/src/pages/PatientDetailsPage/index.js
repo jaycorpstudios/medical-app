@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { firestoreConnect } from 'react-redux-firebase';
-import { compose } from 'redux';
 import { Link } from 'react-router-dom';
 
+import { fetchPatient, fetchReset } from './../../actions'
+import { FETCH_KEY_GET_PATIENT } from './../../actions/types'
 import LoadingState from './../../components/LoadingState';
 import PatientDetailsHeader from './../../components/PatientDetails/PatientDetailsHeader';
 import PatientSectionTabs from './../../components/PatientDetails/PatientSectionTabs';
@@ -13,33 +13,6 @@ import MapPatientData from './mapPatientData';
 
 import './PatientDetailsPage.scss';
 
-function mapPersonalData(personal) {
-  const personalData = [];
-
-  function getAge(time) {
-    const birthday = time.toDate();
-    const age = new Date().getFullYear() - birthday.getFullYear();
-    return `${age} años`;
-  }
-
-  const fields = {
-    direccion: { text: 'Dirección' },
-    estado: {text: 'Estado'},
-    municipio: { text: 'Municipio' },
-    ocupacion: { text: 'Ocupación' },
-    talla: { text: 'Talla' },
-    fechaNacimiento: {text: 'Edad', parser: getAge }
-  }
-  Object.keys(personal).forEach( key => {
-    const field = fields[key];
-    if(field){
-      const value = field.parser ? field.parser(personal[key]) : personal[key];
-      personalData.push({ field: field.text, value });
-    }
-  })
-  return personalData;
-}
-
 class PatientDetailsPage extends React.Component {
 
   constructor(props){
@@ -47,55 +20,61 @@ class PatientDetailsPage extends React.Component {
     this.state = { selectedTab: 'personal' }
   }
 
-  render(){
+  componentWillMount() {
+    const {idPaciente = ''} = this.props.match.params;
+    this.props.fetchPatient(idPaciente)
+  }
+
+  componentWillUnmount() {
+    this.props.patientStatusRestore()
+  }
+
+  render() {
     const {
-            patients:[patient = {} ] = [],
-            status:{requesting:request} = {},
-            match: { params:{idPaciente} } = ''
+            patient = {},
+            status: { inProgress = true } = {}
           } = this.props;
-    const requesting = request[`pacientes/${idPaciente}`];
 
-    const { avatarUrl, ultimaVisita, personal = {} } = patient;
-    const { nombre = '', apellidoPaterno = '', apellidoMaterno = '', sexo:gender } = personal;
-    const nombreCompleto = `${nombre} ${apellidoPaterno} ${apellidoMaterno}`;
+    const { name = '', firstSurname = '', secondSurname = '', gender, avatar, lastVisit, contact = {}, address = {}, others = {} } = patient;
+    const fullName = `${name} ${firstSurname} ${secondSurname}`;
+    patient.profession = others.profession;
 
-    const personalData = MapPatientData(personal, 'personal');
-    const contactData = MapPatientData(personal, 'contact');
+    const contactData = MapPatientData(contact, 'contact');
+    const addressData = MapPatientData(address, 'address');
+    const personalData = MapPatientData(patient, 'personal');
 
-
-    if(requesting) {
-      return <LoadingState/>
-    }
+    if(inProgress) return <LoadingState/>
 
     return (
       <article className="PatientDetailsPage">
         <section className="PatientDetailsPage__back hidden-xs">
           <Link to={'/pacientes'}><TernaryButton title='Regresar' negative={true} icon='back'/></Link>
         </section>
-        <PatientDetailsHeader nombre={nombreCompleto} gender={gender} avatarUrl={avatarUrl} ultimaVisita={ultimaVisita} />
+        <PatientDetailsHeader name={fullName} gender={gender} avatar={avatar} lastVisit={lastVisit} />
         <PatientSectionTabs/>
         <section className="PatientDetailsPage__details">
           <PatientDetailsGroup title='Datos personales' data={personalData}/>
           <PatientDetailsGroup title='Contacto' data={contactData}/>
+          <PatientDetailsGroup title='Dirección' data={addressData}/>
         </section>
       </article>
     )
   }
 }
 
-function mapStateToProps (state, props) {
+function mapStateToProps (state) {
+  const { detail } = state.patients;
   return {
-    patients: state.firestore.ordered.pacientes,
-    data: state.firestore.data.pacientes,
-    status: state.firestore.status
+    patient: detail.data,
+    status: detail.status
   }
 }
 
-function mapFirebase (props) {
-   const {idPaciente} = props.match.params;
-  return [
-    `/pacientes/${idPaciente}`
-   ]
+function mapDispatchToProps (dispatch) {
+  return {
+      patientStatusRestore: () => { dispatch(fetchReset(FETCH_KEY_GET_PATIENT)) },
+      fetchPatient: (idPatient) => { dispatch(fetchPatient(idPatient)) }
+  }
 }
 
-export default compose(firestoreConnect(mapFirebase), connect(mapStateToProps, null))(PatientDetailsPage)
+export default connect(mapStateToProps, mapDispatchToProps)(PatientDetailsPage)

@@ -3,34 +3,20 @@ function parseBirthday(stringDate){
     return new Date(`${stringDate}T13:00:00`);
 }
 
+const mapValuesToObj = (data = []) => {
+    let mappedObject = {};
+    data.forEach( field => mappedObject[field.name] = field.value);
+    return mappedObject;
+}
+
 const ParsePatient = (data) => {
-    const personal = {},
-          contact = {},
-          medicalHistory = {};
-
-    const today = new Date();
-
-    data.personal.forEach( field => {
-        if(field.name === 'correo' || field.name === 'telefono'){
-            contact[field.name] = field.value;
-        }
-        const value = field.name === 'fechaNacimiento' ? parseBirthday(field.value) : field.value;
-        personal[field.name] = value;
-    });
-
-    if(data.medicalHistory){
-        data.medicalHistory.forEach( field => {
-            medicalHistory[field.name] = field.value;
-        });
-    }
+    let patient = mapValuesToObj(data.patient);
+    patient.birthday = parseBirthday(patient.birthday);
 
     const PatientModel = {
-        personal,
-        contact,
-        medicalHistory,
-        ultimaVisita: today,
-        fechaCreado: today,
-        avatarUrl: ''
+        ...patient,
+        contact: mapValuesToObj(data.contact),
+        address: mapValuesToObj(data.address)
     };
     return PatientModel;
 }

@@ -8,8 +8,8 @@ const PatientsList = props => {
     const { patients, loading } = props;
 
     const Patients = ({component: Component}) => {
-        return patients.map(({id, ...rest}) => {
-            return(<Component key={id} id={id} {...rest} />)
+        return patients.map(({ _id, ...rest}, index) => {
+            return(<Component key={index} id={_id} {...rest} />)
         })
     }
 

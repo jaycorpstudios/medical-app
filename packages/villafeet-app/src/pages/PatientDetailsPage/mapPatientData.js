@@ -1,29 +1,39 @@
-function getAge(timeStamp) {
-    const birthday = timeStamp.toDate();
+function getAge(date) {
+    const birthday = new Date(date);
     const age = new Date().getFullYear() - birthday.getFullYear();
-    return `${age} años`;
+    return age > 0 ? `${age} años` : '';
+}
+
+const AddressFields = {
+    address1: { text: 'Dirección' },
+    address2: { text: '' },
+    city: { text: 'Ciudad' },
+    state: {text: 'Estado'},
+    district: { text: 'Municipio' },
+    country: {text: 'País'},
+    zip: { text: 'Código postal' },
+    birthday: { text: 'Edad', parser: getAge }
 }
 
 const PersonalFields = {
-    direccion: { text: 'Dirección' },
-    estado: {text: 'Estado'},
-    municipio: { text: 'Municipio' },
-    ocupacion: { text: 'Ocupación' },
-    talla: { text: 'Talla' },
-    fechaNacimiento: { text: 'Edad', parser: getAge }
+    birthday: { text: 'Edad', parser: getAge },
+    profession: { text: 'Profesión' }
 }
 
+
 const ContactFields = {
-    correo: { text: 'Correo' },
-    telefono: {text: 'Teléfono'},
+    email: { text: 'Correo' },
+    phone: {text: 'Teléfono'},
 }
 
 function getFields(type) {
     switch(type){
-        case 'personal':
-            return PersonalFields
+        case 'address':
+            return AddressFields
         case 'contact':
             return ContactFields
+        case 'personal':
+            return PersonalFields
         default:
             return {}
     }

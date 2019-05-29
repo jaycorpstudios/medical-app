@@ -35,9 +35,13 @@ export default class ApiInterceptor {
     const url = `${this.baseUrl}${endpoint}`;
     return new Promise( (resolve, reject) => {
       fetch(url, requestOptions ).then( res => {
-        if(res.status === 401){
+        if(res.status === 401) {
           resolve({success: false, unauthorized: true , message: 'Unauthorized'});
-        } else {
+        } if (res.status !== 200) {
+          //TODO: Create strategy for errors (use codes) errors need res.json() to read message
+          throw { status: res.status, message: res.statusText }
+        }
+        else {
           return res.json();
         }
       })

@@ -9,10 +9,11 @@ import {
     USER_IN_PROGRESS,
     USER_SUCCESS,
     ADD_PATIENT,
-    PATIENT_RECORD_IN_PROGRESS,
-    PATIENT_RECORD_SUCCESS,
-    PATIENT_RECORD_FAILED,
-    PATIENT_RECORD_RESTORE
+    SET_NEW_PATIENT,
+    FETCH_PATIENTS,
+    SET_PATIENTS,
+    FETCH_PATIENT,
+    SET_PATIENT
   } from './types'
 
 export function processLogin (credentials) {
@@ -74,26 +75,38 @@ export function addPatient (patient) {
     }
 }
 
-export function patientRecordInProgress (status) {
+export function setNewPatient (patient) {
     return {
-        type: PATIENT_RECORD_IN_PROGRESS,
-        payload: { status }
+        type: SET_NEW_PATIENT,
+        patient
     }
 }
 
-export function patientRecordSuccess(){
+export function fetchPatients () {
     return {
-        type: PATIENT_RECORD_SUCCESS
+        type: FETCH_PATIENTS
     }
 }
 
-export function patientRecordFailed(){
+export function setPatients (payload) {
     return {
-        type: PATIENT_RECORD_FAILED
+        type: SET_PATIENTS,
+        payload
     }
 }
-export function patientRecordRestore(){
+
+export function fetchPatient (patientId) {
     return {
-        type: PATIENT_RECORD_RESTORE
+        type: FETCH_PATIENT,
+        patientId
     }
 }
+
+export function setPatient (patient) {
+    return {
+        type: SET_PATIENT,
+        patient
+    }
+}
+
+export * from './fetch'

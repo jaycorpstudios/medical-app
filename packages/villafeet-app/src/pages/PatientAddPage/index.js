@@ -2,10 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { addPatient } from './../../actions';
+import { addPatient, fetchReset } from './../../actions';
+import { FETCH_KEY_ADD_PATIENT } from './../../actions/types'
 import ThemeButton from  './../../components/ThemeButton';
 import FormGroupData from './../../components/FormGroupData';
-import { PatientFormData, AntecedentesFormData } from './FormData';
+import { PatientFormData, AddressFormData, ContactFormData } from './FormData';
 import ParsePatient from './ParsePatient';
 import LoadingLayer from './../../components/LoadingLayer';
 
@@ -26,7 +27,11 @@ class PatientAddPage extends React.Component {
   }
 
   componentWillMount() {
-    this.setState({formData: { personal: PatientFormData, medicalHistory: AntecedentesFormData } });
+    this.setState({ formData: { patient: PatientFormData, address: AddressFormData, contact: ContactFormData } });
+  }
+
+  componentWillUnmount() {
+    this.props.patientStatusRestore()
   }
 
   getDataFromField(name, section) {
@@ -57,7 +62,8 @@ class PatientAddPage extends React.Component {
   render() {
     const { status: { inProgress = false, success = false } = {} } = this.props;
     if(!inProgress && success) {
-      return <Redirect to={ { pathname: '/pacientes' } } />
+      const { patient } = this.props;
+      return <Redirect to={ { pathname: `/pacientes/${patient._id}` } } />
     }
     return (
       <article className="PatientAddPage">
@@ -66,8 +72,9 @@ class PatientAddPage extends React.Component {
           <h1 className="theme-heading-large">Alta de paciente</h1>
         </header>
         <form className="PatientAddPage__form" autoComplete="off" onSubmit={this.processPatient}>
-          <FormGroupData title='Datos personales' data={this.state.formData.personal} section="personal" handleInputData={this.handleInputData}/>
-          <FormGroupData title='Antecedentes médicos' data={this.state.formData.medicalHistory} section="medicalHistory" handleInputData={this.handleInputData}/>
+          <FormGroupData title='Datos personales' data={this.state.formData.patient} section="patient" handleInputData={this.handleInputData}/>
+          <FormGroupData title='Contacto' data={this.state.formData.contact} section="contact" handleInputData={this.handleInputData}/>
+          <FormGroupData title='Dirección' data={this.state.formData.address} section="address" handleInputData={this.handleInputData}/>
           <ThemeButton className="PatientAddPage__saveBtn" title="Agregar" onClick={this.processPatient}/>
           <ThemeButton className="PatientAddPage__cancelBtn" title="Cancelar" secondary={true} onClick={this.goBack}/>
         </form>
@@ -77,13 +84,16 @@ class PatientAddPage extends React.Component {
 }
 
 function mapStateToProps (state) {
+  const { newRecord } = state.patients;
   return {
-    status: state.patients.record
+    status: newRecord.status,
+    patient: newRecord.data 
   }
 }
 function mapDispatchToProps (dispatch) {
   return {
-      addPatient: patient => { dispatch(addPatient(patient)) }
+      addPatient: patient => { dispatch(addPatient(patient)) },
+      patientStatusRestore: () => { dispatch(fetchReset(FETCH_KEY_ADD_PATIENT)) },
   }
 }
 

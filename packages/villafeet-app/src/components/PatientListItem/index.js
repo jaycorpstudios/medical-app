@@ -8,18 +8,18 @@ import './PatientListItem.scss';
 export default class PatientListItem extends React.Component {
 
     render(){
-        const { avatarUrl, id, ultimaVisita:timestamp = ''  } = this.props;
-        const { nombre, apellidoPaterno='', apellidoMaterno='', sexo:gender } = this.props.personal;
-        const nombreCompleto = `${nombre} ${apellidoPaterno} ${apellidoMaterno}`;
+        const { avatar, id, lastVisit:timestamp = ''  } = this.props;
+        const { name = '', firstSurname = '', secondSurname='', gender } = this.props;
+        const fullName = `${name} ${firstSurname} ${secondSurname}`;
 
-        const ultimaVisita = timestamp.toDate && timestamp.toDate() || null;
-        const time = dateUtils.getFormatedDate(ultimaVisita);
+        const lastVisit = timestamp.toDate && timestamp.toDate() || null;
+        const time = dateUtils.getFormatedDate(lastVisit);
 
         return(
             <Link to={`/pacientes/${id}`}>
                 <article className="PatientListItem">
-                    <UserPhoto className="PatientListItem__user-photo" src={avatarUrl} name={nombreCompleto} gender={gender}/>
-                    <span className="theme-body-small">{nombreCompleto}</span>
+                    <UserPhoto className="PatientListItem__user-photo" src={avatar} name={fullName} gender={gender}/>
+                    <span className="theme-body-small">{fullName}</span>
                     <span className="PatientListItem__last-visit theme-body-small hidden-xs">{time}</span>
                     <button className="PatientListItem__contact-btn visible-xs"></button>
                     <button className="PatientListItem__edit-btn hidden-xs"></button>

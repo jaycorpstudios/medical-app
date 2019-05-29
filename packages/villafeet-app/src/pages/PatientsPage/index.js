@@ -1,10 +1,9 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { firestoreConnect } from 'react-redux-firebase';
-import { compose } from 'redux';
-import { Link } from 'react-router-dom';
-import { patientRecordRestore } from './../../actions';
+import React from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
+import { fetchReset, fetchPatients } from './../../actions'
+import { FETCH_KEY_ADD_PATIENT } from './../../actions/types'
 import ThemeInput from  './../../components/ThemeInput';
 import ThemeButton from  './../../components/ThemeButton';
 import TernaryButton from './../../components/TernaryButton';
@@ -23,10 +22,11 @@ class PatientsPage extends React.Component {
 
   componentWillMount() {
     this.props.patientRecordRestore();
+    this.props.fetchPatients();
   }
 
   filterPatients(criteria = '', patients) {
-    return [...patients].filter( filterByName(criteria, 'nombre') );
+    return [...patients].filter( filterByName(criteria, 'name') );
   }
 
   handleFilter(event) {
@@ -35,7 +35,8 @@ class PatientsPage extends React.Component {
   }
 
   render(){
-    const { patients = [], status:{requesting:{pacientes: loading } } = true } = this.props;
+    const { patients = [], status:{ inProgress = true } } = this.props;
+    const { filter } = this.state;
 
     return (
       <div className="PatientsPage">
@@ -44,7 +45,7 @@ class PatientsPage extends React.Component {
           <Link to={'/pacientes/agregar'}><TernaryButton title='Agregar paciente' icon='plus'/></Link>
         </div>
         <ThemeInput className="PatientsPage__filter no-highlight" type="search" icon="search" placeholder="Nombre del paciente" value={this.state.filter} onChange={this.handleFilter.bind(this)}/>
-        <PatientsList patients={ this.filterPatients(this.state.filter, patients)} loading={loading}/>
+        <PatientsList patients={this.filterPatients(filter, patients)} loading={inProgress}/>
         <div className="PatientsPage__mobile-cta visible-xs">
         <Link to={'/pacientes/agregar'}><ThemeButton title="Agregar"/></Link>
         </div>
@@ -54,20 +55,19 @@ class PatientsPage extends React.Component {
 }
 
 function mapStateToProps (state) {
+  const { list } = state.patients;
   return {
-    patients: state.firestore.ordered.pacientes,
-    status: state.firestore.status
+    patients: list.data.patients,
+    status: list.status
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-      patientRecordRestore: () => { dispatch(patientRecordRestore()) }
+      patientRecordRestore: () => { dispatch(fetchReset(FETCH_KEY_ADD_PATIENT)) },
+      fetchPatients: () => { dispatch(fetchPatients()) }
   }
 }
 
-function mapFirebase () {
-   return ['pacientes']
-}
 
-export default compose(firestoreConnect(mapFirebase), connect(mapStateToProps, mapDispatchToProps))(PatientsPage)
+export default connect(mapStateToProps, mapDispatchToProps)(PatientsPage)

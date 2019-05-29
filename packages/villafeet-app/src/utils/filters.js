@@ -5,8 +5,8 @@ const normalize = (string='') => string.toLowerCase()
 
 export const filterByName = (criteria) => {
     return target => {
-        const { nombre, apellidoPaterno='', apellidoMaterno='' } = target.personal;
-        const nombreCompleto = `${nombre} ${apellidoPaterno} ${apellidoMaterno}`;
-        return normalize(nombreCompleto).includes(normalize(criteria));
+        const { name, firstSurname='', secondSurname='' } = target;
+        const fullName = `${name} ${firstSurname} ${secondSurname}`;
+        return normalize(fullName).includes(normalize(criteria));
     };
 }
