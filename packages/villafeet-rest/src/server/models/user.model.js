@@ -20,6 +20,9 @@ const UserSchema = new mongoose.Schema({
   avatar: {
     type: String,
   },
+  groupId: {
+    type: String,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

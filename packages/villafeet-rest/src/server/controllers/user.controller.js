@@ -3,21 +3,20 @@ import User from '../models/user.model'
 /**
  * Load user and append to req.
  */
-function load(req, res, next, id) {
-  User.get(String(id))
-    .then(user => {
-      req.user = user // eslint-disable-line no-param-reassign
-      return next()
-    })
-    .catch(e => next(e))
+async function load(req, res, next) {
+  const { userId } = req.params
+  const user = await User.get(userId)
+  req.user = user
+  return next()
 }
 
 /**
  * Get user
  * @returns {User}
  */
-function get(req, res) {
-  return res.json(req.user)
+
+async function get(req, res) {
+  res.json(req.user)
 }
 
 /**
@@ -27,8 +26,8 @@ function get(req, res) {
  */
 function update(req, res, next) {
   const user = req.user
-  user.email = req.body.email
-
+  //TODO: Handle update data (e.g.)
+  //user.email = req.body.email
   user.save().then(savedUser => res.json(savedUser)).catch(e => next(e))
 }
 
@@ -38,18 +37,20 @@ function update(req, res, next) {
  * @property {number} req.query.limit - Limit number of users to be returned.
  * @returns {User[]}
  */
-function list(req, res, next) {
+async function list(req, res) {
   const { limit = 50, skip = 0 } = req.query
-  User.list({ limit, skip }).then(users => res.json(users)).catch(e => next(e))
+  const users = await User.list({ limit, skip })
+  res.json(users)
 }
 
 /**
  * Delete user.
  * @returns {User}
  */
-function remove(req, res, next) {
-  const user = req.user
-  user.remove().then(deletedUser => res.json(deletedUser)).catch(e => next(e))
+async function remove(req, res, next) {
+  const { user } = req
+  const deleted = await user.remove()
+  res.json(deleted)
 }
 
 export default { load, get, update, list, remove }

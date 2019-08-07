@@ -40,8 +40,9 @@ function login(req, res) {
  * @returns {*}
  */
 function register(req, res, next) {
-  const newUser = new User({ email: req.body.email })
-  User.register(newUser, req.body.password, (err, user) => {
+  const { email, name = '', lastName = '', password } = req.body
+  const newUser = new User({ email, name, lastName })
+  User.register(newUser, password, (err, user) => {
     if (err) {
       //UserExistsError
       const error = new APIError(`Authentication error ${err.name}`, httpStatus.UNAUTHORIZED)
@@ -49,8 +50,8 @@ function register(req, res, next) {
       return
     }
 
+    //encrypt and response with token
     passport.authenticate('local')(req, res, () => {
-      //encrypt and response with token
       const payload = {
         email: user.email,
         avatar: user.avatar,
@@ -98,14 +99,14 @@ function checkAuth(req, res, next) {
     const token = parsedTokenHeader ? parsedTokenHeader[1] : ''
     jwt.verify(token, config.passportSecret, function(err, decoded) {
       if (err) {
-        next(new APIError('Authentication error', httpStatus.UNAUTHORIZED))
+        return next(new APIError('Authentication error', httpStatus.UNAUTHORIZED))
       } else {
         req.user = decoded
-        next()
+        return next()
       }
     })
   } else {
-    next(new APIError('Authentication error', httpStatus.UNAUTHORIZED))
+    return next(new APIError('Authentication error', httpStatus.UNAUTHORIZED))
   }
 }
 
