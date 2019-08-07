@@ -16,7 +16,7 @@ const config = (env, args) => {
       compress: true,
       contentBase: path.resolve(__dirname, 'build'),
       hot: true,
-      port: 8000,
+      port: 8001,
       historyApiFallback: true,
       open: true,
       host: 'localhost',

@@ -1,12 +1,14 @@
 function getAge(date) {
     const birthday = new Date(date);
-    const age = new Date().getFullYear() - birthday.getFullYear();
+    const ageDifMs = new Date().getTime() - birthday.getTime();
+    const ageDate = new Date(ageDifMs);
+    const age = Math.abs(ageDate.getUTCFullYear() - 1970);
     return age > 0 ? `${age} años` : '';
 }
 
 const AddressFields = {
-    address1: { text: 'Dirección' },
-    address2: { text: '' },
+    address1: { text: 'Calle' },
+    address2: { text: 'Interior, piso' },
     city: { text: 'Ciudad' },
     state: {text: 'Estado'},
     district: { text: 'Municipio' },

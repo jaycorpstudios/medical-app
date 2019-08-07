@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { fetchPatient, fetchReset } from './../../actions'
+import { fetchPatient, fetchReset, removePatient } from './../../actions'
 import { FETCH_KEY_GET_PATIENT } from './../../actions/types'
 import LoadingState from './../../components/LoadingState';
 import PatientDetailsHeader from './../../components/PatientDetails/PatientDetailsHeader';
@@ -29,13 +29,18 @@ class PatientDetailsPage extends React.Component {
     this.props.patientStatusRestore()
   }
 
+  onRemovePatient() {
+    const {idPaciente = ''} = this.props.match.params;
+    this.props.removePatient(idPaciente)
+  }
+
   render() {
     const {
             patient = {},
             status: { inProgress = true } = {}
           } = this.props;
 
-    const { name = '', firstSurname = '', secondSurname = '', gender, avatar, lastVisit, contact = {}, address = {}, others = {} } = patient;
+    const { _id = null, name = '', firstSurname = '', secondSurname = '', gender, avatar, lastVisit, contact = {}, address = {}, others = {} } = patient;
     const fullName = `${name} ${firstSurname} ${secondSurname}`;
     patient.profession = others.profession;
 
@@ -49,6 +54,8 @@ class PatientDetailsPage extends React.Component {
       <article className="PatientDetailsPage">
         <section className="PatientDetailsPage__back hidden-xs">
           <Link to={'/pacientes'}><TernaryButton title='Regresar' negative={true} icon='back'/></Link>
+          <Link to={`/pacientes/editar/${_id}`}><TernaryButton title='Editar' negative={true}/></Link>
+          <TernaryButton title='Borrar' negative={true} onClick={ () => { this.onRemovePatient() } }/>
         </section>
         <PatientDetailsHeader name={fullName} gender={gender} avatar={avatar} lastVisit={lastVisit} />
         <PatientSectionTabs/>
@@ -73,7 +80,8 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
       patientStatusRestore: () => { dispatch(fetchReset(FETCH_KEY_GET_PATIENT)) },
-      fetchPatient: (idPatient) => { dispatch(fetchPatient(idPatient)) }
+      fetchPatient: (idPatient) => { dispatch(fetchPatient(idPatient)) },
+      removePatient: (idPatient) => { dispatch(removePatient(idPatient)) }
   }
 }
 

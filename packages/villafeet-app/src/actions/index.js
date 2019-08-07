@@ -9,6 +9,7 @@ import {
     USER_IN_PROGRESS,
     USER_SUCCESS,
     ADD_PATIENT,
+    DELETE_PATIENT,
     SET_NEW_PATIENT,
     FETCH_PATIENTS,
     SET_PATIENTS,
@@ -98,6 +99,13 @@ export function setPatients (payload) {
 export function fetchPatient (patientId) {
     return {
         type: FETCH_PATIENT,
+        patientId
+    }
+}
+
+export function removePatient (patientId) {
+    return {
+        type: DELETE_PATIENT,
         patientId
     }
 }

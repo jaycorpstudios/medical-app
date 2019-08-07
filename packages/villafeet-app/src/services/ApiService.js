@@ -15,14 +15,14 @@ const ApiService = () => {
 	function post({endpoint, options = {} }){
 		return interceptor.fetchData( { endpoint, options: {...options, method: 'POST'} });
 	}
-	function update({endpoint, options = {} }){
-		return interceptor.fetchData( { endpoint, options: {...options, method: 'UPDATE'} });
+	function put({endpoint, options = {} }){
+		return interceptor.fetchData( { endpoint, options: {...options, method: 'PUT'} });
 	}
 	function remove({endpoint, options = {} }){
-		return interceptor.fetchData( { endpoint, options: {...options, method: 'REMOVE'} });
+		return interceptor.fetchData( { endpoint, options: {...options, method: 'DELETE'} });
 	}
-	//Expose get, post, update, delete methods
-	return { get, post, update, remove }
+	//Expose get, post, put, delete methods
+	return { get, post, put, delete: remove }
 }
 
 //return a Singleton instance

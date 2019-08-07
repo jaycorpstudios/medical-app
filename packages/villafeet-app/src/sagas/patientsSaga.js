@@ -1,6 +1,6 @@
 import 'regenerator-runtime/runtime';
 import {
-    ADD_PATIENT, FETCH_PATIENTS, FETCH_PATIENT,
+    ADD_PATIENT, FETCH_PATIENTS, FETCH_PATIENT, DELETE_PATIENT,
     FETCH_KEY_LIST_PATIENTS,
     FETCH_KEY_ADD_PATIENT,
     FETCH_KEY_GET_PATIENT
@@ -16,8 +16,13 @@ import ApiService from '../services/ApiService';
 export function * addPatientSaga ({ payload:{patient} }) {
     yield put(fetchInProgress(FETCH_KEY_ADD_PATIENT));
     try {
-        const newPatient = yield ApiService.post({endpoint: 'patients', options: {body: patient} });
-        yield put(setNewPatient(newPatient))
+        const { _id : patientId = null } = patient;
+        if(patientId){
+            patient = yield ApiService.put({endpoint: `patients/${patientId}`, options: {body: patient} });
+        } else {
+            patient = yield ApiService.post({endpoint: 'patients', options: {body: patient} });
+        }
+        yield put(setNewPatient(patient))
         yield put(fetchSuccess(FETCH_KEY_ADD_PATIENT));
     } catch(error) {
         console.error(error)
@@ -48,8 +53,20 @@ export function * getPatientSaga ({ patientId = '' }) {
     }
 }
 
+export function * deletePatientSaga ({ patientId = '' }) {
+    yield put(fetchInProgress(FETCH_KEY_GET_PATIENT));
+    try {
+        const patient = yield ApiService.delete({endpoint: `patients/${patientId}` });
+        yield put(setPatient(patient))
+        yield put(fetchSuccess(FETCH_KEY_GET_PATIENT));
+    } catch(error) {
+        yield put(fetchError(FETCH_KEY_GET_PATIENT, error ));
+    }
+}
+
 export default function * rootPatientsSaga () {
   yield takeEvery(ADD_PATIENT, addPatientSaga)
+  yield takeEvery(DELETE_PATIENT, deletePatientSaga)
   yield takeEvery(FETCH_PATIENTS, listPatientsSaga)
   yield takeEvery(FETCH_PATIENT, getPatientSaga)
 }

@@ -24,7 +24,7 @@ export default class ThemeInput extends React.Component {
         const {icon, className, negative, value, ...other} = this.props;
         const negativeClass = negative ? '--negative' : '';
         const inputClass = `ThemeInput__input theme-input-text ${negativeClass} ${icon ? 'ThemeInput--icon '+ icon : ''}`;
-        const labelClass = `ThemeInput__label theme-input-text ${negativeClass} ${icon ? '--icon ' : ''} ${this.state.isEmpty ? '' : '--active'}`;
+        const labelClass = `ThemeInput__label theme-input-text ${negativeClass} ${icon ? '--icon ' : ''} ${!!value || !this.state.isEmpty ? '--active' : ''}`;
 
         return(
             <div className={`ThemeInput ${className || ''}`}>

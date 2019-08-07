@@ -15,6 +15,7 @@ export const USER_SUCCESS = 'USER_SUCCESS';
 export const ADD_PATIENT = 'ADD_PATIENT';
 export const FETCH_PATIENT = 'FETCH_PATIENT';
 export const SET_PATIENT = 'SET_PATIENT';
+export const DELETE_PATIENT = 'DELETE_PATIENT';
 export const SET_NEW_PATIENT = 'SET_NEW_PATIENT';
 export const FETCH_PATIENTS = 'FETCH_PATIENTS';
 export const SET_PATIENTS = 'SET_PATIENTS';
