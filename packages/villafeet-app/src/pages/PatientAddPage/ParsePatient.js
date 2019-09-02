@@ -39,8 +39,8 @@ export const fillFormData = (formData, data) => {
         if(formDataKey === 'birthday') {
             value = extractBirthday(value);
         }
-        filledForm[formDataKey] = { ...field, value };
       }
+      filledForm[formDataKey] = { ...field, value };
       return filledForm;
     }, {});
   }

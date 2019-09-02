@@ -33,7 +33,8 @@ class FormValidator {
     validations.some( validation => {
       const validator = this.availableValidations[validation];
       if(validator){
-        const hasError = validator.validate(input.value);
+        const { value = '' } = input;
+        const hasError = validator.validate(value);
         input.hasError = hasError;
         input.errorMessage = hasError ? validator.errorMessage : '';
       }
