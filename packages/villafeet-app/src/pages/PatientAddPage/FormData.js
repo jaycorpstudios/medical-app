@@ -3,40 +3,104 @@ const states = Estados.map( ({id, text}) => {
                 return {id, text, value: text }
               });
 
-export const PatientFormData = [
-      { id: 1, name:'name', label:'Nombre', value: '', type: 'text' },
-      { id: 2, name:'firstSurname', label:'Apellido paterno', value: '', type: 'text' },
-      { id: 3, name:'secondSurname', label:'Apellido materno', value: '', type: 'text' },
-      {
-        id: 4, name:'gender', label:'Sexo:', value: 'male', type: 'radio',
-        options: [{value:'male', text:'Hombre'},{value:'female', text:'Mujer'}]
-      },
-      { id: 5, name:'birthday',label:'Fecha de nacimiento', value: '1980-01-01', type: 'date' },
-      //TODO: Move the rest to medical
-      { id: 6, name:'peso', value: '', label:'Peso', type: 'number' },
-      { id: 7, name:'talla', value: '', label:'Talla', type: 'number' },
-      {
-        id: 8, name:'ejercicio', value: 'medio', label:'Nivel de ejercicio', type: 'select',
-        options: [ {value:'alto', text:'Alto'}, {value:'medio', text:'Medio'}, {value:'bajo', text:'Bajo'} ]
-      }
-    ];
+export const PatientFormData = {
+  name: { 
+    label:'Nombre',
+    value: '',
+    type: 'text' ,
+    validations: ['required'],
+  },
+  firstSurname: {
+    label:'Apellido paterno',
+    value: '',
+    type: 'text',
+    validations: ['required'],
+  },
+  secondSurname: { 
+    label:'Apellido materno',
+    value: '',
+    type: 'text'
+  },
+  gender: {
+    label:'Sexo:',
+    value: 'male',
+    type: 'radio',
+    options: [{ value:'male', text:'Hombre' }, { value:'female', text:'Mujer' }]
+  },
+  birthday: { 
+    label:'Fecha de nacimiento',
+    value: '1980-01-01',
+    type: 'date',
+    validations: ['required','date'],
+  },
+  //TODO: Move the rest to medical
+  peso: {
+    value: '',
+    label:'Peso',
+    type: 'number',
+    validations: ['number'],
+  },
+  talla: {
+    value: '',
+    label:'Talla',
+    type: 'number',
+    validations: ['number'],
+  },
+  ejercicio: {
+    value: 'medio',
+    label:'Nivel de ejercicio',
+    type: 'select',
+    options: [ {value:'alto', text:'Alto'}, {value:'medio', text:'Medio'}, {value:'bajo', text:'Bajo'} ]
+  },
+};
 
-export const ContactFormData = [
-  { id: 1, name:'email', label:'Correo', value: '', type: 'email' },
-  { id: 2, name:'phone', label:'Telefono', value: '', type: 'tel' },
-]
+export const ContactFormData = {
+  email: {
+    label:'Correo',
+    value: '',
+    type: 'email',
+    validations: ['required', 'email']
+  },
+  phone: {
+    label:'Telefono',
+    value: '',
+    type: 'tel'
+  },
+};
 
-export const OthersFormData = [
-  { id: 1, name:'profession', value: '', label:'Ocupación', type: 'text' },
-]
+export const OthersFormData = {
+  profession: {
+    value: '',
+    label:'Ocupación',
+    type: 'text'
+  },
+}
 
-export const AddressFormData = [
-  { id: 1, name:'address1', value: '', label:'Calle y número (opcional)', type: 'text' },
-  { id: 2, name:'address2', value: '', label:'Interior, piso, departamento (opcional)', type: 'text' },
-  { id: 3, name:'city', value: '', label:'Municipio (opcional)', type: 'text' },
-  {
-    id: 4, name:'state', value: 'Jalisco', label:'Estado', type: 'select',
+export const AddressFormData = {
+  address1: {
+    value: '',
+    label:'Calle y número (opcional)',
+    type: 'text'
+  },
+  address2: {
+    value: '',
+    label:'Interior, piso, departamento (opcional)',
+    type: 'text'
+  },
+  city: { 
+    value: '',
+    label:'Municipio (opcional)',
+    type: 'text'
+  },
+  state: {
+    value: 'Jalisco',
+    label:'Estado',
+    type: 'select',
     options: [...states]
   },
-  { id: 5, name:'zip', value: '', label:'Código postal', type: 'text' },
-]
+  zip: {
+    value: '',
+    label:'Código postal (opcional)',
+    type: 'text'
+  },
+}

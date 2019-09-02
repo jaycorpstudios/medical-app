@@ -9,6 +9,7 @@ import FormGroupData from './../../components/FormGroupData';
 import { PatientFormData, AddressFormData, ContactFormData, OthersFormData } from './FormData';
 import ParsePatient, { fillFormData } from './ParsePatient';
 import LoadingLayer from './../../components/LoadingLayer';
+import FormValidator from './../../services/FormValidator';
 
 import './PatientAddPage.scss';
 
@@ -47,17 +48,13 @@ class PatientAddPage extends React.Component {
   componentWillUnmount() {
     this.props.patientStatusRestore()
   }
-
-  getDataFromField(name, section) {
-    return this.state.formData[section].find( input => input.name === name );
-  }
-
+  
   handleInputData (event) {
     const { value, name, dataset } = event.target;
     const section = dataset.section;
-    const target = {...this.getDataFromField(name, section), value };
-    const sectionData = [...this.state.formData[section].filter( item => item.name !== name ), target].sort( (a,b) => a.id - b.id );
-    this.setState({formData: {...this.state.formData, [section]: sectionData } });
+    const target = FormValidator.validateInput({...this.state.formData[section][name], value });
+    const sectionData = {...this.state.formData[section], [name]: target};
+    this.setState({ formData: {...this.state.formData, [section]: sectionData } });
   }
 
   goBack(){
@@ -66,13 +63,18 @@ class PatientAddPage extends React.Component {
     this.props.history.push(target);
   }
 
+  isFormValid(){
+    const validatedFormData = FormValidator.validateForm(this.state.formData);
+    const hasErrors = !FormValidator.isFormValid(validatedFormData);
+    this.setState({ formData: { ...validatedFormData }, hasErrors });
+    return !hasErrors;
+  }
+
   processPatient (event) {
     event.preventDefault();
-    if(this.state.hasErrors){
-      return
-    }
+    if(!this.isFormValid()) return;
     const patientModel = ParsePatient(this.state.formData);
-    patientModel._id = this.props.match.params.idPaciente || null;
+    patientModel._id = this.props.match.params.idPaciente;
     this.props.addPatient(patientModel);
   }
 
@@ -103,6 +105,7 @@ class PatientAddPage extends React.Component {
           <h1 className="theme-heading-large">{title}</h1>
         </header>
         <form className="PatientAddPage__form" autoComplete="off" onSubmit={this.processPatient}>
+          {this.state.hasErrors && <div>CORRIGE LOS ERRORES EN EL FORMULARIO</div> }
           <FormGroupData title='Datos personales' data={this.state.formData.patient} section="patient" handleInputData={this.handleInputData}/>
           <FormGroupData title='Contacto' data={this.state.formData.contact} section="contact" handleInputData={this.handleInputData}/>
           <FormGroupData title='Dirección' data={this.state.formData.address} section="address" handleInputData={this.handleInputData}/>

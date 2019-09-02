@@ -17,8 +17,8 @@ export default class ThemeRadio extends React.Component {
     }
 
     render() {
-        const {className = '', label, options} = this.props;
-        const classes = `ThemeRadio theme-body-regular  ${className}`;
+        const {className = '', label, options } = this.props;
+        const classes = `ThemeRadio theme-body-regular ${className}`;
         return (
             <div className={classes}>
                 <span className='ThemeRadio__label theme-input-text'>{label}</span>

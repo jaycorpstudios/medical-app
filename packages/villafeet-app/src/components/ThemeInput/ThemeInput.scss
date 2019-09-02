@@ -25,6 +25,10 @@
         &.--negative:focus {
             border-color: $color-text-negative;
         }
+        &.error {
+            color: red;
+            border-color: red;
+        }
     }
     &:not(.no-highlight) &__input:focus{
         border-color: $color-gray;
@@ -82,4 +86,11 @@
             background-image: url('#{$images-path}/icons/glyph-lock-negative.svg');
         }
     }
+}
+//TODO: Create own component
+.ErrorMessage {
+    margin: 6px 0;
+    display: block;
+    font-size: 12px;
+    color: red;
 }

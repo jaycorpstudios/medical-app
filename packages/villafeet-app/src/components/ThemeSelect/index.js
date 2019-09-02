@@ -9,7 +9,7 @@ export default class ThemeSelect extends React.Component {
 
     render() {
         const {className = '', name, value, options, label, ...other} = this.props;
-        const classes = `ThemeSelect theme-body-regular  ${className}`;
+        const classes = `ThemeSelect theme-body-regular ${className}`;
 
         return (
             <div className={classes}>

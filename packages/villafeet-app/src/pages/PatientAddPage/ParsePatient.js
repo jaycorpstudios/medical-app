@@ -1,5 +1,6 @@
-//Create a model to be send to firestore
-function parseBirthday(stringDate){
+
+//TODO: Move this to a global parse util
+function parseBirthday(stringDate) {
     return new Date(`${stringDate}T13:00:00`);
 }
 
@@ -8,36 +9,40 @@ function extractBirthday(date){
     return stringDate;
 }
 
-const mapValuesToObj = (data = []) => {
-    let mappedObject = {};
-    data.forEach( field => mappedObject[field.name] = field.value);
-    return mappedObject;
+const extractValues = (data = {}) => {
+    return Object.keys(data).reduce((model, key)=>{
+        model[key] = data[key].value;
+        return model;
+    },{});
 }
 
 const ParsePatient = (data) => {
-    let patient = mapValuesToObj(data.patient);
+    let patient = extractValues(data.patient);
     patient.birthday = parseBirthday(patient.birthday);
     const PatientModel = {
         ...patient,
-        contact: mapValuesToObj(data.contact),
-        address: mapValuesToObj(data.address),
-        others: mapValuesToObj(data.others)
+        contact: extractValues(data.contact),
+        address: extractValues(data.address),
+        others: extractValues(data.others)
     };
     return PatientModel;
 }
 
+/*
+ * Takes the formData Schema and adds values from data passed.
+ */
 export const fillFormData = (formData, data) => {
-    return [...formData].map( field => {
-      const { name } = field;
-      if(data && data[name]) {
-        let value = data[name];
-        if(name === 'birthday') {
+    return Object.keys(formData).reduce( (filledForm, formDataKey) => {
+      const field = formData[formDataKey];
+      let value = data && data[formDataKey];
+      if(value) {
+        if(formDataKey === 'birthday') {
             value = extractBirthday(value);
         }
-        field = { ...field, value }
+        filledForm[formDataKey] = { ...field, value };
       }
-      return field;
-    });
+      return filledForm;
+    }, {});
   }
 
 export default ParsePatient;
