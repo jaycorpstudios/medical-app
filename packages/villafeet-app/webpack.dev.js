@@ -19,7 +19,7 @@ const config = (env, args) => {
       port: 8001,
       historyApiFallback: true,
       open: true,
-      host: 'localhost',
+      host: '0.0.0.0',
       watchOptions: {
         ignored: /node_modules/
       }
