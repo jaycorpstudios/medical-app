@@ -65,6 +65,7 @@ if (config.MONGOOSE_DEBUG) {
 if (!module.parent) {
   // listen on port config.port
   app.listen(config.port, () => {
+    console.log(`server started on port ${config.port} (${config.env})`)
     debug(`server started on port ${config.port} (${config.env})`)
   })
 }

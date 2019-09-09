@@ -8,7 +8,7 @@ import { updateFieldsInModel } from './../helpers/schemaUtils'
  * Load patient and append to req.
  * @returns {Patient}
  */
-async function load(req, res, next) {
+async function load(req, _res, next) {
   const { patientId } = req.params
   const patient = await Patient.get(patientId)
   req.patient = patient
@@ -29,7 +29,7 @@ async function get(req, res) {
  * @property {string} req.body - The user fields.
  * @returns {User}
  */
-async function update(req, res, next) {
+async function update(req, res) {
   let { patient } = req
   patient = updateFieldsInModel({ model: patient, updatedData: req.body, skipFields: ['groupId', 'createdAt'] })
   patient.updatedAt = new Date()
@@ -37,7 +37,7 @@ async function update(req, res, next) {
   res.json(savedPatient)
 }
 
-async function add(req, res, next) {
+async function add(req, res) {
   const patient = await new Patient(req.body).save()
   res.json(patient)
 }
@@ -69,7 +69,7 @@ async function list(req, res) {
  * Delete patient.
  * @returns {Patient}
  */
-async function remove(req, res, next) {
+async function remove(req, res) {
   const { patient } = req
   const deleted = await patient.remove()
   res.json(deleted)

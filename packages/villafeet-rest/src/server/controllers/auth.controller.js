@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 import config from './../../config/env'
 import APIError from '../helpers/APIError'
 import User from '../models/user.model'
+import emailService from './../services/emailService'
 
 /**
  * Token expiration expressed in seconds
@@ -62,7 +63,8 @@ function register(req, res, next) {
       }
       jwt.sign(payload, config.passportSecret, { expiresIn: tokenExpiration }, (err, token) => {
         if (err) res.status(500).json({ error: 'Error signing token', raw: err })
-        res.json({ success: true, token: `Bearer ${token}` })
+        emailService.sendEmail({})
+        return res.json({ success: true, token: `Bearer ${token}` })
       })
     })
   })
@@ -91,7 +93,7 @@ function me(req, res, next) {
  * @param next
  * @returns {*}
  */
-function checkAuth(req, res, next) {
+function checkAuth(req, _res, next) {
   const { authorization } = req.headers
 
   if (authorization) {
