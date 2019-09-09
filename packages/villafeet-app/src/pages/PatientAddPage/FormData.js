@@ -27,6 +27,12 @@ export const PatientFormData = {
     type: 'radio',
     options: [{ value:'male', text:'Hombre' }, { value:'female', text:'Mujer' }]
   },
+  avatar: {
+    label: 'Foto de perfil',
+    type: 'file',
+    value: '',
+    uploadInProgress: false
+  },
   birthday: { 
     label:'Fecha de nacimiento',
     value: '1980-01-01',

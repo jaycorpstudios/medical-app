@@ -1,4 +1,5 @@
 @import 'theme/colors.scss';
+@import 'theme/variables.scss';
 
 figure.UserPhoto {
     display: flex;
@@ -7,6 +8,7 @@ figure.UserPhoto {
     justify-content: center;
     align-items: center;
     text-shadow: 0 0 5px $color-element-shadow;
+    transition: $animation-slow;
 
     &.male {
         background-color: $color-male-photo;

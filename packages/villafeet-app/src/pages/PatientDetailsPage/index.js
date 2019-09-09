@@ -8,7 +8,8 @@ import LoadingState from './../../components/LoadingState';
 import PatientDetailsHeader from './../../components/PatientDetails/PatientDetailsHeader';
 import PatientSectionTabs from './../../components/PatientDetails/PatientSectionTabs';
 import PatientDetailsGroup from './../../components/PatientDetails/PatientDetailsGroup';
-import TernaryButton from './../../components/TernaryButton';
+import ThemeButtonPrimary from './../../components/ThemeButtonPrimary';
+import ThemeButtonDefault from './../../components/ThemeButtonDefault';
 import MapPatientData from './mapPatientData';
 
 import './PatientDetailsPage.scss';
@@ -53,11 +54,14 @@ class PatientDetailsPage extends React.Component {
     return (
       <article className="PatientDetailsPage">
         <section className="PatientDetailsPage__back hidden-xs">
-          <Link to={'/pacientes'}><TernaryButton title='Regresar' negative={true} icon='back'/></Link>
-          <Link to={`/pacientes/editar/${_id}`}><TernaryButton title='Editar' negative={true}/></Link>
-          <TernaryButton title='Borrar' negative={true} onClick={ () => { this.onRemovePatient() } }/>
+          <Link to={'/pacientes'}><ThemeButtonDefault title='Regresar' icon='arrow_back'/></Link>
+          {/* <Link to={'/pacientes'}><ThemeButtonDefault title='Regresar sin icono'/></Link> */}
+          {/* <Link to={`/pacientes/editar/${_id}`}><TernaryButton title='Editar' negative={true}/></Link>*/}
         </section>
-        <PatientDetailsHeader name={fullName} gender={gender} avatar={avatar} lastVisit={lastVisit} />
+        <PatientDetailsHeader name={fullName} gender={gender} avatar={avatar} lastVisit={lastVisit}>
+          <ThemeButtonPrimary title='Iniciar consulta' icon='play_arrow' className="hidden-xs"/>
+          <ThemeButtonDefault icon='more_horiz' className="hidden-xs"/>
+        </PatientDetailsHeader>
         <PatientSectionTabs/>
         <section className="PatientDetailsPage__details">
           <PatientDetailsGroup title='Datos personales' data={personalData}/>

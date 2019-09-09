@@ -1,16 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './PatientDetailsHeader.scss';
 
+import './PatientDetailsHeader.scss';
 import UserPhoto from './../UserPhoto';
 import dateUtils from './../../utils/dateUtils';
 
 
 const PatientDetailsHeader = props => {
 
-    const { avatar, name, lastVisit:timestamp, gender } = props;
-    const lastVisit = timestamp && timestamp.toDate && timestamp.toDate() || null;
-
+    const { avatar, name, lastVisit, gender, children } = props;
     const time = dateUtils.getFormatedDate(lastVisit);
 
     return(
@@ -21,6 +19,7 @@ const PatientDetailsHeader = props => {
             <h1 className="theme-heading-small PatientDetailsHeader__name">{name}</h1>
             {time && <h3 className="theme-body-small PatientDetailsHeader__consulta">Última consulta: <br className="visible-xs"/>{time}</h3>}
           </div>
+          {children}
         </section>
     )
 }

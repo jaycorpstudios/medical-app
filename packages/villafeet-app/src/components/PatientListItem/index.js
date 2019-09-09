@@ -8,11 +8,9 @@ import './PatientListItem.scss';
 export default class PatientListItem extends React.Component {
 
     render(){
-        const { avatar, id, lastVisit:timestamp = ''  } = this.props;
+        const { avatar, id, lastVisit  } = this.props;
         const { name = '', firstSurname = '', secondSurname='', gender } = this.props;
         const fullName = `${name} ${firstSurname} ${secondSurname}`;
-
-        const lastVisit = timestamp.toDate && timestamp.toDate() || null;
         const time = dateUtils.getFormatedDate(lastVisit);
 
         return(

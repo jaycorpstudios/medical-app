@@ -18,8 +18,9 @@
         background-image: none;
         text-align: left;
         color: $color-text-base;
-        flex-direction: row;
-        justify-content: flex-start;
+        display: grid;
+        grid-template-columns: auto 1fr auto auto;
+        grid-gap: 16px;
         padding: 20px;
         border-radius: 10px;
         box-shadow: $color-element-shadow 0 4px 15px;

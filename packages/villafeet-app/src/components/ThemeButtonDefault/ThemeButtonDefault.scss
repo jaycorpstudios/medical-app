@@ -1,0 +1,31 @@
+@import 'theme/colors.scss';
+@import 'theme/variables.scss';
+
+.ThemeButtonDefault {
+  max-width: 300px;
+  height: 40px;
+  padding: .5rem;
+  border-radius: 5px;
+  display: inline-flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 15px;
+  border: none;
+  outline: none;
+  cursor: pointer;  
+  color: $color-text-base;
+  background-color: transparent;
+  transition: $animation-fast ease-in;
+  &:hover {
+    background-color: $color-background-primary;
+    transition: $animation-fast ease-out;
+    box-shadow: $color-element-shadow 0 0 25px;
+  }
+  &.onlyIcon{
+    width: 40px;
+    max-width: 40px;
+  }
+  .material-icons.withText {
+    margin-right: .5rem;
+  }
+}

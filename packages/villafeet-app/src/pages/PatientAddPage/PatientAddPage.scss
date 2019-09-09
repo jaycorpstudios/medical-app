@@ -7,7 +7,7 @@
   display: grid;
   grid-gap: 30px;
   grid-template-columns: 1fr;
-  grid-template-rows: 60px auto;
+  grid-template-rows: 195px auto;
 
   @media screen and (min-width: $tablet-min){
     background: $color-background-secondary;
@@ -22,7 +22,7 @@
         height: fit-content;
         padding: 20px;
         display: grid;
-        grid-gap: 20px;
+        grid-gap: 30px;
         grid-template-columns: 1fr;
         grid-template-rows: auto;
         align-items: center;
@@ -30,7 +30,7 @@
 
         @media screen and (min-width: $tablet-min) {
             grid-template-columns: 1fr 1fr;
-            grid-auto-rows: minmax(52px, auto);
+            grid-auto-rows: minmax(62px, auto);
             background-color: $color-background-primary;
             border: solid 1px $color-disable-gray;
             border-radius: 10px;

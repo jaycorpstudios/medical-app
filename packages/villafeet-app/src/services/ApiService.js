@@ -21,8 +21,11 @@ const ApiService = () => {
 	function remove({endpoint, options = {} }){
 		return interceptor.fetchData( { endpoint, options: {...options, method: 'DELETE'} });
 	}
+	function file({endpoint, options = {}}){
+		return interceptor.fetchData( { endpoint, options: {...options, method: 'POST'}, isFile: true });
+	}
 	//Expose get, post, put, delete methods
-	return { get, post, put, delete: remove }
+	return { get, post, put, delete: remove, file }
 }
 
 //return a Singleton instance

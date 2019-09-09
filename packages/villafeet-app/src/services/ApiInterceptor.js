@@ -6,7 +6,7 @@ export default class ApiInterceptor {
     this.baseUrl = baseUrl;
     this.unsignedEndpoints = unsignedEndpoints;
 		this.headers = {
-			'Content-Type': 'application/json'
+      'Content-Type': 'application/json'
 		}
 	}
 
@@ -21,16 +21,18 @@ export default class ApiInterceptor {
 		delete this.headers['Auth'];
 	}
 
-	fetchData({ endpoint = '', options = {} }) {
+	fetchData({ endpoint = '', options = {}, isFile = false }) {
     if(this.unsignedEndpoints.includes(endpoint)){
       this.removeAuthHeaders()
     } else {
       this.setAuthHeaders()
     }
+    const headers = { ...this.headers, ...options.headers };
+    const fileHeaders = { ...options.headers };
     const requestOptions = {
       ...options,
-      headers: {...this.headers, ...options.headers},
-      body: JSON.stringify(options.body)
+      headers: isFile ? fileHeaders : headers,
+      body: isFile ? options.body : JSON.stringify(options.body)
     }
     const url = `${this.baseUrl}${endpoint}`;
     return new Promise( (resolve, reject) => {
