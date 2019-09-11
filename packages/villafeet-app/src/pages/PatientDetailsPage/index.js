@@ -54,7 +54,7 @@ class PatientDetailsPage extends React.Component {
     return (
       <article className="PatientDetailsPage">
         <section className="PatientDetailsPage__back hidden-xs">
-          <Link to={'/pacientes'}><ThemeButtonDefault title='Regresar' icon='arrow_back'/></Link>
+          <Link to={'/pacientes'}><ThemeButtonDefault title='Regresar' icon='arrow_back' noShadow={true}/></Link>
           {/* <Link to={'/pacientes'}><ThemeButtonDefault title='Regresar sin icono'/></Link> */}
           {/* <Link to={`/pacientes/editar/${_id}`}><TernaryButton title='Editar' negative={true}/></Link>*/}
         </section>

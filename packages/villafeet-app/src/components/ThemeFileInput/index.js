@@ -35,7 +35,7 @@ export default class ThemeFileInput extends React.Component {
                     <span className="FileUploader__name theme-input-text">{imageName}</span>
                     <div className={classnames('FileUploader__progress-bar', { 'complete': !uploadInProgress })}></div>
                 </div>
-                {!uploadInProgress && <ThemeButtonDefault icon='delete_outline' onClick={this.removeFile()}/>}
+                {!uploadInProgress && <ThemeButtonDefault icon='delete_outline' noShadow={true} onClick={this.removeFile()}/>}
             </div>
         )
     }
@@ -58,6 +58,7 @@ export default class ThemeFileInput extends React.Component {
                     <ThemeButtonDefault
                         icon='add_photo_alternate'
                         title={'Agregar imagen'}
+                        noShadow={true}
                         onClick={this.openFileSelector()}
                     />
                 )}

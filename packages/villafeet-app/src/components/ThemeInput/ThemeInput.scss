@@ -26,12 +26,16 @@
             border-color: $color-text-negative;
         }
         &.error {
-            color: red;
-            border-color: red;
+            color: $color-error;
+            border-color: $color-error;
         }
     }
     &:not(.no-highlight) &__input:focus{
         border-color: $color-gray;
+    }
+    &:not(.no-highlight) &__input.error:focus{
+        border-color: $color-gray;
+        border-color: $color-error;
     }
 
     //:not(.no-highlight)
@@ -92,5 +96,5 @@
     margin: 6px 0;
     display: block;
     font-size: 12px;
-    color: red;
+    color: $color-error;
 }

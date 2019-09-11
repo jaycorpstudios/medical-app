@@ -21,6 +21,11 @@
     transition: $animation-fast ease-out;
     box-shadow: $color-element-shadow 0 0 25px;
   }
+  &.noShadow:hover {
+    box-shadow: none;
+    background-color: transparent;
+    color: $color-secondary;
+  }
   &.onlyIcon{
     width: 40px;
     max-width: 40px;

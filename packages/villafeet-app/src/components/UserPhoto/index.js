@@ -6,8 +6,11 @@ const UserPhoto = (props) => {
     if(src){
         return <img className={classes} src={src} alt={name} {...other}/>
     }else {
-        const [initial] = name.split('');
-        return <figure className={`${classes} ${gender}`} {...other}><figcaption>{initial}</figcaption></figure>
+        const [ firstName = '', sourName = '' ] = name.trim().split(' ');
+        const [ firstNameinitial = '' ] = firstName.split('');
+        const [ sourNameinitial = '' ] = sourName.split('');
+        const initials = `${firstNameinitial}${sourNameinitial}`.toUpperCase();
+        return <figure className={`${classes} ${gender}`} {...other}><figcaption>{initials}</figcaption></figure>
     }
 
 }

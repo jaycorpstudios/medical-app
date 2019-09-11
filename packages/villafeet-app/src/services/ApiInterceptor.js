@@ -19,7 +19,7 @@ export default class ApiInterceptor {
 
 	removeAuthHeaders() {
 		delete this.headers['Auth'];
-	}
+  }
 
 	fetchData({ endpoint = '', options = {}, isFile = false }) {
     if(this.unsignedEndpoints.includes(endpoint)){
@@ -28,10 +28,12 @@ export default class ApiInterceptor {
       this.setAuthHeaders()
     }
     const headers = { ...this.headers, ...options.headers };
-    const fileHeaders = { ...options.headers };
+    if(isFile){
+      delete headers['Content-Type'];
+    }
     const requestOptions = {
       ...options,
-      headers: isFile ? fileHeaders : headers,
+      headers,
       body: isFile ? options.body : JSON.stringify(options.body)
     }
     const url = `${this.baseUrl}${endpoint}`;
