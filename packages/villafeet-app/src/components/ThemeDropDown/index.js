@@ -45,9 +45,9 @@ class ThemeDropDown extends React.Component {
     renderChildren = () => {
         const { children, onClick } = this.props;
         return (
-            <div onClick={onClick}>
+            <span onClick={onClick}>
                 {children}
-            </div>
+            </span>
         )
     }
     getDropDownOptionsSize = (node) => {

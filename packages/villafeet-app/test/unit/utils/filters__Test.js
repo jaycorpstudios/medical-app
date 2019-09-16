@@ -1,17 +1,23 @@
 import { filterByName } from 'src/utils/filters';
 
 describe('Utils Filter Module', () => {
-
+//name, firstSurname='', secondSurname=''
     const users = [
-        { personal: { nombre: 'Jay', apellidoPaterno: 'Garcia' } },
-        { personal: { nombre: 'Daniel', apellidoPaterno: 'Martinez' } },
-        { personal: { nombre: 'Antonio', apellidoPaterno: 'Garcia' } },
-        { personal: { nombre: 'Manuel', apellidoPaterno: 'Garza' } }
-    ]
+        { name: 'Jay', firstSurname: 'Garcia' },
+        { name: 'Daniel', firstSurname: 'Martinez' },
+        { name: 'Antonio', firstSurname: 'Garcia' },
+        { name: 'Manuel', firstSurname: 'Garza' }
+    ];
+    const expectedOutputForGar = [
+        { name: 'Jay', firstSurname: 'Garcia' },
+        { name: 'Antonio', firstSurname: 'Garcia' },
+        { name: 'Manuel', firstSurname: 'Garza' }
+    ];
 
     it('should filter by name', () => {
-        const filter = filterByName('daniel', 'name');
-        expect(users.filter(filter)).toMatchObject([{ personal: { nombre: 'Daniel', apellidoPaterno: 'Martinez' } }]);
+        expect(users.filter(filterByName('daniel'))).toMatchObject([{ name: 'Daniel', firstSurname: 'Martinez' }]);
+        expect(users.filter(filterByName('Jay'))).toMatchObject([{ name: 'Jay', firstSurname: 'Garcia' }]);
+        expect(users.filter(filterByName('Gar'))).toMatchObject(expectedOutputForGar);
     });
 
     it('should return all results on uninitialized filter', () => {
