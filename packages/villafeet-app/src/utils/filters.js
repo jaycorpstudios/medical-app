@@ -1,5 +1,5 @@
 
-const normalize = (string='') => string.toLowerCase()
+export const normalize = (string='') => string.toLowerCase()
                                   .normalize('NFD')
                                   .replace(/[\u0300-\u036f]/g, '');
 
