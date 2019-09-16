@@ -1,7 +1,7 @@
 import { filterByName } from 'src/utils/filters';
 
 describe('Utils Filter Module', () => {
-//name, firstSurname='', secondSurname=''
+
     const users = [
         { name: 'Jay', firstSurname: 'Garcia' },
         { name: 'Daniel', firstSurname: 'Martinez' },
