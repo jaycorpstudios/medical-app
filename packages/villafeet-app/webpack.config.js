@@ -1,3 +1,4 @@
+// Webpack PROD Configuration
 const merge = require('webpack-merge');
 const common = require('./webpack.common');
 const webpack = require('webpack')

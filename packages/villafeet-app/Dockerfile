@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y curl build-essential
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # Set environment variables
-ENV NODE_VERSION 8.12.0
+ENV NODE_VERSION 10.15.3
 ENV YARN_VERSION 1.2.0
 ENV NODE_ENV=development
 ENV NVM_DIR /usr/local/nvm

@@ -10,7 +10,7 @@ import CacheHelper from './../utils/cache';
 const MainLayout = ({component: Component, ...rest}) => {
 
   const auth = CacheHelper.getItem('auth');
-        const isAuthenticated = auth && auth.authenticated || false;
+  const isAuthenticated = auth && auth.authenticated || false;
 
     return (
       <Route {...rest} render={ matchProps => isAuthenticated ? (
