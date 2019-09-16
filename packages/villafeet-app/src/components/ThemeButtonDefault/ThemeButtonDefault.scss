@@ -2,7 +2,7 @@
 @import 'theme/variables.scss';
 
 .ThemeButtonDefault {
-  max-width: 300px;
+  width: max-content;
   height: 40px;
   padding: .5rem;
   border-radius: 5px;
@@ -16,7 +16,7 @@
   color: $color-text-base;
   background-color: transparent;
   transition: $animation-fast ease-in;
-  &:hover {
+  &:hover, &.active {
     background-color: $color-background-primary;
     transition: $animation-fast ease-out;
     box-shadow: $color-element-shadow 0 0 25px;

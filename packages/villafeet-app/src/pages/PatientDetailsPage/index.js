@@ -10,6 +10,7 @@ import PatientSectionTabs from './../../components/PatientDetails/PatientSection
 import PatientDetailsGroup from './../../components/PatientDetails/PatientDetailsGroup';
 import ThemeButtonPrimary from './../../components/ThemeButtonPrimary';
 import ThemeButtonDefault from './../../components/ThemeButtonDefault';
+import DropDown from './../../components/DropDown';
 import MapPatientData from './mapPatientData';
 
 import './PatientDetailsPage.scss';
@@ -30,9 +31,15 @@ class PatientDetailsPage extends React.Component {
     this.props.patientStatusRestore()
   }
 
-  onRemovePatient() {
-    const {idPaciente = ''} = this.props.match.params;
-    this.props.removePatient(idPaciente)
+  //TODO: Open modal and confirm action before patient is removed.
+  onRemovePatient = () => {
+    const { idPaciente = '' } = this.props.match.params;
+    this.props.removePatient(idPaciente);
+    this.props.history.push(`/pacientes`)
+  }
+
+  editPatient = (_id) => () => {
+    this.props.history.push(`/pacientes/editar/${_id}`)
   }
 
   render() {
@@ -51,16 +58,19 @@ class PatientDetailsPage extends React.Component {
 
     if(inProgress) return <LoadingState/>
 
+    const dropDownOptions = [
+      { title: 'Editar paciente', icon: 'edit', onClick: this.editPatient(_id) },
+      { title: 'Borrar paciente', icon: 'delete_outline', onClick: this.onRemovePatient }
+    ];
+
     return (
       <article className="PatientDetailsPage">
         <section className="PatientDetailsPage__back hidden-xs">
           <Link to={'/pacientes'}><ThemeButtonDefault title='Regresar' icon='arrow_back' noShadow={true}/></Link>
-          {/* <Link to={'/pacientes'}><ThemeButtonDefault title='Regresar sin icono'/></Link> */}
-          {/* <Link to={`/pacientes/editar/${_id}`}><TernaryButton title='Editar' negative={true}/></Link>*/}
         </section>
         <PatientDetailsHeader name={fullName} gender={gender} avatar={avatar} lastVisit={lastVisit}>
           <ThemeButtonPrimary title='Iniciar consulta' icon='play_arrow' className="hidden-xs"/>
-          <ThemeButtonDefault icon='more_horiz' className="hidden-xs"/>
+          <DropDown options={dropDownOptions} icon='more_horiz'/>
         </PatientDetailsHeader>
         <PatientSectionTabs/>
         <section className="PatientDetailsPage__details">

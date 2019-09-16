@@ -1,15 +1,18 @@
-//Breakpoints
+// Breakpoints
 $tablet-min:    768px;
 $laptop-min:    992px;
 $desktop-min:   1200px;
 
-//Animation times
+// Animation times
 $animation-fast: 150ms;
 $animation-medium: 300ms;
 $animation-slow: 600ms;
 $animation-loading-time: 3.5s;
 
-//Paths
+// Layer depth
+$deep-level-1: 100;
+
+// Paths
 $images-path: '~src/theme/images/';
 
 $text-white-border:white -1px -1px 0, white -2px -2px 0, white 1px 1px 0, white 2px 2px 0, white -1px 1px 0, white -2px 2px 0, white 1px -1px 0, white 2px -2px 0;

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import './UserHeader.scss';
+import DropDown from './../DropDown';
 import { logout, getUserData } from './../../actions';
 
 class UserHeader extends React.Component {
@@ -14,6 +15,9 @@ class UserHeader extends React.Component {
         const { name, lastName, avatar, id=null } = this.props.user;
         const isLoaded = !!id;
         const fullName = `${name} ${lastName}`;
+        const dropDownOptions = [
+            { title: 'Salir', icon: 'exit_to_app', onClick: this.props.logout },
+        ]
 
         if(!this.props.auth.authenticated){
             return <Redirect to={ { pathname: '/' } } />
@@ -25,7 +29,9 @@ class UserHeader extends React.Component {
                 <button className="UserHeader__action settings"></button>
                 {isLoaded && <figure className="UserHeader__user">
                     <figcaption className="theme-body-small">{fullName}</figcaption>
-                    <img src={avatar} alt={fullName} onClick={this.props.logout}/>
+                    <DropDown options={dropDownOptions} >
+                        <img src={avatar} alt={fullName} />
+                    </DropDown>
                 </figure>}
             </header>
         )

@@ -1,0 +1,47 @@
+@import 'theme/colors.scss';
+@import 'theme/variables.scss';
+
+.ThemeDropDown {
+  position: relative;
+}
+
+.ThemeDropDownOptions {
+  display: flex;
+  position: absolute;
+  width: fit-content;
+  flex-direction: column;
+  border: 0;
+  top: 60px;
+  background: $color-background-primary;
+  box-shadow: $color-element-shadow 0 0 25px;
+  border-radius: .5rem;
+  padding: 1rem;
+  z-index: $deep-level-1;
+  &:before {
+    content: "";
+    height: 0;
+    width: 0;
+    border-bottom: 10px solid $color-background-primary;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    position: absolute;
+    top: -10px;
+  }
+}
+.alignCenter {
+  &:before{
+    left: calc(50% + 10px);
+  }
+}
+.alignRight {
+  right: 0;
+  &:before {
+    right: 10px;
+  }
+}
+.alignLeft {
+  left: 0;
+  &:before {
+    left: 10px;
+  }
+}

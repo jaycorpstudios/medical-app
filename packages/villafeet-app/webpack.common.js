@@ -25,7 +25,29 @@ const config = (env, args) => {
           }
         },
         {
+          test: /\.module\.scss$/i,
+          loaders: ['style-loader',{
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              // localIdentName: '[local]---[hash:base64:5]', //ThemeDropDown---3WNSL
+              localIdentName: '[name]__[local]___[hash:base64:5]', //"ThemeDropDown-module__DropDown___2MKzx"
+              sourceMap: true,
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: [
+                  srcPath,
+              ]
+            }
+          }
+        ]
+        },
+        {
           test: /\.scss$/,
+          exclude: /\.module\.scss$/i,
           loaders: ['style-loader', 'css-loader',
           {
             loader: 'sass-loader',
