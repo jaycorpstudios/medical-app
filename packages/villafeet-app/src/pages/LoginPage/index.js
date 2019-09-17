@@ -1,5 +1,6 @@
 import React from 'react';
 import Login from './../../components/Login';
+import AlertList from './../../components/AlertList';
 import './LoginPage.scss';
 
 export default function HomePage (props) {
@@ -7,6 +8,7 @@ export default function HomePage (props) {
   const { history } = props;
   return (
     <main className="LoginPage">
+      <AlertList/>
       <section className="LoginPage__container">
         <Login history={history}/>
       </section>

@@ -6,6 +6,7 @@ import MobileHeader from './../components/MobileHeader';
 import './MainLayout.scss';
 
 import CacheHelper from './../utils/cache';
+import AlertList from './../components/AlertList';
 
 const MainLayout = ({component: Component, ...rest}) => {
 
@@ -15,6 +16,7 @@ const MainLayout = ({component: Component, ...rest}) => {
     return (
       <Route {...rest} render={ matchProps => isAuthenticated ? (
         <div className='Dashboard'>
+            <AlertList/>
             <NavigationBar path={rest.path}/>
             <UserHeader/>
             <MobileHeader/>

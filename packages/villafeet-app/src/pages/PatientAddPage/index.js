@@ -11,6 +11,7 @@ import { PatientFormData, AddressFormData, ContactFormData, OthersFormData } fro
 import ParsePatient, { fillFormData } from './ParsePatient';
 import LoadingLayer from './../../components/LoadingLayer';
 import FormValidator from './../../services/FormValidator';
+import AlertService from './../../services/AlertService';
 import PatientDetailsHeader from './../../components/PatientDetails/PatientDetailsHeader';
 
 import './PatientAddPage.scss';
@@ -103,7 +104,10 @@ class PatientAddPage extends React.Component {
 
   processPatient (event) {
     event.preventDefault();
-    if(!this.isFormValid()) return;
+    if(!this.isFormValid()){
+      AlertService.triggerAlert( { id: 'process-patient', type:'error', highlight: 'Ups!', text: 'Corrige los errores en el formulario' })
+      return;
+    }
     const patientModel = ParsePatient(this.state.formData);
     patientModel._id = this.props.match.params.idPaciente;
     this.props.addPatient(patientModel);
@@ -125,6 +129,7 @@ class PatientAddPage extends React.Component {
     const { editMode = false, patientDataPopulated = false } = this.state;
     if(!newRecordInProgress && newRecordSuccess) {
       const { newPatient } = this.props;
+      AlertService.triggerAlert( { id: 'process-patient', type:'success', highlight: 'Excelente!', text: 'datos del paciente guardados' })
       return <Redirect to={ { pathname: `/pacientes/${newPatient._id}` } } />
     }
     if(editMode && !patientDataPopulated && fetchPatientSuccess) {
@@ -147,7 +152,6 @@ class PatientAddPage extends React.Component {
           {this.renderPatientHeader()}
         </header>
         <form className="PatientAddPage__form" autoComplete="off" encType="multipart/formdata" onSubmit={this.processPatient}>
-          {this.state.hasErrors && <div>CORRIGE LOS ERRORES EN EL FORMULARIO</div> }
           <FormGroupData title='Datos personales' data={this.state.formData.patient} section="patient" handleInputData={this.handleInputData} resetValue={this.resetValue}/>
           <FormGroupData title='Contacto' data={this.state.formData.contact} section="contact" handleInputData={this.handleInputData}/>
           <FormGroupData title='Dirección' data={this.state.formData.address} section="address" handleInputData={this.handleInputData}/>

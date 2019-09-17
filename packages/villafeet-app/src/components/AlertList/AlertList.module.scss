@@ -1,0 +1,15 @@
+@import 'theme/variables.scss';
+
+.AlertList {
+  position: fixed;
+  top: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: $deep-level-alerts;
+}
+
+.AlertItem {
+  position: absolute;
+}

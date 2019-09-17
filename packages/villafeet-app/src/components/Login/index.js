@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { processLogin } from './../../actions';
 import CacheHelper from './../../utils/cache';
+import AlertService from './../../services/AlertService';
 import { Redirect } from 'react-router-dom';
 
 import ThemeButton from './../ThemeButton';
@@ -36,7 +37,14 @@ class Login extends React.Component {
         const auth = CacheHelper.getItem('auth'),
               isAuthenticated = auth && auth.authenticated || false;
 
+        if(this.props.auth.error && this.props.auth.error.message){
+            AlertService.triggerAlert({ id: 'login', type: 'error', text: this.props.auth.error.message })
+        }
+
         if(isAuthenticated){
+            const { data = {} } = this.props.user;
+            const welcomeMessage = `Bienvenid@ ${data.name || ''}`
+            AlertService.triggerAlert({ id: 'login', type: 'success', text: welcomeMessage })
             return <Redirect to={ { pathname: '/pacientes' } } />
         }
 
@@ -52,7 +60,6 @@ class Login extends React.Component {
                     <ThemeInput className="login-form__input" negative={isMobile}
                                 type="password" icon="lock" label="Password" name="password" value={this.state.password} onChange={this.handleInputData}/>
                 </form>
-                { this.props.auth.error ? <div>{this.props.auth.error.message}</div> : 'no errors' }
                 <ThemeButton className="Login__button" onClick={this.processLogin} type="submit" big={true} title="Ingresar"/>
             </article>
         )
@@ -68,7 +75,8 @@ function mapDispatchToProps (dispatch) {
 function mapStateToProps (state) {
     return {
         browser: state.browser,
-        auth: state.auth
+        auth: state.auth,
+        user: state.user
     }
 }
 
