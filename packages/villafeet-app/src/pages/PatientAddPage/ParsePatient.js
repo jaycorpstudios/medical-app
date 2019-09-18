@@ -1,4 +1,4 @@
-
+import { extractValues } from './../../utils/formUtils';
 //TODO: Move this to a global parse util
 function parseBirthday(stringDate) {
     return new Date(`${stringDate}T13:00:00`);
@@ -7,13 +7,6 @@ function parseBirthday(stringDate) {
 function extractBirthday(date){
     const [ stringDate = '' ] = date.split('T');
     return stringDate;
-}
-
-const extractValues = (data = {}) => {
-    return Object.keys(data).reduce((model, key)=>{
-        model[key] = data[key].value;
-        return model;
-    },{});
 }
 
 const ParsePatient = (data) => {

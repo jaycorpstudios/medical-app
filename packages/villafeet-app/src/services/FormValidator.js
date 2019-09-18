@@ -50,6 +50,12 @@ class FormValidator {
     }, {});
   }
 
+  isFormSectionValid(formSection) {
+    return !Object.keys(formSection).some( inputKey => {
+      return formSection[inputKey].hasError;
+    })
+  }
+
   validateForm(form){
     return Object.keys(form).reduce( (validatedForm, sectionKey) => {
       validatedForm[sectionKey] = this.validateFormSection(form[sectionKey])

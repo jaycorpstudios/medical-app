@@ -10,7 +10,7 @@ const createInputs = ({ fields = {}, section, fieldsOrder, handleInputData, rese
 
   return [...fieldsOrder.values()].map( fieldKey => {
     const field = fields[fieldKey];
-    const { type, value='', label, options, validations, hasError, errorMessage, uploadInProgress } = field;
+    const { type } = field;
     if(type==='select') {
       return <ThemeSelect
                 key={fieldKey}
