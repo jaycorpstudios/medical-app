@@ -1,22 +1,22 @@
-import validator from 'validator';
+import { isEmpty, isNumeric, isEmail, isISO8601 } from 'validator';
 
 const availableValidations = {
   required: {
     validate: (value) => {
-      return validator.isEmpty(value.trim())
+      return isEmpty(value.trim())
      },
     errorMessage: 'Este campo es requerido'
   },
   number: {
-    validate: (value) => !validator.isNumeric(value),
+    validate: (value) => !isNumeric(value),
     errorMessage: 'Sólo se aceptán números'
   },
   email: {
-    validate: (value) => !validator.isEmail(value),
+    validate: (value) => !isEmail(value),
     errorMessage: 'Ingresa un correo válido'
   },
   date: {
-    validate: (value) => !validator.isISO8601(value),
+    validate: (value) => !isISO8601(value),
     errorMessage: 'Ingresa una fecha válida'
   }
 }
