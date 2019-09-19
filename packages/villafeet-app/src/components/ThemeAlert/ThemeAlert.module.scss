@@ -8,6 +8,7 @@
   grid-template-columns: 20px 1fr;
   justify-items: left;
   align-items: center;
+  width: max-content;
   grid-gap: 1rem;
   border-radius: .25rem;
   color: $color-text-negative;

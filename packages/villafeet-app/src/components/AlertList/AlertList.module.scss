@@ -10,6 +10,36 @@
   z-index: $deep-level-alerts;
 }
 
-.AlertItem {
+.AlertItemWrapper {
   position: absolute;
+  transform-origin: 0 0;
+}
+
+.AlertItem {
+  position: relative;
+}
+
+// Animation
+
+.AlertItemEnter {
+  opacity: 0;
+  transform: scale(.75) translateX(-50%) translateY(-100px) rotateX(90deg);
+}
+.AlertItemEnterActive {
+  opacity: 1;
+  transform: scale(1) translateX(-50%) translateY(0) rotateX(0);
+  transition: $animation-medium $ease-out-exponential;
+}
+.AlertItemEnterDone {
+  transform: scale(1.05) translateX(-50%) translateY(0) rotateX(0);
+  transition: $animation-slow ease-in;
+}
+.AlertItemExit {
+  opacity: 1;
+  transition: $animation-medium ease-out;
+}
+.AlertItemExitActive {
+  opacity: 0;
+  transform: scale(.5) translateX(-50%) translateY(-100px) rotateX(90deg);
+  transition: $animation-medium $ease-in-exponential;
 }

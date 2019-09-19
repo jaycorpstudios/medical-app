@@ -105,7 +105,12 @@ class PatientAddPage extends React.Component {
   processPatient (event) {
     event.preventDefault();
     if(!this.isFormValid()){
-      AlertService.triggerAlert( { id: 'process-patient', type:'error', highlight: 'Ups!', text: 'Corrige los errores en el formulario' })
+      AlertService.triggerAlert({
+        id: 'process-patient',
+        type:'error',
+        highlight: 'Ups!',
+        text: 'Corrige los errores en el formulario'
+      })
       return;
     }
     const patientModel = ParsePatient(this.state.formData);
@@ -129,7 +134,6 @@ class PatientAddPage extends React.Component {
     const { editMode = false, patientDataPopulated = false } = this.state;
     if(!newRecordInProgress && newRecordSuccess) {
       const { newPatient } = this.props;
-      AlertService.triggerAlert( { id: 'process-patient', type:'success', highlight: 'Excelente!', text: 'datos del paciente guardados' })
       return <Redirect to={ { pathname: `/pacientes/${newPatient._id}` } } />
     }
     if(editMode && !patientDataPopulated && fetchPatientSuccess) {
