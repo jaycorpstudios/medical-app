@@ -1,4 +1,4 @@
-//Properties file example to be recreated on each environment:
+// Properties file example to be recreated on each environment:
 
 const PROPERTIES = {
     ENVIRONMENT: JSON.stringify('DEV'),
