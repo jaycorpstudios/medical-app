@@ -1,6 +1,3 @@
-# TO BUILD: docker build -t villafeet-app .
-# TO RUN:  docker run -v ${PWD}:/src -v /node_modules -p 8001:8001 villafeet-app
-# INSPECT: docker exec -it {CONTAINER_ID} /bin/sh
 
 # base image
 FROM ubuntu:16.04
@@ -50,4 +47,5 @@ RUN npm rebuild node-sass
 EXPOSE $PORT
 
 # Start app
-CMD ["yarn", "dev"]
+ENTRYPOINT ["yarn"]
+CMD ["dev"]
