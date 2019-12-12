@@ -10,6 +10,7 @@ pids
 
 #Configuration
 src/config/env/production.js
+src/config/env/development.js
 
 # IDE
 .idea
