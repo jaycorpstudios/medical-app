@@ -1,9 +1,12 @@
 export default {
   env: 'development',
   MONGOOSE_DEBUG: true,
-  passportSecret: 'apassportsecret',
-  db: 'mongodb://localhost/villafeet-api-dev',
+  passportSecret: 'passportsecret',
+  db: 'mongodb://localhost/villafeet-api',
   port: 4040,
-  //Mailgun
-  //cloudinary
+  CLOUDINARY_NAME: '',
+  CLOUDINARY_API_KEY: '',
+  CLOUDINARY_API_SECRET: '',
+  MAILGUN_DOMAIN: '',
+  MAILGUN_API_KEY: '',
 }
