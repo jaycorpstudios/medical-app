@@ -2,15 +2,16 @@ import httpStatus from 'http-status'
 import multer from 'multer'
 import cloudinaryStorage from 'multer-storage-cloudinary'
 import util from 'util'
-
 import APIError from './../helpers/APIError'
 import cloudinary from './../../config/cloudinary'
 
+const { NODE_ENV = 'development' } = process.env
 const ALLOWED_IMG_TYPES = ['image/png', 'image/jpg', 'image/jpeg']
+const AVATARS_FOLDER = `villafeet/${NODE_ENV}/avatars`
 
 const storageAvatar = cloudinaryStorage({
   cloudinary: cloudinary,
-  folder: 'villafeet/stage/avatars',
+  folder: AVATARS_FOLDER,
   allowedFormats: ['jpg', 'png'],
   transformation: [{ width: 500, height: 500, crop: 'fill', gravity: 'auto' }],
 })
