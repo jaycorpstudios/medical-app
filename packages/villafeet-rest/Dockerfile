@@ -23,4 +23,5 @@ ENV PORT 8080
 EXPOSE  8080
 
 # start command as per package.json
-CMD ["npm", "start"]
+ENTRYPOINT [ "npm" ]
+CMD ["dev"]

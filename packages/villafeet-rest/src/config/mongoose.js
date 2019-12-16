@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import util from 'util'
 import config from './env'
-
+console.log(config)
 const debug = require('debug')('villafeet-api:index')
 
 const setMongooseConfig = () => {
