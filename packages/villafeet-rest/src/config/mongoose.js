@@ -1,8 +1,7 @@
 import mongoose from 'mongoose'
 import util from 'util'
 import config from './env'
-console.log(config)
-const debug = require('debug')('villafeet-api:index')
+const debug = require('debug')('villafeet-api')
 
 const setMongooseConfig = () => {
   // plugin native promise in mongoose
@@ -36,20 +35,20 @@ const setMongooseConfig = () => {
     throw new Error(`unable to connect to database: ${config.db}`)
   })
   mongoose.connection.once('connected', () => {
-    console.log(`Successfully connected to ${config.db}`)
+    debug(`Successfully connected to ${config.db}`)
   })
   mongoose.connection.once('disconnected', () => {
-    console.log(`Successfully disconnected from ${config.db}`)
+    debug(`Successfully disconnected from ${config.db}`)
   })
   process.on('SIGINT', () => {
     mongoose.connection.close(() => {
-      console.log('dBase connection closed due to app termination')
+      debug('dBase connection closed due to app termination')
       process.exit(0)
     })
   })
   process.on('unhandledRejection', error => {
     // Will print "unhandledRejection err is not defined"
-    console.log('Unhandled Rejection:', error)
+    debug('Unhandled Rejection:', error)
     process.exit(0)
   })
 

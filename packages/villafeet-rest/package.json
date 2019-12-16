@@ -10,7 +10,7 @@
     "yarn": ">=0.17.9"
   },
   "scripts": {
-    "dev": "NODE_ENV=development nodemon -w src --exec \"babel-node src\"",
+    "dev": "NODE_ENV=development DEBUG=villafeet-api nodemon -w src --exec \"babel-node src\"",
     "build": "babel src -s -D -d dist",
     "start": "node dist",
     "prestart": "npm run -s build",
