@@ -19,7 +19,7 @@
     "test:coverage": "NODE_ENV=test jest --coverage",
     "prepush": "yarn test",
     "precommit": "lint-staged",
-    "seed-local-data": "NODE_ENV=local yarn run build && node dist/scripts/seedLocalUsers.js"
+    "seed-local-data": "NODE_ENV=development babel-node src/scripts/seedLocalUsers.js"
   },
   "dependencies": {
     "body-parser": "1.15.2",

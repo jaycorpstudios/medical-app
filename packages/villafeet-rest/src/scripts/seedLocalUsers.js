@@ -1,28 +1,38 @@
 import setMongooseConfig from '../config/mongoose'
 import User from '../server/models/user.model'
-//TODO: Add babel config to skip errors when calling this script
+
 setMongooseConfig()
 
-async function createUser() {
-  try {
-    const user = new User({
-      name: 'Jay',
-      lastName: 'Test',
-      email: 'test@me.com',
-      password: 'test',
-      avatar: '',
+function createUser({ newUser, password = '' } = {}) {
+  const handleUserCreation = (resolve, reject) => {
+    User.register(newUser, password, (user, error) => {
+      if (error) {
+        return reject(error)
+      }
+      return resolve(user)
     })
-    const response = await user.save()
-    return response
-  } catch (err) {
-    console.log(err)
   }
+  return new Promise(handleUserCreation)
 }
 
 async function main() {
-  console.log('About to create local users.')
-  await createUser()
-  console.log('created users')
+  console.log('About to create local admin users.')
+  const password = 'adminUser'
+  const email = 'admin@user.com'
+  const newUser = new User({
+    name: 'Admin',
+    lastName: 'User',
+    email,
+    avatar: `https://api.adorable.io/avatars/285/${email}.png`,
+    role: 'admin',
+  })
+  try {
+    await createUser({ newUser, password })
+  } catch (err) {
+    console.log(err)
+    process.exit(1)
+  }
+  console.log('Users created')
   process.exit()
 }
 
