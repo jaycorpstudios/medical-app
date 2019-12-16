@@ -1,6 +1,7 @@
 export default {
+  MONGOOSE_DEBUG: true,
   env: 'test',
-  passportSecret: 'vfstayhungrystayfoolish',
+  passportSecret: 'testSecret',
   db: 'mongodb://localhost/villafeet-api-test',
-  port: 4040,
+  port: 4041,
 }

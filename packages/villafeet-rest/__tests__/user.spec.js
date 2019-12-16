@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import request from 'supertest'
 import httpStatus from 'http-status'
-import app from '../../index'
+import app from '../src/index'
 
 /**
  * root level hooks
@@ -14,7 +14,7 @@ afterAll(done => {
   done()
 })
 
-describe('## User APIs', () => {
+xdescribe('## User APIs', () => {
   let user = {
     email: 'samueltutton@gmail.com',
   }
