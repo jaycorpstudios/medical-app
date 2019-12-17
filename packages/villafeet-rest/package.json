@@ -13,9 +13,8 @@
     "dev": "NODE_ENV=development DEBUG=villafeet-api nodemon -w src --exec \"babel-node src\"",
     "build": "babel src -s -D -d dist",
     "start": "node dist",
-    "prestart": "npm run -s build",
     "prettier": "prettier --semi false --print-width 120 --single-quote --trailing-comma all --write \"{src,__{tests,mocks}__}/**/*.js\"",
-    "test": "NODE_ENV=test DEBUG=villafeet-api jest",
+    "test": "NODE_ENV=test DEBUG=villafeet-api jest --runInBand --detectOpenHandles --testTimeout=12000",
     "test:coverage": "NODE_ENV=test jest --coverage",
     "precommit": "lint-staged",
     "seed-local-data": "NODE_ENV=development babel-node src/scripts/seedLocalUsers.js"
@@ -51,6 +50,7 @@
     "@babel/cli": "7.7.5",
     "@babel/core": "7.7.5",
     "@babel/node": "7.7.4",
+    "@babel/polyfill": "7.7.0",
     "@babel/preset-env": "7.7.6",
     "husky": "^0.13.2",
     "jest-cli": "24.9.0",
@@ -58,7 +58,7 @@
     "mockgoose": "8.0.1",
     "nodemon": "^1.11.0",
     "prettier": "1.1.0",
-    "supertest": "2.0.1"
+    "supertest": "4.0.2"
   },
   "license": "MIT",
   "lint-staged": {

@@ -1,9 +1,9 @@
 module.exports = {
   roots: ['<rootDir>/__tests__'],
   transformIgnorePatterns: [],
-
+  testEnvironment: 'node',
   moduleDirectories: ['node_modules'],
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.js?$',
+  testRegex: '__tests__\/.*\.(test|spec)\.js?$',
   moduleFileExtensions: ['js', 'json'],
   collectCoverageFrom: ['src/**/*.{js}', '!**/node_modules/**'],
   coveragePathIgnorePatterns: ['/node_modules/'],
