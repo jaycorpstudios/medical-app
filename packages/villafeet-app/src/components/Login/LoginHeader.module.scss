@@ -1,0 +1,34 @@
+@import '../../theme/variables.scss';
+
+.poster {
+  width: 100%;
+  height: 100%;
+  background: url('#{$images-path-modules}hero-mobile.jpg') no-repeat center;
+  background-size: cover;
+  grid-column: 1 / 4;
+  grid-row: 1 / 3;
+  clip-path: inset(-400px -140px 0 -140px round 240px);
+  -webkit-clip-path: inset(-400px -140px 0 -140px round 240px);
+  @media screen and (min-width: $tablet-min) {
+      grid-column: auto;
+      grid-row: auto;
+  }
+}
+.title, .description{
+  @media screen and (min-width: $tablet-min) {
+      justify-self: start;
+  }
+}
+.logo {
+  width: 100%;
+  max-width: 250px;
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  transition: 300ms;
+  position: relative;
+  z-index: 2;
+  @media screen and (min-width: $tablet-min) {
+      grid-column: auto;
+      grid-row: auto;
+  }
+}

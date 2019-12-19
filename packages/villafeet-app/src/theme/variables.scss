@@ -18,6 +18,7 @@ $deep-level-1: 100;
 $deep-level-alerts: 1000;
 
 // Paths
-$images-path: '~src/theme/images/';
+$images-path: '~src/theme/images/'; //TODO: Deprecated
+$images-path-modules: 'src/theme/images/';
 
 $text-white-border:white -1px -1px 0, white -2px -2px 0, white 1px 1px 0, white 2px 2px 0, white -1px 1px 0, white -2px 2px 0, white 1px -1px 0, white 2px -2px 0;
