@@ -1,31 +1,33 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import NavigationBar from './../components/NavigationBar';
-import UserHeader from './../components/UserHeader';
-import MobileHeader from './../components/MobileHeader';
+import NavigationBar from '../components/NavigationBar';
+import UserHeader from '../components/UserHeader';
+import MobileHeader from '../components/MobileHeader';
 import './MainLayout.scss';
 
-import CacheHelper from './../utils/cache';
-import AlertList from './../components/AlertList';
+import CacheHelper from '../utils/cache';
+import AlertList from '../components/AlertList';
 
-const MainLayout = ({component: Component, ...rest}) => {
-
+const MainLayout = ({ component: Component, ...rest }) => {
   const auth = CacheHelper.getItem('auth');
   const isAuthenticated = auth && auth.authenticated || false;
 
-    return (
-      <Route {...rest} render={ matchProps => isAuthenticated ? (
-        <div className='Dashboard'>
-            <AlertList/>
-            <NavigationBar path={rest.path}/>
-            <UserHeader/>
-            <MobileHeader/>
-            <main className="MainContent">
-              <Component {...matchProps} />
-            </main>
+  return (
+    <Route
+      {...rest}
+      render={(matchProps) => (isAuthenticated ? (
+        <div className="Dashboard">
+          <AlertList />
+          <NavigationBar path={rest.path} />
+          <UserHeader />
+          <MobileHeader />
+          <main className="MainContent">
+            <Component {...matchProps} />
+          </main>
         </div>
-      ) : <Redirect to={ { pathname: '/', state: { from: matchProps.location } } } /> } />
-    )
-  };
+      ) : <Redirect to={{ pathname: '/', state: { from: matchProps.location } }} />)}
+    />
+  );
+};
 
-  export default MainLayout;
+export default MainLayout;

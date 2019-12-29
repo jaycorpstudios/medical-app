@@ -1,38 +1,37 @@
-import { isEmpty, isNumeric, isEmail, isISO8601 } from 'validator';
+import {
+  isEmpty, isNumeric, isEmail, isISO8601,
+} from 'validator';
 
 const availableValidations = {
   required: {
-    validate: (value) => {
-      return isEmpty(value.trim())
-     },
-    errorMessage: 'Este campo es requerido'
+    validate: (value) => isEmpty(value.trim()),
+    errorMessage: 'Este campo es requerido',
   },
   number: {
     validate: (value) => !isNumeric(value),
-    errorMessage: 'Sólo se aceptán números'
+    errorMessage: 'Sólo se aceptán números',
   },
   email: {
     validate: (value) => !isEmail(value),
-    errorMessage: 'Ingresa un correo válido'
+    errorMessage: 'Ingresa un correo válido',
   },
   date: {
     validate: (value) => !isISO8601(value),
-    errorMessage: 'Ingresa una fecha válida'
-  }
-}
+    errorMessage: 'Ingresa una fecha válida',
+  },
+};
 
 class FormValidator {
-
-  constructor (validations){
+  constructor(validations) {
     this.availableValidations = validations;
   }
 
-  validateInput (data) {
-    let input = {...data};
+  validateInput(data) {
+    const input = { ...data };
     const { validations = [] } = input;
-    validations.some( validation => {
+    validations.some((validation) => {
       const validator = this.availableValidations[validation];
-      if(validator){
+      if (validator) {
         const { value = '' } = input;
         const hasError = validator.validate(value);
         input.hasError = hasError;
@@ -44,32 +43,28 @@ class FormValidator {
   }
 
   validateFormSection(formSection) {
-    return Object.keys(formSection).reduce( (validatedFormSection, inputKey) => {
-      validatedFormSection[inputKey] = this.validateInput(formSection[inputKey])
+    return Object.keys(formSection).reduce((validatedFormSection, inputKey) => {
+      validatedFormSection[inputKey] = this.validateInput(formSection[inputKey]);
       return validatedFormSection;
     }, {});
   }
 
   isFormSectionValid(formSection) {
-    return !Object.keys(formSection).some( inputKey => {
-      return formSection[inputKey].hasError;
-    })
+    return !Object.keys(formSection).some((inputKey) => formSection[inputKey].hasError);
   }
 
-  validateForm(form){
-    return Object.keys(form).reduce( (validatedForm, sectionKey) => {
-      validatedForm[sectionKey] = this.validateFormSection(form[sectionKey])
+  validateForm(form) {
+    return Object.keys(form).reduce((validatedForm, sectionKey) => {
+      validatedForm[sectionKey] = this.validateFormSection(form[sectionKey]);
       return validatedForm;
     }, {});
   }
 
-  isFormValid(formData){
-    return !Object.keys(formData).some( formSectionKey => {
+  isFormValid(formData) {
+    return !Object.keys(formData).some((formSectionKey) => {
       const formSection = formData[formSectionKey];
-      return Object.keys(formSection).some( inputKey => {
-        return formSection[inputKey].hasError;
-      })
-    })
+      return Object.keys(formSection).some((inputKey) => formSection[inputKey].hasError);
+    });
   }
 }
 

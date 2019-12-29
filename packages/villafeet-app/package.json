@@ -10,7 +10,8 @@
     "test:unit": " jest",
     "test:e2e": " jest --config jest-puppeteer.config.js",
     "build:prod": "webpack --mode production",
-    "analyze:prod": "webpack --mode production --json > stats.json"
+    "analyze:prod": "webpack --mode production --json > stats.json",
+    "lint": "eslint '{src,test}/**/*.js' --fix"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
@@ -20,12 +21,18 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "10.0.3",
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^1.0.0",
+    "eslint": "6.8.0",
+    "eslint-config-airbnb": "18.0.1",
+    "eslint-plugin-import": "2.19.1",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.17.0",
     "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^23.6.0",
@@ -48,12 +55,14 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
+    "react-router": "5.1.2",
     "react-router-dom": "^4.3.1",
     "react-transition-group": "^4.3.0",
     "redux": "^4.0.0",
     "redux-firestore": "^0.5.8",
     "redux-responsive": "^4.3.8",
     "redux-saga": "^0.16.2",
+    "regenerator-runtime": "0.13.3",
     "validator": "^11.1.0"
   }
 }

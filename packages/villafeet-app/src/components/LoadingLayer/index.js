@@ -1,9 +1,7 @@
 import React from 'react';
-import LoadingState from './../LoadingState';
+import LoadingState from '../LoadingState';
 import './LoadingLayer.scss';
 
-export default props => {
-    return (
-        <div className="LoadingLayer"><LoadingState /></div>
-    )
-}
+export default (props) => (
+  <div className="LoadingLayer"><LoadingState /></div>
+);

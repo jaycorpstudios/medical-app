@@ -1,17 +1,19 @@
+/* eslint-disable no-underscore-dangle */
 /*
   global ENVIRONMENT
 */
 
 import { createStore, compose, applyMiddleware } from 'redux';
-import { rootReducer } from '../reducers';
-import {responsiveStoreEnhancer} from 'redux-responsive';
+import { responsiveStoreEnhancer } from 'redux-responsive';
 import sagaMiddlewareCreator from 'redux-saga';
-import rootSaga from './../sagas';
+import rootReducer from '../reducers';
+import rootSaga from '../sagas';
 
 const sagaMiddleware = sagaMiddlewareCreator();
 
-const noDevTools = noTools => noTools;
-const ReduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : noDevTools;
+const noDevTools = (noTools) => noTools;
+const reduxDevToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__;
+const ReduxDevTools = reduxDevToolsExtension ? reduxDevToolsExtension() : noDevTools;
 const devTools = ENVIRONMENT !== 'PROD' ? ReduxDevTools : noDevTools;
 
 export default createStore(
@@ -19,8 +21,8 @@ export default createStore(
   compose(
     responsiveStoreEnhancer,
     applyMiddleware(sagaMiddleware),
-    devTools
-  )
+    devTools,
+  ),
 );
 
 sagaMiddleware.run(rootSaga);

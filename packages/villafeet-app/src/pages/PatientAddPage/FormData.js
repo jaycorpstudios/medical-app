@@ -1,112 +1,111 @@
-import Estados from './../../staticData/statesOfMexico';
-const states = Estados.map( ({id, text}) => {
-                return {id, text, value: text }
-              });
+import Estados from '../../staticData/statesOfMexico';
+
+const states = Estados.map(({ id, text }) => ({ id, text, value: text }));
 
 export const PatientFormData = {
-  name: { 
-    label:'Nombre',
-    value: '',
-    type: 'text' ,
-    validations: ['required'],
-  },
-  firstSurname: {
-    label:'Apellido paterno',
+  name: {
+    label: 'Nombre',
     value: '',
     type: 'text',
     validations: ['required'],
   },
-  secondSurname: { 
-    label:'Apellido materno',
+  firstSurname: {
+    label: 'Apellido paterno',
     value: '',
-    type: 'text'
+    type: 'text',
+    validations: ['required'],
+  },
+  secondSurname: {
+    label: 'Apellido materno',
+    value: '',
+    type: 'text',
   },
   gender: {
-    label:'Sexo:',
+    label: 'Sexo:',
     value: 'male',
     type: 'radio',
-    options: [{ value:'male', text:'Hombre' }, { value:'female', text:'Mujer' }]
+    options: [{ value: 'male', text: 'Hombre' }, { value: 'female', text: 'Mujer' }],
   },
   avatar: {
     label: 'Foto de perfil',
     type: 'file',
     value: '',
-    uploadInProgress: false
+    uploadInProgress: false,
   },
-  birthday: { 
-    label:'Fecha de nacimiento',
+  birthday: {
+    label: 'Fecha de nacimiento',
     value: '1980-01-01',
     type: 'date',
-    validations: ['required','date'],
+    validations: ['required', 'date'],
   },
-  //TODO: Move the rest to medical
+  // TODO: Move the rest to medical
   peso: {
     value: '',
-    label:'Peso',
+    label: 'Peso',
     type: 'number',
     validations: ['number'],
   },
   talla: {
     value: '',
-    label:'Talla',
+    label: 'Talla',
     type: 'number',
     validations: ['number'],
   },
   ejercicio: {
     value: 'medio',
-    label:'Nivel de ejercicio',
+    label: 'Nivel de ejercicio',
     type: 'select',
-    options: [ {value:'alto', text:'Alto'}, {value:'medio', text:'Medio'}, {value:'bajo', text:'Bajo'} ]
+    options: [{ value: 'alto', text: 'Alto' }, { value: 'medio', text: 'Medio' }, { value: 'bajo', text: 'Bajo' }],
   },
 };
 
 export const ContactFormData = {
   email: {
-    label:'Correo',
+    label: 'Correo',
     value: '',
     type: 'email',
-    validations: ['required', 'email']
+    validations: ['required', 'email'],
   },
   phone: {
-    label:'Telefono',
+    label: 'Telefono',
     value: '',
-    type: 'tel'
+    type: 'tel',
   },
 };
 
 export const OthersFormData = {
   profession: {
     value: '',
-    label:'Ocupación',
-    type: 'text'
+    label: 'Ocupación',
+    type: 'text',
   },
-}
+};
 
 export const AddressFormData = {
   address1: {
     value: '',
-    label:'Calle y número (opcional)',
-    type: 'text'
+    label: 'Calle y número (opcional)',
+    type: 'text',
   },
   address2: {
     value: '',
-    label:'Interior, piso, departamento (opcional)',
-    type: 'text'
+    label: 'Interior, piso, departamento (opcional)',
+    type: 'text',
   },
-  city: { 
+  city: {
     value: '',
-    label:'Municipio (opcional)',
-    type: 'text'
+    label: 'Municipio (opcional)',
+    type: 'text',
   },
   state: {
     value: 'Jalisco',
-    label:'Estado',
+    label: 'Estado',
     type: 'select',
-    options: [...states]
+    options: [...states],
   },
   zip: {
     value: '',
-    label:'Código postal (opcional)',
-    type: 'text'
+    label: 'Código postal (opcional)',
+    type: 'text',
   },
-}
+};
