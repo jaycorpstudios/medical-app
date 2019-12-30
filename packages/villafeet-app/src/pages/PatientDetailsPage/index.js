@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { fetchPatient, fetchReset, removePatient } from '../../actions';
 import { FETCH_KEY_GET_PATIENT } from '../../actions/types';
+import useModalState from '../../hooks/useModalState';
 import LoadingState from '../../components/LoadingState';
 import PatientDetailsHeader from '../../components/PatientDetails/PatientDetailsHeader';
 import PatientSectionTabs from '../../components/PatientDetails/PatientSectionTabs';
@@ -12,76 +13,93 @@ import ThemeButtonPrimary from '../../components/ThemeButtonPrimary';
 import ThemeButtonDefault from '../../components/ThemeButtonDefault';
 import DropDown from '../../components/DropDown';
 import MapPatientData from './mapPatientData';
+import ModalConfirm from '../../components/ModalConfirm';
 
 import './PatientDetailsPage.scss';
 
-class PatientDetailsPage extends React.Component {
-  componentDidMount() {
-    const { match, dispatchFetchPatient } = this.props;
+const PatientDetailsPage = (props) => {
+  const { shouldDisplayModal, openModal, setNodeRef } = useModalState(false);
+
+  useEffect(() => {
+    const { match, dispatchFetchPatient } = props;
     const { idPaciente = '' } = match.params;
     dispatchFetchPatient(idPaciente);
-  }
+    return () => {
+      const { patientStatusRestore } = props;
+      patientStatusRestore();
+    };
+  }, []);
 
-  componentWillUnmount() {
-    const { patientStatusRestore } = this.props;
-    patientStatusRestore();
-  }
+  const onRemovePatient = () => {
+    openModal(true);
+  };
 
-  // TODO: Open modal and confirm action before patient is removed.
-  onRemovePatient = () => {
-    const { history, match, dispatchRemovePatient } = this.props;
+  const onCancelModal = () => {
+    openModal(false);
+  };
+
+  const onConfirmModal = () => {
+    const { history, match, dispatchRemovePatient } = props;
     const { idPaciente = '' } = match.params;
     dispatchRemovePatient(idPaciente);
+    openModal(false);
     history.push('/pacientes');
-  }
+  };
 
-  editPatient = (_id) => () => {
-    const { history } = this.props;
+  const editPatient = (_id) => () => {
+    const { history } = props;
     history.push(`/pacientes/editar/${_id}`);
-  }
+  };
 
-  render() {
-    const {
-      patient = {},
-      status: { inProgress = true } = {},
-    } = this.props;
+  const {
+    patient = {},
+    status: { inProgress = true } = {},
+  } = props;
 
-    const {
-      _id = null, name = '', firstSurname = '', secondSurname = '', gender, avatar, lastVisit, contact = {}, address = {}, others = {},
-    } = patient;
-    const fullName = `${name} ${firstSurname} ${secondSurname}`;
-    patient.profession = others.profession;
+  const {
+    _id = null, name = '', firstSurname = '', secondSurname = '', gender, avatar, lastVisit, contact = {}, address = {}, others = {},
+  } = patient;
+  const fullName = `${name} ${firstSurname} ${secondSurname}`;
+  patient.profession = others.profession;
 
-    const contactData = MapPatientData(contact, 'contact');
-    const addressData = MapPatientData(address, 'address');
-    const personalData = MapPatientData(patient, 'personal');
+  const contactData = MapPatientData(contact, 'contact');
+  const addressData = MapPatientData(address, 'address');
+  const personalData = MapPatientData(patient, 'personal');
 
-    if (inProgress) return <LoadingState />;
+  if (inProgress) return <LoadingState />;
 
-    const dropDownOptions = [
-      { title: 'Editar paciente', icon: 'edit', onClick: this.editPatient(_id) },
-      { title: 'Borrar paciente', icon: 'delete_outline', onClick: this.onRemovePatient },
-    ];
+  const dropDownOptions = [
+    { title: 'Editar paciente', icon: 'edit', onClick: editPatient(_id) },
+    { title: 'Borrar paciente', icon: 'delete_outline', onClick: onRemovePatient },
+  ];
 
-    return (
-      <article className="PatientDetailsPage">
-        <section className="PatientDetailsPage__back hidden-xs">
-          <Link to="/pacientes"><ThemeButtonDefault title="Regresar" icon="arrow_back" noShadow /></Link>
-        </section>
-        <PatientDetailsHeader name={fullName} gender={gender} avatar={avatar} lastVisit={lastVisit}>
-          <ThemeButtonPrimary title="Iniciar consulta" icon="play_arrow" className="hidden-xs" />
-          <DropDown options={dropDownOptions} icon="more_horiz" />
-        </PatientDetailsHeader>
-        <PatientSectionTabs />
-        <section className="PatientDetailsPage__details">
-          <PatientDetailsGroup title="Datos personales" data={personalData} />
-          <PatientDetailsGroup title="Contacto" data={contactData} />
-          <PatientDetailsGroup title="Dirección" data={addressData} />
-        </section>
-      </article>
-    );
-  }
-}
+  return (
+    <article className="PatientDetailsPage">
+      <section className="PatientDetailsPage__back hidden-xs">
+        <Link to="/pacientes"><ThemeButtonDefault title="Regresar" icon="arrow_back" noShadow /></Link>
+      </section>
+      <PatientDetailsHeader name={fullName} gender={gender} avatar={avatar} lastVisit={lastVisit}>
+        <ThemeButtonPrimary title="Iniciar consulta" icon="play_arrow" className="hidden-xs" />
+        <DropDown options={dropDownOptions} icon="more_horiz" />
+      </PatientDetailsHeader>
+      <PatientSectionTabs />
+      <section className="PatientDetailsPage__details">
+        <PatientDetailsGroup title="Datos personales" data={personalData} />
+        <PatientDetailsGroup title="Contacto" data={contactData} />
+        <PatientDetailsGroup title="Dirección" data={addressData} />
+      </section>
+      <ModalConfirm
+        open={shouldDisplayModal}
+        title="¿Estas seguro que quieres eliminar al paciente?"
+        description="Esta acción no puede deshacerse"
+        confirmTitle="Borrar"
+        setNodeRef={setNodeRef}
+        onConfirm={onConfirmModal}
+        onCancel={onCancelModal}
+      />
+    </article>
+  );
+};
 
 function mapStateToProps(state) {
   const { detail } = state.patients;
