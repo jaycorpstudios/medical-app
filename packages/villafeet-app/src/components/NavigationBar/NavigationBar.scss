@@ -2,12 +2,11 @@
 @import 'theme/variables.scss';
 
 .NavigationBar {
-
     $color-gradient-start: rgb(32,132,136);
     $color-gradient-step1: rgb(22,135,142);
     $color-gradient-step2: rgb(35,151,157);
     $color-gradient-end: $color-secondary;
-
+    grid-row: 1 / -1;
     background-color: $color-secondary;
     display: flex;
     flex-direction: column;

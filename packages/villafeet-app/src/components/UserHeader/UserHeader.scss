@@ -5,11 +5,15 @@
     background: $color-background-primary;
     box-shadow: 0 0 5px $color-element-shadow;
     border-radius: 10px;
+    width: 100%;
     height: 60px;
     padding: 0 20px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    align-self: end;
+    max-width: 990px;
+    margin: 0 auto;
 
     &__action {
         border: none;

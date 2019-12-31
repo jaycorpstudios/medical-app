@@ -1,0 +1,30 @@
+@import './../theme/colors.scss';
+@import './../theme/variables.scss';
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 58px 1fr;
+  min-height: 100vh;
+  background-color: $color-background-secondary;
+  transition: $animation-medium;
+  transition-property: transform, filter;
+
+  @media screen and (min-width: $laptop-min) {
+      grid-template-columns: 241px 1fr;
+      grid-template-rows: 80px 1fr;
+      padding-right: 25px;
+      grid-gap: 25px;
+  }
+}
+
+.mainContent {
+  max-width: 990px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.blurApp {
+  transform: scale(1.01);
+  filter: blur(3px);
+}

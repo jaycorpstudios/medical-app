@@ -1,27 +1,30 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
+import classnames from 'classnames';
 import NavigationBar from '../components/NavigationBar';
 import UserHeader from '../components/UserHeader';
 import MobileHeader from '../components/MobileHeader';
-import './MainLayout.scss';
+import styles from './MainLayout.module.scss';
 
 import CacheHelper from '../utils/cache';
 import AlertList from '../components/AlertList';
 
-const MainLayout = ({ component: Component, ...rest }) => {
+const MainLayout = ({ component: Component, blur, ...rest }) => {
   const auth = CacheHelper.getItem('auth');
-  const isAuthenticated = auth && auth.authenticated || false;
-
+  const isAuthenticated = auth && auth.authenticated ? auth.authenticated : false;
+  const { blurApp, dashboard, mainContent } = styles;
+  const dashboardStyles = classnames({ [blurApp]: blur }, dashboard);
   return (
     <Route
       {...rest}
       render={(matchProps) => (isAuthenticated ? (
-        <div className="Dashboard">
+        <div className={dashboardStyles}>
           <AlertList />
           <NavigationBar path={rest.path} />
           <UserHeader />
           <MobileHeader />
-          <main className="MainContent">
+          <main className={mainContent}>
             <Component {...matchProps} />
           </main>
         </div>
@@ -30,4 +33,11 @@ const MainLayout = ({ component: Component, ...rest }) => {
   );
 };
 
-export default MainLayout;
+const mapStateToProps = (state) => {
+  const { app = {} } = state;
+  return {
+    blur: app.blur,
+  };
+};
+
+export default connect(mapStateToProps)(MainLayout);

@@ -3,15 +3,12 @@
 
 .modal {
   position: fixed;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
   z-index: $deep-level-modal;
 }
 
 .backdrop {
   background-color: $color-modal-shade;
+  transition: opacity $animation-slow;
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -20,14 +17,47 @@
 
 .container {
   background-color: $color-background-primary;
+  transition: $animation-medium;
   border-radius: 10px;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  transform-origin: 0 0;
   width: 350px;
   max-width: 100%;
   min-height: 400px;
   max-height: 100%;
   z-index: 2;
+}
+
+// Animation
+
+.ModalContainerEnter {
+  opacity: 0;
+  transform: scale(.5) translate(-50%, 100vh);
+}
+.ModalContainerEnterActive {
+  opacity: 1;
+  transform: scale(1) translate(-50%, -50%);
+}
+.ModalContainerExit {
+  opacity: 1;
+}
+.ModalContainerExitActive {
+  opacity: 0;
+  transform: scale(.2) translate(-50%, -50%);
+}
+
+.BackdropEnter {
+  opacity: 0;
+}
+.BackdropEnterActive {
+  opacity: 1;
+}
+.BackdropExit {
+  opacity: 1;
+}
+.BackdropExitActive {
+  opacity: 0;
 }
