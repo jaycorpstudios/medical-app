@@ -22,8 +22,6 @@ class PatientAddPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hasErrors: false,
-      errorMessage: '',
       formData: {},
       editMode: false,
       patientDataPopulated: false,
@@ -101,7 +99,7 @@ class PatientAddPage extends React.Component {
   isFormValid() {
     const validatedFormData = FormValidator.validateForm(this.state.formData);
     const hasErrors = !FormValidator.isFormValid(validatedFormData);
-    this.setState({ formData: { ...validatedFormData }, hasErrors });
+    this.setState({ formData: { ...validatedFormData } });
     return !hasErrors;
   }
 
