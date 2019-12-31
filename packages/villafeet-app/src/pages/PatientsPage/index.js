@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -13,45 +14,61 @@ import { filterByName } from '../../utils/filters';
 
 import './PatientsPage.scss';
 
-class PatientsPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { filter: '' };
-  }
+const PatientsPage = ({
+  patients, status, patientRecordRestore, dispatchFetchPatients,
+}) => {
+  const [filter, setFilter] = useState('');
 
-  componentDidMount() {
-    this.props.patientRecordRestore();
-    this.props.fetchPatients();
-  }
+  useEffect(() => {
+    patientRecordRestore();
+    dispatchFetchPatients();
+  }, []);
 
-  filterPatients(criteria = '', patients) {
-    return [...patients].filter(filterByName(criteria, 'name'));
-  }
+  const filterPatients = (criteria = '', currentPatients) => [...currentPatients].filter(filterByName(criteria, 'name'));
 
-  handleFilter(event) {
-    const { value: filter } = event.target;
-    this.setState({ filter });
-  }
+  const handleFilter = (event) => {
+    const { value } = event.target;
+    setFilter(value);
+  };
+  const { inProgress = true } = status;
 
-  render() {
-    const { patients = [], status: { inProgress = true } } = this.props;
-    const { filter } = this.state;
-
-    return (
-      <div className="PatientsPage">
-        <div className="PatientsPage__header hidden-xs">
-          <h1 className="theme-heading-large">Listado de pacientes</h1>
-          <Link to="/pacientes/agregar"><TernaryButton title="Agregar paciente" icon="plus" /></Link>
-        </div>
-        <ThemeInput className="PatientsPage__filter no-highlight" type="search" icon="search" placeholder="Nombre del paciente" value={this.state.filter} onChange={this.handleFilter.bind(this)} />
-        <PatientsList patients={this.filterPatients(filter, patients)} loading={inProgress} />
-        <div className="PatientsPage__mobile-cta visible-xs">
-          <Link to="/pacientes/agregar"><ThemeButton title="Agregar" /></Link>
-        </div>
+  return (
+    <div className="PatientsPage">
+      <div className="PatientsPage__header hidden-xs">
+        <h1 className="theme-heading-large">Listado de pacientes</h1>
+        <Link to="/pacientes/agregar"><TernaryButton title="Agregar paciente" icon="plus" /></Link>
       </div>
-    );
-  }
-}
+      <ThemeInput
+        className="PatientsPage__filter no-highlight"
+        type="search"
+        icon="search"
+        placeholder="Nombre del paciente"
+        value={filter}
+        onChange={handleFilter}
+      />
+      <PatientsList patients={filterPatients(filter, patients)} loading={inProgress} />
+      <div className="PatientsPage__mobile-cta visible-xs">
+        <Link to="/pacientes/agregar"><ThemeButton title="Agregar" /></Link>
+      </div>
+    </div>
+  );
+};
+
+PatientsPage.propTypes = {
+  patients: PropTypes.arrayOf(PropTypes.object),
+  status: PropTypes.shape({
+    inProgress: PropTypes.bool,
+    success: PropTypes.bool,
+    error: PropTypes.bool,
+    errorMessage: PropTypes.string,
+  }).isRequired,
+  patientRecordRestore: PropTypes.func.isRequired,
+  dispatchFetchPatients: PropTypes.func.isRequired,
+};
+
+PatientsPage.defaultProps = {
+  patients: [],
+};
 
 function mapStateToProps(state) {
   const { list } = state.patients;
@@ -64,7 +81,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     patientRecordRestore: () => { dispatch(fetchReset(FETCH_KEY_ADD_PATIENT)); },
-    fetchPatients: () => { dispatch(fetchPatients()); },
+    dispatchFetchPatients: () => { dispatch(fetchPatients()); },
   };
 }
 

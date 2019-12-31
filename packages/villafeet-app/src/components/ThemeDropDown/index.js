@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import ThemeDropDownPropTypes from './propTypes';
 import styles from './ThemeDropDown.module.scss';
@@ -35,7 +36,7 @@ const DropDownOptions = ({ options, alignTo }) => {
   const classNames = classnames(styles.ThemeDropDownOptions, getAlignmentClass());
   return (
     <div className={classNames} ref={containerRef} style={style}>
-      {options.map((option, key) => <ThemeButtonDefault key={key} noShadow {...option} />)}
+      {options.map((option) => <ThemeButtonDefault key={Math.random()} noShadow {...option} />)}
     </div>
   );
 };
@@ -50,16 +51,22 @@ DropDownOptions.defaultProps = {
   alignTo: 'right',
 };
 
-class ThemeDropDown extends React.Component {
-    renderChildren = () => {
-      const { children, onClick } = this.props;
-      return (
-        <span onClick={onClick}>
-          {children}
-        </span>
-      );
-    }
+const DropDownWrapper = ({ children, onClick }) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className={styles.DropDownWrapper}
+  >
+    {children}
+  </button>
+);
 
+DropDownWrapper.propTypes = {
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+
+class ThemeDropDown extends React.Component {
     getDropDownOptionsSize = (node) => {
       this.dropDownOptionsWidth = node && node.getBoundingClientRect();
     }
@@ -71,7 +78,8 @@ class ThemeDropDown extends React.Component {
       const classes = classnames(styles.ThemeDropDown, className);
       return (
         <div className={classes}>
-          { children ? this.renderChildren() : <ThemeButtonDefault active={isOpen} icon={icon} title={title} onClick={onClick} /> }
+          { children ? <DropDownWrapper onClick={onClick}>{children}</DropDownWrapper>
+            : <ThemeButtonDefault active={isOpen} icon={icon} title={title} onClick={onClick} />}
           {isOpen && <DropDownOptions options={options} alignTo={alignTo} />}
         </div>
       );
@@ -86,7 +94,7 @@ ThemeDropDown.defaultProps = {
   options: [],
   alignTo: 'right',
   onClick: () => {},
-  children: [],
+  children: undefined,
 };
 
 export default ThemeDropDown;

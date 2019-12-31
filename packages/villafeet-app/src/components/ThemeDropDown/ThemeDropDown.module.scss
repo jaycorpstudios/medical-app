@@ -5,6 +5,12 @@
   position: relative;
 }
 
+.DropDownWrapper {
+  border: none;
+  background: none;
+  display: contents;
+}
+
 .ThemeDropDownOptions {
   display: flex;
   position: absolute;
