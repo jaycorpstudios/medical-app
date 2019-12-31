@@ -27,4 +27,6 @@
 .blurApp {
   transform: scale(1.01);
   filter: blur(3px);
+  position: fixed;
+  width: 100%;
 }
