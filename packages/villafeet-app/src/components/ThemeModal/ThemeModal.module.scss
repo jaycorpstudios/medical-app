@@ -28,9 +28,10 @@
   max-width: 100%;
   min-height: 400px;
   max-height: calc(100vh - 20px);
-  overflow: scroll;
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   z-index: 2;
+  box-shadow: $color-element-shadow 0 4px 15px;
 }
 
 // Animation

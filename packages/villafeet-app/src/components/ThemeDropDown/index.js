@@ -1,49 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import classnames from 'classnames';
-import PropTypes from 'prop-types';
+import ThemeDropDownPropTypes from './propTypes';
 import styles from './ThemeDropDown.module.scss';
 import ThemeButtonDefault from '../ThemeButtonDefault';
 
-class DropDownOptions extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      containerWidth: 0,
-    };
-  }
+const DropDownOptions = ({ options, alignTo }) => {
+  const initialState = {
+    containerWidth: 0,
+  };
+  const [measures, setMeasures] = useState(initialState);
+  const containerRef = useRef(null);
 
-  componentDidMount() {
-    const { width } = this.refs.container.getBoundingClientRect();
-    this.setState({ containerWidth: width });
-  }
+  useEffect(() => {
+    const { width } = containerRef.current.getBoundingClientRect();
+    setMeasures({ ...measures, containerWidth: width });
+  }, []);
 
   // TODO: consider parent's width in order to calculate position.
-  calculateHorizontalPosition() {
-    const center = (this.state.containerWidth / 2);
+  const calculateHorizontalPosition = () => {
+    const center = (measures.containerWidth / 2);
     return `-${center}px`;
-  }
+  };
 
-  getAlignmentClass() {
-    const { alignTo } = this.props;
+  const getAlignmentClass = () => {
     const alignClasses = {
       center: 'alignCenter',
       right: 'alignRight',
       left: 'alignLeft',
     };
-    return styles[alignClasses[alignTo]];
-  }
+    return styles[alignClasses[alignTo] || 'right'];
+  };
 
-  render() {
-    const { options, alignTo } = this.props;
-    const style = alignTo === 'center' ? { left: this.calculateHorizontalPosition() } : {};
-    const classNames = classnames(styles.ThemeDropDownOptions, this.getAlignmentClass());
-    return (
-      <div className={classNames} ref="container" style={style}>
-        {options.map((option, key) => <ThemeButtonDefault key={key} noShadow {...option} />)}
-      </div>
-    );
-  }
-}
+  const style = alignTo === 'center' ? { left: calculateHorizontalPosition() } : {};
+  const classNames = classnames(styles.ThemeDropDownOptions, getAlignmentClass());
+  return (
+    <div className={classNames} ref={containerRef} style={style}>
+      {options.map((option, key) => <ThemeButtonDefault key={key} noShadow {...option} />)}
+    </div>
+  );
+};
+
+DropDownOptions.propTypes = {
+  options: ThemeDropDownPropTypes.options,
+  alignTo: ThemeDropDownPropTypes.alignTo,
+};
+
+DropDownOptions.defaultProps = {
+  options: [],
+  alignTo: 'right',
+};
 
 class ThemeDropDown extends React.Component {
     renderChildren = () => {
@@ -74,13 +79,14 @@ class ThemeDropDown extends React.Component {
 }
 
 ThemeDropDown.propTypes = {
-  options: PropTypes.array,
-  alignTo: PropTypes.oneOf(['left', 'center', 'right']),
+  ...ThemeDropDownPropTypes,
 };
 
 ThemeDropDown.defaultProps = {
   options: [],
   alignTo: 'right',
+  onClick: () => {},
+  children: [],
 };
 
 export default ThemeDropDown;

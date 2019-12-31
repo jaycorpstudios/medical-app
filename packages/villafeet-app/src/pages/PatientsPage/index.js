@@ -19,7 +19,7 @@ class PatientsPage extends React.Component {
     this.state = { filter: '' };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.patientRecordRestore();
     this.props.fetchPatients();
   }

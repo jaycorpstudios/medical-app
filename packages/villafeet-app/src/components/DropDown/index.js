@@ -1,64 +1,74 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import ThemeDropDown from '../ThemeDropDown';
+import ThemeDropDownPropTypes from '../ThemeDropDown/propTypes';
 
-class DropDown extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen: false,
+let wrapperNode;
+
+const DropDown = ({
+  options, icon, title, className, children, alignTo,
+}) => {
+  const [isOpen, setOpen] = useState(false);
+
+  const closeDropDown = () => {
+    setOpen(false);
+  };
+
+  const handleKeyPress = (event) => {
+    const { key = '' } = event;
+    if (key === 'Escape') setOpen(false);
+  };
+
+  const handleExternalClicks = (event) => {
+    const sameComponent = wrapperNode && wrapperNode.contains(event.target);
+    if (!sameComponent) closeDropDown();
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleExternalClicks, false);
+    document.addEventListener('keydown', handleKeyPress, false);
+    return () => {
+      document.removeEventListener('click', handleExternalClicks, false);
+      document.removeEventListener('keydown', handleKeyPress, false);
     };
-  }
+  }, []);
 
-  componentDidMount() {
-    document.addEventListener('click', this.handleExternalClicks, false);
-  }
+  const setNodeRef = (ref) => {
+    wrapperNode = ref;
+  };
 
-  componentWillUnmount() {
-    document.removeEventListener('click', this.handleExternalClicks, false);
-  }
+  const toggleDropDown = () => {
+    setOpen(!isOpen);
+  };
 
-  setNodeRef = (ref) => {
-    this.wrapperNode = ref;
-  }
+  return (
+    <div ref={setNodeRef}>
+      <ThemeDropDown
+        onClick={toggleDropDown}
+        options={options}
+        icon={icon}
+        title={title}
+        className={className}
+        isOpen={isOpen}
+        alignTo={alignTo}
+      >
+        {children}
+      </ThemeDropDown>
+    </div>
+  );
+};
 
-  handleExternalClicks = (event) => {
-    const sameComponent = this.wrapperNode && this.wrapperNode.contains(event.target);
-    if (!sameComponent) this.closeDropDown();
-  }
-
-  toggleDropDown = () => {
-    this.setState((previousState) => ({ isOpen: !previousState.isOpen }));
-  }
-
-  closeDropDown = () => {
-    this.setState({ isOpen: false });
-  }
-
-  render() {
-    const {
-      options, icon, title, className, children, alignTo,
-    } = this.props;
-    const { isOpen } = this.state;
-    return (
-      <div ref={this.setNodeRef}>
-        <ThemeDropDown
-          onClick={this.toggleDropDown}
-          options={options}
-          icon={icon}
-          title={title}
-          className={className}
-          isOpen={isOpen}
-          alignTo={alignTo}
-        >
-          {children}
-        </ThemeDropDown>
-      </div>
-    );
-  }
-}
+DropDown.propTypes = {
+  ...ThemeDropDownPropTypes,
+};
 
 DropDown.defaultProps = {
+  icon: '',
+  title: '',
+  className: '',
+  alignTo: 'right',
   options: [],
+  children: undefined,
 };
 
 export default DropDown;

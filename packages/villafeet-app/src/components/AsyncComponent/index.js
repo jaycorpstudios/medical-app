@@ -7,10 +7,11 @@ export default function asyncComponent(getComponent) {
       this.state = { Component: null };
     }
 
-    componentWillMount() {
-      if (!this.state.Component) {
+    componentDidMount() {
+      const { Component } = this.state;
+      if (!Component) {
         getComponent()
-          .then((Component) => { this.setState({ Component }); });
+          .then((FetchedComponent) => { this.setState({ Component: FetchedComponent }); });
       }
     }
 
