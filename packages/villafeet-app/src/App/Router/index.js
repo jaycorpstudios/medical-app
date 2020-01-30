@@ -9,7 +9,7 @@ import {
 } from '../AppLazyLoader';
 import MainLayout from '../../MainLayout';
 
-export default () => (
+const AppRouter = () => (
   <Provider store={store}>
     <BrowserRouter basename="/">
       <Switch>
@@ -25,3 +25,5 @@ export default () => (
     </BrowserRouter>
   </Provider>
 );
+
+export default AppRouter;

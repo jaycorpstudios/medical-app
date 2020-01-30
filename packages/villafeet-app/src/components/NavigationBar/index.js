@@ -16,7 +16,7 @@ const NavLinks = ({ component: Component, currentPath }) => {
   return sections.map(mapLink);
 };
 
-export default (props) => {
+const NavigationBar = (props) => {
   const { path: currentPath } = props;
 
   return (
@@ -28,3 +28,5 @@ export default (props) => {
     </aside>
   );
 };
+
+export default NavigationBar;

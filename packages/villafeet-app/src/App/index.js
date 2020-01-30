@@ -1,8 +1,8 @@
 import React from 'react';
-import Router from './Router';
+import AppRouter from './Router';
 
 import '../theme/globals.scss';
 
 export default function App() {
-  return (<Router />);
+  return (<AppRouter />);
 }

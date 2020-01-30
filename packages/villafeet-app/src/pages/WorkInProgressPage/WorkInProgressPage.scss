@@ -12,7 +12,7 @@
         background: $color-background-primary;
         width: 100%;
         max-width: 541px;
-        height: 380px;
+        height: fit-content;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 15px $color-element-shadow;
@@ -21,7 +21,7 @@
         justify-content: center;
         flex-direction: column;
         @media screen and (min-width: $tablet-min){
-            height: 500px;
+            min-height: 500px;
         }
     }
     img{
