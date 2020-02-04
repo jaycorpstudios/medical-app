@@ -47,5 +47,4 @@ RUN npm rebuild node-sass
 EXPOSE $PORT
 
 # Start app
-ENTRYPOINT ["yarn"]
-CMD ["dev"]
+ENTRYPOINT ["yarn", "dev"]
