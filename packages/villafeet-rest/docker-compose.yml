@@ -1,0 +1,21 @@
+version: '3'
+services:
+  rest-api:
+    build: ./
+    environment:
+      - NODE_ENV=development
+    entrypoint: yarn dev
+    volumes:
+      - ./:/www/
+    ports: 
+    - 4040:4040
+    depends_on:
+    - mongo
+  mongo:
+    image: 'mongo:4'
+    volumes:
+      - data-volume:/data/db
+    ports:
+      - 27018:27017
+volumes:
+  data-volume:

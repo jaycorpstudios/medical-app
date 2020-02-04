@@ -1,23 +1,21 @@
-# Node boilerplate
+# VillaFeet App
 
-This is my node boilerplate starter kit. I will continue to update with the latest tech to help make make node services
-super easy and efficient to kick start.
-
-## Whats out the box?
+> REST API Service for [VillaFeet App](https://app.villafeet.com.mx).
 
 ### Frameworks
-- Node 7 + ES6 (Babel)
+- Node 10 + ES6 (Babel)
 - Express
 - Passport
 - Mongoose
-- Joi
 
 ### Developer tools
 - Jest
 - Docker
 - Husky (Githooks)
 
-## Instructions
+## PREREQUISITES
+
+Docker or the following dependencies: Mongo and Yarn
 
 Install [mongodb](https://www.mongodb.com/download-center?jmp=nav#community) and fire up the server
 
@@ -31,60 +29,55 @@ Install [`yarn`](https://www.npmjs.com/package/yarn). Not used yarn yet? Do its 
 npm install -g yarn
 ```
 
-Pull down the repository
+## LOCAL DEVELOPMENT
 
 ```
-git clone https://github.com/tutts/node-es6-express-mongoose-passport
+    nvm use
+    yvm use
+    yarn install
 ```
 
-Run yarn in the root of your project to install its dependencies
-
-```
-yarn
-```
-
-### Server
+## START SERVER
 
 Start in development mode http://localhost:4040/health-check
 
 ```
-yarn dev
+    yarn dev
 ```
 
-Build the distributable
-
-```
-yarn build
-```
+## BUILD FOR PROD
 
 Build the distributable + start node server http://localhost:8080/health-check
 
 ```
-yarn start
+    yarn build
+    yarn start
 ```
 
-### Tests
+### TEST
 
 Run tests or code coverage in Jest
 
 ```
-yarn test
-yarn test:coverage
+    yarn test
+    yarn test:coverage
 ```
 
-Running lint **(deprecated)**
-
-** ESLint has now been removed in favour of Prettier. As of version 1.0.0, semi colons are now optional and disabled as
-default. **
-
+### RUN CONTAINERS WITH DOCKER COMPOSER
 ```
-yarn lint
-yarn lint:watch
-yarn lint:fix // attempts to fix your lint issues for you
+    docker-composer build
+    docker-composer up
+    OR
+    docker-compose up --build
+```
+### SHELL MODE INSIDE CONTAINERS:
+```
+docker exec -it {CONTAINER_NAME} /bin/sh
 ```
 
-
-## Todo
-- [ ] add dotenv
-
-Inspired by [KunalKapadia](https://github.com/KunalKapadia/express-mongoose-es6-rest-api) and  [Developit](https://github.com/developit/express-es6-rest-api)
+## SEED INITIAL DATA FOR DEVELOPMENT
+```
+    yarn seed-local-data
+    OR
+    docker exec -i villafeetrest_rest-api_1 yarn seed-local-data
+```

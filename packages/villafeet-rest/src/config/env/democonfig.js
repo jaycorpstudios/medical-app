@@ -2,11 +2,14 @@ export default {
   env: 'development',
   MONGOOSE_DEBUG: true,
   passportSecret: 'passportsecret',
-  db: 'mongodb://localhost/villafeet-api',
+  // Use localhost if using local mongo, otherwise use mongo:27017 for Docker
+  db: 'mongodb://mongo:27017/villafeet-api-dev',
   port: 4040,
+  // Get a Cloudinary account and fulfill the info
   CLOUDINARY_NAME: '',
   CLOUDINARY_API_KEY: '',
   CLOUDINARY_API_SECRET: '',
+  // Get a Mailgun account and fulfill the info
   MAILGUN_DOMAIN: '',
   MAILGUN_API_KEY: '',
 }
