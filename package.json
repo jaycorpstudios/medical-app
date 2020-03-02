@@ -1,7 +1,16 @@
 {
-  "name": "root",
+  "name": "villafeet",
   "private": true,
+  "scripts": {
+    "dev": "lerna run dev --stream",
+    "bootstrap": "lerna bootstrap"
+  },
   "devDependencies": {
     "lerna": "^3.20.2"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
   }
 }
