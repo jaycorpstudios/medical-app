@@ -6,6 +6,9 @@ const router = express.Router() // eslint-disable-line new-cap
 router
   .route('/avatar')
   /** POST /api/media/avatar/ - Upload avatar photo */
-  .post(mediaCtrl.uploadAvatar)
+  .post((req, res, next) => {
+    console.log('receiving file...')
+    next()
+  }, mediaCtrl.uploadAvatar)
 
 export default router

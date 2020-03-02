@@ -17,6 +17,14 @@ router.use('/auth', authRoutes)
 router.use('/users', authCtrl.checkAuth, userRoutes)
 //TODO: add authCtrl.checkAuth and check if groupId is the same
 router.use('/patients', patientRoutes)
-router.use('/media', authCtrl.checkAuth, mediaRoutes)
+router.use(
+  '/media',
+  (req, res, next) => {
+    console.log('listen to media route')
+    next()
+  },
+  authCtrl.checkAuth,
+  mediaRoutes,
+)
 
 export default router

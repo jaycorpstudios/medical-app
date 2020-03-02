@@ -81,3 +81,8 @@ docker exec -it {CONTAINER_NAME} /bin/sh
     OR
     docker exec -i villafeetrest_rest-api_1 yarn seed-local-data
 ```
+
+## RUN CONTAINERS IN PROD
+```
+docker run --env NODE_ENV=production --env DEBUG=villafeet-api -d -p 4040:4040 jaycorpstudios/villafeet:be-latest
+```

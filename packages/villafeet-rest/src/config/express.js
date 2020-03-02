@@ -17,8 +17,9 @@ import APIError from '../server/helpers/APIError'
 import User from '../server/models/user.model'
 
 const app = express()
+const useDebug = config.env === 'development' || config.FORCE_DEBUG
 
-if (config.env === 'development') {
+if (useDebug) {
   app.use(logger('dev'))
 }
 
@@ -45,7 +46,7 @@ app.use(helmet())
 app.use(cors())
 
 // enable detailed API logging in dev env
-if (config.env === 'development') {
+if (useDebug) {
   //expressWinston.requestWhitelist.push('body')
   //expressWinston.responseWhitelist.push('body')
   app.use(
@@ -62,7 +63,7 @@ if (config.env === 'development') {
 app.use('/', routes)
 
 // if error is not an instanceOf APIError, convert it.
-app.use((err, req, res, next) => {
+app.use((err, _req, _res, next) => {
   if (err instanceof expressValidation.ValidationError) {
     // validation error contains errors which is an array of error each containing message[]
     const unifiedErrorMessage = err.errors.map(error => error.messages.join('. ')).join(' and ')
@@ -95,7 +96,7 @@ app.use((err, req, res, next) =>
   res.status(err.status).json({
     // eslint-disable-line no-unused-vars
     message: err.isPublic ? err.message : httpStatus[err.status],
-    stack: config.env === 'development' ? err.stack : {},
+    stack: useDebug ? err.stack : {},
   }),
 )
 

@@ -35,9 +35,12 @@ const parseAvatar = multer({
  */
 async function uploadAvatar(req, res) {
   try {
+    console.log('Trying to parse the file')
     await util.promisify(parseAvatar)(req, res)
+    console.log('done...')
     return res.json({ file: req.file })
   } catch (err) {
+    console.log('there is an error', err)
     return res.status(err.status).json({ error: err.message, raw: err })
   }
 }

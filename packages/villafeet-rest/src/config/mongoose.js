@@ -8,6 +8,7 @@ const setMongooseConfig = () => {
   mongoose.Promise = global.Promise
 
   mongoose.connect(config.db, {
+    useNewUrlParser: true,
     server: {
       socketOptions: {
         keepAlive: 1,
@@ -15,8 +16,8 @@ const setMongooseConfig = () => {
     },
   })
 
-  mongoose.connection.on('error', () => {
-    throw new Error(`unable to connect to database: ${config.db}`)
+  mongoose.connection.on('error', error => {
+    throw new Error(`unable to connect to database: ${config.db} ${error}`)
   })
   mongoose.connection.once('connected', () => {
     debug(`Successfully connected 👀 to ${config.db}`)

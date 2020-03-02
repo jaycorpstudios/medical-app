@@ -1,3 +1,4 @@
+import '@babel/polyfill'
 import setMongooseConfig from './config/mongoose'
 import config from './config/env'
 import app from './config/express'
