@@ -3,7 +3,10 @@
   "private": true,
   "scripts": {
     "dev": "lerna run dev --stream",
-    "bootstrap": "lerna bootstrap"
+    "storybook": "lerna run storybook --scope=villafeet-sheika-components",
+    "test": "lerna run test --stream",
+    "bootstrap": "lerna bootstrap",
+    "list-packages": "lerna list"
   },
   "devDependencies": {
     "lerna": "^3.20.2"
