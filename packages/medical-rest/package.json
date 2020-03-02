@@ -1,5 +1,5 @@
 {
-  "name": "villafeet-rest",
+  "name": "@jaycorpstudios/medical-rest",
   "version": "0.0.1",
   "author": "Jay <jaycorpstudios@me.com>",
   "main": "./src/index.js",
