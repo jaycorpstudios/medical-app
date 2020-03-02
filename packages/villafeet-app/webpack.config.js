@@ -1,9 +1,9 @@
 // Webpack PROD Configuration
 const merge = require('webpack-merge');
-const common = require('./webpack.common');
-const webpack = require('webpack')
-const path = require('path')
+const webpack = require('webpack');
+const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const common = require('./webpack.common');
 const ProdProperties = require('./properties/properties-prod');
 
 const config = (env, args) => {
@@ -12,7 +12,7 @@ const config = (env, args) => {
     output: {
       filename: '__[name].[contenthash].js',
       chunkFilename: '__[name].chunk.[contenthash].js',
-      path: path.resolve(__dirname, 'dist')
+      path: path.resolve(__dirname, 'dist'),
     },
     optimization: {
       splitChunks: {
@@ -22,18 +22,18 @@ const config = (env, args) => {
             name: 'common',
             chunks: 'all',
             minChunks: 2,
-            enforce: true
-          }
-        }
-      }
+            enforce: true,
+          },
+        },
+      },
     },
     plugins: [
       new MiniCssExtractPlugin({
         filename: '[name].css'
       }),
-      new webpack.DefinePlugin(ProdProperties)
-    ]
+      new webpack.DefinePlugin(ProdProperties),
+    ],
   })
-}
+};
 
-module.exports = config
+module.exports = config;

@@ -1,6 +1,6 @@
 
 # base image
-FROM ubuntu:16.04
+FROM ubuntu:16.04 AS Builder
 
 # Install system dependencies
 WORKDIR /
@@ -8,9 +8,9 @@ RUN apt-get update && apt-get install -y curl build-essential
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # Set environment variables
+ARG NODE_ENV=development
 ENV NODE_VERSION 10.15.3
 ENV YARN_VERSION 1.2.0
-ENV NODE_ENV=development
 ENV NVM_DIR /usr/local/nvm
 ENV PORT=8001
 
@@ -44,7 +44,12 @@ RUN yarn install
 # RUN yarn rebuild node-sass
 RUN npm rebuild node-sass
 
-EXPOSE $PORT
+# Build app
+RUN yarn build:prod
+
+# Copy build files to host container
+FROM nginx:alpine
+COPY --from=Builder /src/dist /usr/share/nginx/html
 
 # Start app
-ENTRYPOINT ["yarn", "dev"]
+# ENTRYPOINT ["yarn", "dev"]
