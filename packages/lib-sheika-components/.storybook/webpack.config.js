@@ -29,7 +29,7 @@ const config = {
     ]
   },
   resolve: {
-    extensions: ['.scss', '.sass'],
+    extensions: ['.scss', '.sass', '.js', '.jsx'],
   },
 }
 

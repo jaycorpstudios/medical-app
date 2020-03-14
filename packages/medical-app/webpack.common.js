@@ -12,7 +12,7 @@ const config = (env, args) => {
     module: {
       rules: [
         {
-          test: /\.js$/,
+          test: /\.(js|jsx)$/,
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
@@ -75,6 +75,7 @@ const config = (env, args) => {
       ]
     },
     resolve: {
+      extensions: ['.scss', '.js', '.jsx'],
       alias: {
           'src': srcPath //alias used for sass relative paths
       }
