@@ -1,0 +1,48 @@
+
+//TODO: Replace this for the actual color import
+$color-info: rgb(4,149,255);
+$color-success: green;
+$color-warning: yellow;
+$color-error: red;
+$color-info-shadow: blue;
+$color-success-shadow: green;
+$color-warning-shadow: yellow;
+$color-error-shadow: red;
+$color-text-negative: white;
+
+.ThemeAlert {
+  padding: 1rem;
+  font-size: 16px;
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  justify-items: left;
+  align-items: center;
+  width: max-content;
+  grid-gap: 1rem;
+  border-radius: .25rem;
+  color: $color-text-negative;
+}
+.textContainer {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: .5rem;
+}
+.highlight{
+  font-weight: 500;
+}
+.info {
+  background-color: $color-info;
+  box-shadow: $color-info-shadow 0 0 10px;
+}
+.success {
+  background-color: $color-success;
+  box-shadow: $color-success-shadow 0 0 10px;
+}
+.warning {
+  background-color: $color-warning;
+  box-shadow: $color-warning-shadow 0 0 10px;
+}
+.error {
+  background-color: $color-error;
+  box-shadow: $color-error-shadow 0 0 10px;
+}

@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "author": "Jay <jaycorpstudios@me.com>",
   "main": "./src/index.js",
-  "private": true,
   "engines": {
     "node": ">=10.15.0",
     "npm": ">=3.0.0",
