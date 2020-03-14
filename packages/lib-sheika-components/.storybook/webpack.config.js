@@ -26,10 +26,14 @@ const config = {
         use: [ 'style-loader', 'css-loader', 'sass-loader' ],
         include: path.resolve(__dirname, '../'),
       },
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      },
     ]
   },
   resolve: {
-    extensions: ['.scss', '.sass', '.js', '.jsx'],
+    extensions: ['.scss', '.sass', '.css', '.js', '.jsx'],
   },
 }
 

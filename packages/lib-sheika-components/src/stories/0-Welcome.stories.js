@@ -1,5 +1,6 @@
 import React from 'react';
 import { linkTo } from '@storybook/addon-links';
+import styles from '../styles/welcome.stories.module.scss';
 
 export default {
   title: 'Welcome',
@@ -7,9 +8,10 @@ export default {
 };
 
 const Welcome = () => (
-  <main>
-    <h1>welcome to Sheika Components</h1>
-    <p>Start with the <strong onClick={linkTo('Alert')}>alert component</strong></p>
+  <main className={styles.container}>
+    <h1>Welcome to Sheika Components</h1>
+    <info>A Jaycorpstudios module</info>
+    <p>To start take a look at the <strong onClick={linkTo('Alert')}>alert component</strong></p>
   </main>
 )
 
