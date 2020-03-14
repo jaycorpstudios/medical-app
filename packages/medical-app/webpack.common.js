@@ -75,7 +75,7 @@ const config = (env, args) => {
       ]
     },
     resolve: {
-      extensions: ['.scss', '.js', '.jsx'],
+      extensions: ['.js', '.jsx'],
       alias: {
           'src': srcPath //alias used for sass relative paths
       }
