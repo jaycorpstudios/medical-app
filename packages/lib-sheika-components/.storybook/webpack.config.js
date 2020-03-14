@@ -1,3 +1,5 @@
+const path = require('path');
+
 const config = {
   module: {
     rules: [
@@ -15,7 +17,14 @@ const config = {
           {
             loader: 'sass-loader'
           }
-        ]
+        ],
+        include: path.resolve(__dirname, '../'),
+      },
+      {
+        test: /\.scss$/,
+        exclude: /\.module\.scss$/i,
+        use: [ 'style-loader', 'css-loader', 'sass-loader' ],
+        include: path.resolve(__dirname, '../'),
       },
     ]
   },

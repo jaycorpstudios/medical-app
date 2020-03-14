@@ -2,6 +2,8 @@ import React from 'react';
 import classnames from 'classnames';
 import styles from './Alert.module.scss';
 
+console.log('styles', styles)
+
 const Alert = ({
   type = 'info', text = '', highlight, className, style,
 }) => {
@@ -11,7 +13,7 @@ const Alert = ({
     warning: 'warning',
     error: 'error',
   };
-  const classes = classnames(styles.Alert, styles[type], className);
+  const classes = classnames(styles.container, styles[type], className);
   const icon = typeIcons[type];
 
   return (

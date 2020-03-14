@@ -7,4 +7,4 @@ export default {
   component: Alert
 };
 
-export const Basic = () => <Alert text='This is just the initial test, wait for it' highlight="Cool!" type="info" />;
+export const Basic = () => <Alert text='This is just the initial test, wait for it' highlight="Cool!" type="success" />;

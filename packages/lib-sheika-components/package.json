@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@jaycorpstudios/sheika-theme": "^1.0.0",
     "css-loader": "^3.4.2",
     "node-sass": "^4.13.1",
     "sass-loader": "^8.0.2",
@@ -18,7 +19,7 @@
     "babel-loader": "^8.0.6"
   },
   "scripts": {
-    "storybook": "start-storybook -p 6006 --debug-webpack",
+    "storybook": "start-storybook -p 6006 -c .storybook watch-css -s ./src --debug-webpack",
     "build-storybook": "build-storybook"
   }
 }

@@ -1,0 +1,60 @@
+@import './colors.scss';
+@import './variables.scss';
+
+.theme-title {
+    font-size: 40px;
+    font-weight: 500;
+}
+.theme-subtitle {
+    font-size: 18px;
+    font-weight: 300;
+}
+// Approved theme styles. TODO: Replace the ones above this line
+.theme-heading-super {
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 60px;
+    color: $color-gray;
+}
+.theme-heading-large {
+    font-size: 41px;
+    font-weight: 500;
+    line-height: 60px;
+    color: $color-gray;
+}
+.theme-heading-medium {
+    font-size: 31px;
+    font-weight: 500;
+    line-height: 60px;
+    color: $color-gray;
+}
+.theme-heading-small {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 28px;
+    color: $color-gray;
+}
+.theme-body-regular {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 30px;
+    @media screen and (min-width: $tablet-min) {
+        font-size: 18px;
+    }
+}
+.theme-body-small {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 20px;
+}
+
+// Inputs
+.theme-input-text {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 30px;
+    color: $color-gray;
+    &.--negative {
+        color: $color-text-negative;
+    }
+}
