@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import styles from './AlertList.module.scss';
-import ThemeAlert from '../ThemeAlert';
+import { Alert } from '@jaycorpstudios/sheika-components';
 import AlertService from '../../services/AlertService';
 
 class AlertList extends React.Component {
@@ -53,7 +53,7 @@ class AlertList extends React.Component {
                 classNames={this.getAnimationClasses()}
               >
                 <div className={styles.AlertItemWrapper}>
-                  <ThemeAlert key={index} className={styles.AlertItem} style={itemStyle} {...alert} />
+                  <Alert key={index} className={styles.AlertItem} style={itemStyle} {...alert} />
                 </div>
               </CSSTransition>
             );

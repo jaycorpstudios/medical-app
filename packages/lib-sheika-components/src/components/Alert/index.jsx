@@ -2,8 +2,6 @@ import React from 'react';
 import classnames from 'classnames';
 import styles from './Alert.module.scss';
 
-console.log('styles', styles)
-
 const Alert = ({
   type='info', text='', highlight, className, style,
 }) => {
