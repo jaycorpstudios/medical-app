@@ -1,0 +1,22 @@
+@import './variables.scss';
+
+.hidden-xs {
+    @media screen and (max-width: $tablet-min - 1) {
+        display: none!important;
+    }
+}
+.hidden-lg {
+    @media screen and (min-width: $laptop-min) {
+        display: none!important;
+    }
+}
+.visible-xs {
+    @media screen and (min-width: $tablet-min) {
+        display: none!important;
+    }
+}
+.visible-lg {
+    @media screen and (max-width: $laptop-min - 1) {
+        display: none!important;
+    }
+}

@@ -1,16 +1,6 @@
+@import '@jaycorpstudios/sheika-theme/src/colors.scss';
 
-//TODO: Replace this for the actual color import
-$color-info: rgb(4,149,255);
-$color-success: green;
-$color-warning: yellow;
-$color-error: red;
-$color-info-shadow: blue;
-$color-success-shadow: green;
-$color-warning-shadow: yellow;
-$color-error-shadow: red;
-$color-text-negative: white;
-
-.ThemeAlert {
+.container {
   padding: 1rem;
   font-size: 16px;
   display: grid;
