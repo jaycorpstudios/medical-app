@@ -5,7 +5,7 @@ import styles from './Alert.module.scss';
 console.log('styles', styles)
 
 const Alert = ({
-  type = 'info', text = '', highlight, className, style,
+  type='info', text='', highlight, className, style,
 }) => {
   const typeIcons = {
     info: 'info_outline',
@@ -15,7 +15,6 @@ const Alert = ({
   };
   const classes = classnames(styles.container, styles[type], className);
   const icon = typeIcons[type];
-
   return (
     <div className={classes} style={style}>
       <span className="material-icons">{icon}</span>
