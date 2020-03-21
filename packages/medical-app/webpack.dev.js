@@ -18,8 +18,10 @@ const config = (env, args) => {
       hot: true,
       port: 8001,
       historyApiFallback: true,
-      open: true,
-      host: '0.0.0.0',
+      host: 'localhost',
+      allowedHosts: [
+        'medicalapp.com'
+    ],
       watchOptions: {
         ignored: /node_modules/
       }
