@@ -27,11 +27,12 @@ log_info "\033[1m(password might be requested\033[0m)"
 
 if [ ! -x "$(command -v nginx)" ]; then
     log_warning 'NGINX is not installed'
-    if [ ! -x "$(command -v brew)" ]; then
+    if [ -x "$(command -v brew)" ]; then
         log_info "Installing NGINX"
         brew install nginx
     else
         log_error "you need to install brew in your system first"
+        open https://brew.sh/index_es
         exit $EXIT_CODE_ERROR
     fi
 fi
