@@ -6,7 +6,8 @@
     "storybook": "lerna run storybook --scope=@jaycorpstudios/sheika-components --stream",
     "test": "lerna run test --stream",
     "bootstrap": "lerna bootstrap",
-    "list-packages": "lerna list"
+    "list-packages": "lerna list",
+    "start-nginx": "./scripts/startNginx.sh"
   },
   "devDependencies": {
     "lerna": "^3.20.2"
