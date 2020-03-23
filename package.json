@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "lerna run dev --stream",
     "storybook": "lerna run storybook --scope=@jaycorpstudios/sheika-components --stream",
+    "affected": "./scripts/affected.sh",
     "test": "lerna run test --stream",
     "bootstrap": "lerna bootstrap",
     "list-packages": "lerna list"

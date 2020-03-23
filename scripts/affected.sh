@@ -14,7 +14,7 @@ get_current_affected_files (){
 }
 
 get_all_affected_files () {
-    printf "$(get_branch_commit_affected_files)\n$(get_current_affected_files)" | tr -d "\n" | sort | uniq
+    printf "$(get_branch_commit_affected_files)\n$(get_current_affected_files)" | sort | uniq
 }
 
 get_all_affected_files
