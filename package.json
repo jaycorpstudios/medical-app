@@ -1,5 +1,5 @@
 {
-  "name": "villafeet",
+  "name": "medical-app",
   "private": true,
   "scripts": {
     "dev": "lerna run dev --stream",

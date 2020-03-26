@@ -19,6 +19,11 @@
     "seed-local-data": "NODE_ENV=development babel-node src/scripts/seedLocalUsers.js"
   },
   "dependencies": {
+    "@babel/cli": "7.7.5",
+    "@babel/core": "7.7.5",
+    "@babel/node": "7.7.4",
+    "@babel/polyfill": "7.7.0",
+    "@babel/preset-env": "7.7.6",
     "babel-jest": "^24.8.0",
     "body-parser": "1.15.2",
     "cloudinary": "1.15.0",
@@ -43,14 +48,10 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^4.0.0",
-    "winston": "2.3.0",
-    "@babel/cli": "7.7.5",
-    "@babel/core": "7.7.5",
-    "@babel/node": "7.7.4",
-    "@babel/polyfill": "7.7.0",
-    "@babel/preset-env": "7.7.6"
+    "winston": "2.3.0"
   },
   "devDependencies": {
+    "dotenv-safe": "^8.2.0",
     "husky": "^0.13.2",
     "jest-cli": "24.9.0",
     "lint-staged": "^3.4.0",

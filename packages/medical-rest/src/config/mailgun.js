@@ -1,8 +1,7 @@
 import mailgun from 'mailgun-js'
-import config from './env'
+import config from './constants'
 
-const { NODE_ENV } = process.env
-const { MAILGUN_DOMAIN, MAILGUN_API_KEY } = config
+const { MAILGUN_DOMAIN, MAILGUN_API_KEY, NODE_ENV } = config
 
 const configuration = {
   apiKey: MAILGUN_API_KEY,
