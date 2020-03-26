@@ -2,7 +2,7 @@
 
 #Display current branch commit's
 log_commits (){
-  commit_range=$(git rev-list --simplify-by-decoration -2 HEAD | tr "\n" " " | sed "s/ *$//g" | sed "s/ /.../g") && git log $commit_range   
+  commit_range=$(git rev-list --simplify-by-decoration -2 HEAD | tr "\n" " " | sed "s/ *$//g" | sed "s/ /.../g") && git log $commit_range --oneline
 }
 
 get_branch_commit_affected_files (){
