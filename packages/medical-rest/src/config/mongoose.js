@@ -1,13 +1,13 @@
 import mongoose from 'mongoose'
 import util from 'util'
-import config from './env'
+import config from './constants'
 const debug = require('debug')('villafeet-api')
 
 const setMongooseConfig = () => {
   // plugin native promise in mongoose
   mongoose.Promise = global.Promise
 
-  mongoose.connect(config.db, {
+  mongoose.connect(config.DB, {
     useNewUrlParser: true,
     server: {
       socketOptions: {
@@ -17,13 +17,13 @@ const setMongooseConfig = () => {
   })
 
   mongoose.connection.on('error', error => {
-    throw new Error(`unable to connect to database: ${config.db} ${error}`)
+    throw new Error(`unable to connect to database: ${config.DB} ${error}`)
   })
   mongoose.connection.once('connected', () => {
-    debug(`Successfully connected 👀 to ${config.db}`)
+    debug(`Successfully connected 👀 to ${config.DB}`)
   })
   mongoose.connection.once('disconnected', () => {
-    debug(`Successfully disconnected from ${config.db}`)
+    debug(`Successfully disconnected from ${config.DB}`)
   })
   process.on('SIGINT', () => {
     mongoose.connection.close(() => {

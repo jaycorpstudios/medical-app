@@ -1,14 +1,13 @@
 import '@babel/polyfill'
 import setMongooseConfig from './config/mongoose'
-import config from './config/env'
+import config from './config/constants'
 import app from './config/express'
 const debug = require('debug')('villafeet-api')
-const { NODE_ENV = 'development' } = process.env
 
-if (NODE_ENV !== 'test') {
+if (config.NODE_ENV !== 'test') {
   setMongooseConfig()
-  app.listen(config.port, () => {
-    debug(`server started on port ${config.port} (${config.env})`)
+  app.listen(config.PORT, () => {
+    debug(`server started on port ${config.PORT} (${config.ENV})`)
   })
 }
 

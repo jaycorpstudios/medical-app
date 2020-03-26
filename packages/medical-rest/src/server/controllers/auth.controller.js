@@ -1,7 +1,7 @@
 import httpStatus from 'http-status'
 import passport from 'passport'
 import jwt from 'jsonwebtoken'
-import config from './../../config/env'
+import config from './../../config/constants'
 import APIError from '../helpers/APIError'
 import User from '../models/user.model'
 import emailService from './../services/emailService'
@@ -27,7 +27,7 @@ function login(req, res) {
     id: req.user._id,
     role: req.user.role,
   }
-  jwt.sign(payload, config.passportSecret, { expiresIn: tokenExpiration }, (err, token) => {
+  jwt.sign(payload, config.PASSOPORT_SECRET, { expiresIn: tokenExpiration }, (err, token) => {
     if (err) res.status(500).json({ error: 'Error signing token', raw: err })
     res.json({ success: true, token: `Bearer ${token}` })
   })
@@ -61,7 +61,7 @@ function register(req, res, next) {
         id: user._id,
         role: user.role,
       }
-      jwt.sign(payload, config.passportSecret, { expiresIn: tokenExpiration }, (err, token) => {
+      jwt.sign(payload, config.PASSOPORT_SECRET, { expiresIn: tokenExpiration }, (err, token) => {
         if (err) res.status(500).json({ error: 'Error signing token', raw: err })
         emailService.sendEmail({})
         return res.json({ success: true, token: `Bearer ${token}` })

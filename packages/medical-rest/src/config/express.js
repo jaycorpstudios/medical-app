@@ -12,12 +12,12 @@ import helmet from 'helmet'
 import passport from 'passport'
 import winstonInstance from './winston'
 import routes from '../server/routes/index.route'
-import config from './env'
+import config from './constants'
 import APIError from '../server/helpers/APIError'
 import User from '../server/models/user.model'
 
 const app = express()
-const useDebug = config.env === 'development' || config.FORCE_DEBUG
+const useDebug = config.NODE_ENV === 'development' || config.FORCE_DEBUG
 
 if (useDebug) {
   app.use(logger('dev'))

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import util from 'util'
-import config from './env'
+import config from './constants'
 const debug = require('debug')('villafeet-api')
 const Mockgoose = require('mockgoose').Mockgoose
 const mockgoose = new Mockgoose(mongoose)
@@ -16,13 +16,13 @@ const connect = async () => {
     }
   })
   mongoose.connection.on('error', () => {
-    throw new Error(`unable to connect to database: ${config.db}`)
+    throw new Error(`unable to connect to database: ${config.DB}`)
   })
   mongoose.connection.once('connected', () => {
-    debug(`Successfully connected to ${config.db}`)
+    debug(`Successfully connected to ${config.DB}`)
   })
   mongoose.connection.once('disconnected', () => {
-    debug(`Successfully disconnected from ${config.db}`)
+    debug(`Successfully disconnected from ${config.DB}`)
   })
   mongoose.set('debug', (collectionName, method, query, doc) => {
     debug(`${collectionName}.${method}`, util.inspect(query, false, 20), doc)
