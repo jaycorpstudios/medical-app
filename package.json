@@ -5,13 +5,15 @@
     "dev": "lerna run dev --stream",
     "storybook": "lerna run storybook --scope=@jaycorpstudios/sheika-components --stream",
     "affected": "node ./scripts/affected.js",
+    "affected:test": "AFFECTED_CMD=test node ./scripts/affected.js",
     "test": "lerna run test --stream",
     "bootstrap": "lerna bootstrap",
     "list-packages": "lerna list",
     "start-nginx": "./scripts/startNginx.sh"
   },
   "devDependencies": {
-    "lerna": "^3.20.2"
+    "lerna": "^3.20.2",
+    "chalk": "^3.0.0"
   },
   "workspaces": {
     "packages": [
