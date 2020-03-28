@@ -1,7 +1,7 @@
 const path = require('path');
 
 
-// Gets affected files by either commits or current changes (no matter if changes are staged)
+// Gets affected files by either commits or current staged changes
 const getAffectedFiles = async () => {
     const affectedFilesExec = await execShellCommand('$(pwd)/scripts/affected.sh');
     return affectedFilesExec.trim()
@@ -28,7 +28,8 @@ async function main () {
     try {
         console.log('Getting affected files');
         const affectedFiles = await getAffectedFiles();
-
+        console.log('Current affected files: =================');
+        console.log(affectedFiles)
         if(affectedFiles.length === 0) {
             console.log('No affected packages')
             process.exit()
@@ -52,7 +53,7 @@ async function main () {
         
         console.log('Direct affected packages', uniqueAffectedPackages)        
         console.log('Looking for dependencies on other packages')
-        let affectedByDepencencies = [];
+        
         // TODO: Reduce
         // get all dependencies for each package
         availablePackages.forEach( package => {
