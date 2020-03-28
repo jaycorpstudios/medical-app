@@ -1,5 +1,8 @@
 const path = require('path');
+const { spawn, exec } = require('child_process')
 
+const { AFFECTED_CMD } = process.env;
+const PROJECT_PREFIX = '@jaycorpstudios';
 
 // Gets affected files by either commits or current staged changes
 const getAffectedFiles = async () => {
@@ -8,14 +11,50 @@ const getAffectedFiles = async () => {
 };
 
 const getAvailablePackages = async () => {
-    const proyectPrefix = /@jaycorpstudios\//g;
     const lernaInfoOutput = '$ lerna list'
     const availablePackagesExec = await execShellCommand('yarn list-packages');
-    return availablePackagesExec.replace(lernaInfoOutput, '').replace(proyectPrefix, '').trim().split('\n');
+    const removeProjectPrefixRegex = PROJECT_PREFIX ? new RegExp(`${PROJECT_PREFIX}\/`, 'g') : '';
+    return availablePackagesExec.replace(lernaInfoOutput, '').replace(removeProjectPrefixRegex, '').trim().split('\n');
+}
+
+const getDirectAffectedPackages = async (affectedFiles) => {
+    // Extract affected packages from list
+    const regex = /(packages)\/([\w-_]+)/g;
+    const directAffectedPackages = affectedFiles.match(regex) || [];
+
+    // Get the actual registered packages and compare against the affected ones.
+    // (this is a sanity check just in case there are extra files that are not packages on the packages/* path.)
+    const availablePackages = await getAvailablePackages();
+    console.log(availablePackages)
+    const vefiriedAffectedPackages = availablePackages.filter( package => directAffectedPackages.includes(`packages/${package}`) )
+    if(vefiriedAffectedPackages.length === 0){
+        console.log('No affected packages');
+        process.exit()
+    }
+
+    let uniqueAffectedPackages = new Set();
+    vefiriedAffectedPackages.forEach(affectedPackage => uniqueAffectedPackages.add(affectedPackage, true))
+    return uniqueAffectedPackages;
+}
+
+const getPackagesWithAffectedDependencies = async (affectedPackages) => {
+    const availablePackages = await getAvailablePackages();
+    return availablePackages.reduce( (affected, package) => {
+        const folder = path.resolve(__dirname, `../packages/${package}/package.json`)
+        const packageInfo = require(folder);
+        const packageDependencies = { ...packageInfo.dependencies, ...packageInfo.devDependencies }
+        // check if the affected ones are included on this package. if so include it on the affected ones.
+        for(uniqueAffected of affectedPackages.keys()) {
+            if(packageDependencies[`@jaycorpstudios/${uniqueAffected}`]){
+                console.log(`${uniqueAffected} is included in package ${package}`);
+                affected.add(package, true)
+            }
+        }
+        return affected;
+    }, new Set(affectedPackages));
 }
 
 const execShellCommand = cmd => {
-    const exec = require('child_process').exec;
     return new Promise((resolve, reject) => {
         exec(cmd, (error, stdout, stderr) => {
         if (error) return reject(error);
@@ -26,59 +65,55 @@ const execShellCommand = cmd => {
 
 async function main () {
     try {
-        console.log('Getting affected files');
         const affectedFiles = await getAffectedFiles();
-        console.log('Current affected files: =================');
+        console.log('Branch affected files:');
         console.log(affectedFiles)
-        if(affectedFiles.length === 0) {
+        
+        if(!affectedFiles.length > 0) {
             console.log('No affected packages')
             process.exit()
         }
     
-        //extract affected packages from list
-        const regex = /(packages)\/([\w-_]+)/g;
-        const directAffectedPackages = affectedFiles.match(regex) || [];
-
-        // Get the actual registered packages and compare against the affected ones.
-        // (this is a sanity check just in case there are extra files that are not packages on the packages/* path.)
-        const availablePackages = await getAvailablePackages(); // ['app1', 'app2', 'lib-1', 'lib-2']
-        const vefiriedAffectedPackages = availablePackages.filter( package => directAffectedPackages.includes(`packages/${package}`) ) //affectedPackages ['medical-app', 'medical-rest', 'sheika-theme']
-        if(vefiriedAffectedPackages.length === 0){
-            console.log('No affected packages');
+        // Set with unique values
+        const directAffectedPackages = await getDirectAffectedPackages(affectedFiles);
+        
+        if(!directAffectedPackages.size > 0) {
+            console.log('No affected packages')
             process.exit()
         }
-
-        let uniqueAffectedPackages = new Map();
-        vefiriedAffectedPackages.forEach(affectedPackage => uniqueAffectedPackages.set(affectedPackage, true))
         
-        console.log('Direct affected packages', uniqueAffectedPackages)        
+        console.log('Direct affected packages', directAffectedPackages)
         console.log('Looking for dependencies on other packages')
+        const uniqueAffectedPackages = await getPackagesWithAffectedDependencies(directAffectedPackages);
+        const affectedPackages = [];
+        for(package of uniqueAffectedPackages) {
+            affectedPackages.push(package);
+        }
         
-        // TODO: Reduce
-        // get all dependencies for each package
-        availablePackages.forEach( package => {
-            const folder = path.resolve(__dirname, `../packages/${package}/package.json`)
-            const packageInfo = require(folder);
-            const packageDependencies = { ...packageInfo.dependencies, ...packageInfo.devDependencies }
-            // check if the affected ones are included on this package. if so include it on the affected ones.
-            for(uniqueAffected of uniqueAffectedPackages.keys()){
-                if(packageDependencies[`@jaycorpstudios/${uniqueAffected}`]){
-                    console.log(`${uniqueAffected} is included in package ${package}`);
-                    uniqueAffectedPackages.set(package, true)
-                    return
-                }
+        console.log('Affected Packages', affectedPackages.join(','));
+
+        if(AFFECTED_CMD){
+            const prefix = PROJECT_PREFIX ? `${PROJECT_PREFIX}/` : '';
+            const scope = affectedPackages.size > 1 ? `${prefix}{${affectedPackages}}` : `${prefix}${affectedPackages}`
+            const command = `yarn ${AFFECTED_CMD} --scope=${scope}`;
+            const spawnOptions = {
+                stdio: 'inherit',
+                shell: true,
+                detached: true,
             }
 
-        });
-        
-        console.log('Affected packages', uniqueAffectedPackages.keys())
-        // TBD: expose a way to execute commands passing lerna run {job param} --scope=@jaycorpstudios/{medical-app,medical-rest}
+            console.log(command);
+
+            const child = spawn(command, spawnOptions);
+            child.on('exit', code => {
+                process.exit(code);
+            });
+        }
 
     } catch(error) {
         console.log(error)
         process.exit(1);
     }
 }
-
 
 main();
