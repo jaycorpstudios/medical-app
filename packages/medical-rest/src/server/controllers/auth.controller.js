@@ -27,7 +27,7 @@ function login(req, res) {
     id: req.user._id,
     role: req.user.role,
   }
-  jwt.sign(payload, config.PASSOPORT_SECRET, { expiresIn: tokenExpiration }, (err, token) => {
+  jwt.sign(payload, config.PASSPORT_SECRET, { expiresIn: tokenExpiration }, (err, token) => {
     if (err) res.status(500).json({ error: 'Error signing token', raw: err })
     res.json({ success: true, token: `Bearer ${token}` })
   })
@@ -61,7 +61,7 @@ function register(req, res, next) {
         id: user._id,
         role: user.role,
       }
-      jwt.sign(payload, config.PASSOPORT_SECRET, { expiresIn: tokenExpiration }, (err, token) => {
+      jwt.sign(payload, config.PASSPORT_SECRET, { expiresIn: tokenExpiration }, (err, token) => {
         if (err) res.status(500).json({ error: 'Error signing token', raw: err })
         emailService.sendEmail({})
         return res.json({ success: true, token: `Bearer ${token}` })
@@ -99,7 +99,7 @@ function checkAuth(req, _res, next) {
   if (authorization) {
     const parsedTokenHeader = /Bearer\s(.*)/.exec(authorization)
     const token = parsedTokenHeader ? parsedTokenHeader[1] : ''
-    jwt.verify(token, config.passportSecret, function(err, decoded) {
+    jwt.verify(token, config.PASSPORT_SECRET, function(err, decoded) {
       if (err) {
         return next(new APIError('Authentication error', httpStatus.UNAUTHORIZED))
       } else {
