@@ -5,7 +5,7 @@ export default {
   NODE_ENV: process.env.NODE_ENV || "development",
   FORCE_DEBUG: process.env.FORCE_DEBUG || false,
   MONGOOSE_DEBUG: process.env.MONGOOSE_DEBUG || false,
-  PASSOPORT_SECRET: process.env.PASSOPORT_SECRET || 'developmentSecret',
+  PASSPORT_SECRET: process.env.PASSPORT_SECRET || 'developmentSecret',
   DB: process.env.DB,
   PORT: process.env.PORT || 4040,
   CLOUDINARY_NAME: process.env.CLOUDINARY_NAME,
