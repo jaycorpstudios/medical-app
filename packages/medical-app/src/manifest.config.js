@@ -1,6 +1,6 @@
 const manifestContent = {
-  name: 'Villafeet App',
-  short_name: 'Villafeet',
+  name: 'Medical App',
+  short_name: 'MedicalApp',
   icons: [
     {
       src: 'theme/installation/icon-128x128.png',
