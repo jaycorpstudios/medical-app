@@ -1,10 +1,8 @@
-@import 'theme/colors.scss';
-@import 'theme/variables.scss';
+@import '@jaycorpstudios/sheika-theme/src/colors.scss';
+@import '@jaycorpstudios/sheika-theme/src/variables.scss';
 
 .NavigationBar {
-    $color-gradient-start: rgb(32,132,136);
-    $color-gradient-step1: rgb(22,135,142);
-    $color-gradient-step2: rgb(35,151,157);
+    $color-gradient-start: $color-secondary-shadow;
     $color-gradient-end: $color-secondary;
     grid-row: 1 / -1;
     background-color: $color-secondary;
@@ -13,7 +11,7 @@
     justify-content: flex-start;
     align-items: center;
     padding-top: 50px;
-    background: linear-gradient(to bottom, $color-gradient-start 0%, $color-gradient-step1 15%, $color-gradient-step2 50%, $color-gradient-end 100%);
+    background: linear-gradient(to bottom, $color-gradient-start 0%, $color-gradient-end 100%);
     box-shadow: inset -10px 0 20px $color-element-shadow;
 
     &__logo{
@@ -41,10 +39,10 @@
         background-position: 9px 1px;
         transition: $animation-fast;
         &.active {
-            background-color: transparentize($color-secondary, .5);
+            background-color: $color-secondary;
         }
         &:hover {
-            background-color: transparentize($color-secondary, .35);
+            background-color: $color-secondary;
         }
         &.pacientes{
             background-image: url('#{$images-path}/icons/glyph-paciente-negative.svg');
