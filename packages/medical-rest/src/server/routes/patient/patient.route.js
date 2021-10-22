@@ -1,13 +1,14 @@
 import express from 'express'
-import validate from 'express-validation'
-// import paramValidation from './patient.validations'
+
 import patientCtrl from '../../controllers/patient.controller'
 import catchErrors from './../../helpers/catchErrors'
 
-const router = express.Router() // eslint-disable-line new-cap
+const router = express.Router()
 
 /** GET /api/patients - Get list of patients */
-router.route('/').get(catchErrors(patientCtrl.list)).post(catchErrors(patientCtrl.add))
+router.route('/')
+  .get(catchErrors(patientCtrl.list))
+  .post(catchErrors(patientCtrl.add))
 
 router
   .route('/:patientId')

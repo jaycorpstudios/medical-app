@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -19,6 +19,11 @@ import './PatientDetailsPage.scss';
 
 const PatientDetailsPage = (props) => {
   const { shouldDisplayModal, openModal, setNodeRef } = useModalState(false);
+  const [random] = useState(Math.random());
+
+  const refresh = () => {
+    props.history.push({ search: `?some=${Math.random()}` });
+  };
 
   useEffect(() => {
     const { match, dispatchFetchPatient } = props;
@@ -77,6 +82,11 @@ const PatientDetailsPage = (props) => {
     <article className="PatientDetailsPage">
       <section className="PatientDetailsPage__back hidden-xs">
         <Link to="/pacientes"><ThemeButtonDefault title="Regresar" icon="arrow_back" noShadow /></Link>
+        <h1>
+          Random:
+          {random}
+        </h1>
+        <button onClick={refresh}>Refresh</button>
       </section>
       <PatientDetailsHeader name={fullName} gender={gender} avatar={avatar} lastVisit={lastVisit}>
         <ThemeButtonPrimary title="Iniciar consulta" icon="play_arrow" className="hidden-xs" />

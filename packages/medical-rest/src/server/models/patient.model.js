@@ -92,6 +92,8 @@ const PatientSchema = new mongoose.Schema({
   },
 })
 
+// Add indexes
+
 /**
  * Methods
  */

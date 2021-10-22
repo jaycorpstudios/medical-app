@@ -16,7 +16,7 @@ router.use('/auth', authRoutes)
 //TODO: check if groupId is the same
 router.use('/users', authCtrl.checkAuth, userRoutes)
 //TODO: add authCtrl.checkAuth and check if groupId is the same
-router.use('/patients', patientRoutes)
+router.use('/patients', authCtrl.checkAuth, patientRoutes)
 router.use(
   '/media',
   (req, res, next) => {

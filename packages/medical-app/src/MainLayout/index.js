@@ -15,6 +15,7 @@ const MainLayout = ({ component: Component, blur, ...rest }) => {
   const isAuthenticated = auth && auth.authenticated ? auth.authenticated : false;
   const { blurApp, dashboard, mainContent } = styles;
   const dashboardStyles = classnames({ [blurApp]: blur }, dashboard);
+  console.log('el main layout tiene estos props', rest)
   return (
     <Route
       {...rest}
